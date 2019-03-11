@@ -31,12 +31,8 @@ public class ResourcesGenerator {
 
     @Test
     public void generateCode() {
-        boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-//        generateByTables(serviceNameStartWithI, "gd_cancel_class_apply", "gd_class_info_modify_apply",
-//                "gd_learning_situation_demand", "gd_old_handle_record", "gd_old_message_record", "gd_old_plan_course_order",
-//                "gd_old_plan_course_order_course", "gd_plan_course_feedback", "gd_plan_course_order","gd_plan_course_order_course",
-//                "gd_plan_handle_record", "gd_plan_message_record","gd_school_dept_config","gd_special_apply","gd_user_dept_config");
-        generateByTables(serviceNameStartWithI,"h5_growth_report_config");
+        boolean serviceNameStartWithI = true;//user -> UserService, 设置成true: user -> IUserService
+        generateByTables(serviceNameStartWithI,"sys_user");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
@@ -64,12 +60,9 @@ public class ResourcesGenerator {
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
         dsc.setDriverName(properties.getProperty("jdbc.driver"));
-//        dsc.setUsername("w_platform");
-//        dsc.setPassword("w_123456");
-//        dsc.setUrl("jdbc:mysql://10.132.15.32:3306/w_platform?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false");
-        dsc.setUsername("root");
-        dsc.setPassword("1234");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/new-worth?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false");
+        dsc.setUsername(properties.getProperty("jdbc.username"));
+        dsc.setPassword(properties.getProperty("jdbc.password"));
+        dsc.setUrl(properties.getProperty("jdbc.url"));
         autoGenerator.setDataSource(dsc);
 
         /*
@@ -78,11 +71,11 @@ public class ResourcesGenerator {
         StrategyConfig strategyConfig = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         //设置父类
-        strategyConfig.setSuperControllerClass("cn.xdf.gongdan.common.web.BaseController");
+//        strategyConfig.setSuperControllerClass(properties.getProperty("gen.superController"));
         // 表名生成策略
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         //去除表名前缀 update
-        strategyConfig.setTablePrefix(NamingStrategy.removePrefix("h5_"));
+        strategyConfig.setTablePrefix(NamingStrategy.removePrefix("sys_"));
 
         strategyConfig.setCapitalMode(true);
         strategyConfig.setEntityLombokModel(false);
@@ -94,14 +87,14 @@ public class ResourcesGenerator {
          */
         PackageConfig pc = new PackageConfig();
         //update
-        pc.setParent("cn.xdf.gongdan");
+        pc.setParent("cn.worth.gen");
         pc.setController("controller");
         pc.setEntity("domain");
         autoGenerator.setPackageInfo(pc);
 
-        if (!serviceNameStartWithI) {
-            globalConfig.setServiceName("%sService");
-        }
+//        if (!serviceNameStartWithI) {
+//            globalConfig.setServiceName("%sService");
+//        }
         autoGenerator.execute();
     }
 }
