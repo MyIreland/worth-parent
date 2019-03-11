@@ -36,7 +36,7 @@ public class ResourcesGenerator {
 //                "gd_learning_situation_demand", "gd_old_handle_record", "gd_old_message_record", "gd_old_plan_course_order",
 //                "gd_old_plan_course_order_course", "gd_plan_course_feedback", "gd_plan_course_order","gd_plan_course_order_course",
 //                "gd_plan_handle_record", "gd_plan_message_record","gd_school_dept_config","gd_special_apply","gd_user_dept_config");
-        generateByTables(serviceNameStartWithI,"h5_growth_report_config");
+        generateByTables(serviceNameStartWithI,"oauth_client_details");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
@@ -82,7 +82,7 @@ public class ResourcesGenerator {
         // 表名生成策略
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         //去除表名前缀 update
-        strategyConfig.setTablePrefix(NamingStrategy.removePrefix("h5_"));
+//        strategyConfig.setTablePrefix(NamingStrategy.removePrefix(""));
 
         strategyConfig.setCapitalMode(true);
         strategyConfig.setEntityLombokModel(false);

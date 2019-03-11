@@ -11,7 +11,20 @@
 
     <artifactId>nw-auth</artifactId>
 
+    <dependencies>
+        <!--oauth2.0-->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${spring-security-oauth2.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+
+    </dependencies>
 
 
 </project>
