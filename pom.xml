@@ -11,7 +11,7 @@
     <modules>
         <module>nw-common</module>
         <module>nw-auth</module>
-        <module>nw-gen</module>
+        <module>nw-modules</module>
     </modules>
 
     <parent>
@@ -21,19 +21,22 @@
         <relativePath/>
     </parent>
     <properties>
-        <spring-security-oauth2.version>2.3.5.RELEASE</spring-security-oauth2.version>
-
         <mybatis-plus-boot-starter.version>3.1.0</mybatis-plus-boot-starter.version>
-        <mybatis-plus.version>2.1.9</mybatis-plus.version>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <mybatis-plus.version>2.1.9</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.0.7.1</mybatis-plus-generator.version>
         <druid.version>1.1.3</druid.version>
+        <lombok.version>1.16.20</lombok.version>
+
         <velocity.version>1.7</velocity.version>
         <fastjson.version>1.2.31</fastjson.version>
         <commons-io.version>2.5</commons-io.version>
-        <mybatis-plus-generator.version>3.0.7.1</mybatis-plus-generator.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
+
+        <spring-security-oauth2.version>2.3.3.RELEASE</spring-security-oauth2.version>
+        <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
     </properties>
 
     <dependencies>
@@ -54,11 +57,14 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!--数据库相关-->
+        <!--Lombok-->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
+
+        <!--数据库相关-->
         <!--mysql-connector-java-->
         <dependency>
             <groupId>mysql</groupId>
@@ -70,19 +76,16 @@
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>
         </dependency>
-        <!--mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatisplus-spring-boot-starter</artifactId>
             <version>${mybatisplus-spring-boot-starter.version}</version>
         </dependency>
-        <!---->
         <!--<dependency>-->
             <!--<groupId>com.baomidou</groupId>-->
             <!--<artifactId>mybatis-plus-boot-starter</artifactId>-->
@@ -90,5 +93,22 @@
         <!--</dependency>-->
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--oauth2.0-->
+            <!--<dependency>-->
+                <!--<groupId>org.springframework.security.oauth</groupId>-->
+                <!--<artifactId>spring-security-oauth2</artifactId>-->
+                <!--<version>${spring-security-oauth2.version}</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+                <!--<groupId>org.springframework.security</groupId>-->
+                <!--<artifactId>spring-security-jwt</artifactId>-->
+                <!--<version>${spring-security-jwt.version}</version>-->
+            <!--</dependency>-->
+        </dependencies>
+    </dependencyManagement>
 
 </project>
