@@ -1,6 +1,8 @@
 package cn.worth.auth.config;
 
-import cn.worth.auth.service.CustomUserDetailService;
+import cn.worth.auth.pojo.CustomUserDetails;
+import cn.worth.auth.service.impl.UserDetailServiceImpl;
+import cn.worth.common.constant.CommonConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,8 +11,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Spring-Security 配置<br>
@@ -25,14 +34,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) //启用方法级的权限认证
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     //通过自定义userDetailsService 来实现查询数据库，手机，二维码等多种验证方式
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
         //采用一个自定义的实现UserDetailsService接口的类
-        return new CustomUserDetailService();
+        return new UserDetailServiceImpl();
         /*
             InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -80,7 +89,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 定义token 签名的方式(非对称加密算法来对 Token 进行签名,也可以使用对称加密方式)
+     * @return
+     */
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        //对称加密方式
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(CommonConstant.SIGN_KEY);
+        return jwtAccessTokenConverter;
+    }
+
+    /**
+     * jwt 生成token 定制化处理
+     *
+     * @return TokenEnhancer
+     */
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return (accessToken, authentication) -> {
+            final Map<String, Object> additionalInfo = new HashMap<>(2);
+            CustomUserDetails user = (CustomUserDetails) authentication.getUserAuthentication().getPrincipal();
+            if (user != null) {
+                additionalInfo.put("userId", user.getUserId());
+            }
+            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+            return accessToken;
+        };
     }
 }
