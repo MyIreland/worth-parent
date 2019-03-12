@@ -31,6 +31,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("userDetailService accept username is ======================{}", username);
         UserVO user = userService.loadUserByUsername(username);
-        return (CustomUserDetails) user;//返回UserDetails的实现user不为空，则验证通过
+        return new CustomUserDetails(user);//返回UserDetails的实现user不为空，则验证通过
     }
 }

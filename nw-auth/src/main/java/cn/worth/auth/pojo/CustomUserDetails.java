@@ -3,7 +3,9 @@ package cn.worth.auth.pojo;
 import cn.worth.common.pojo.UserVO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * @Author: chenxiaoqing9
@@ -11,7 +13,29 @@ import java.util.Collection;
  * @Description:
  * @Modified by:
  */
-public class CustomUserDetails extends UserVO implements UserDetails {
+public class CustomUserDetails implements UserDetails {
+    private Long userId;
+    private String username;
+    private String password;
+    private String email;
+    private Integer status;
+//    private Set<RoleVO> roles;
+    private Set<String> permissions;
+
+    private String orgId;
+    private Long deptId;
+
+    public CustomUserDetails(UserVO userVo) {
+        this.userId = userVo.getUserId();
+        this.username = userVo.getUsername();
+        this.password = userVo.getPassword();
+        this.status = userVo.getStatus();
+        this.email = userVo.getEmail();
+        this.orgId = userVo.getOrgId();
+        this.deptId = userVo.getDeptId();
+        permissions = userVo.getPermissions();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //        Collection<GrantedAuthority> collection = new HashSet<>();
@@ -27,14 +51,71 @@ public class CustomUserDetails extends UserVO implements UserDetails {
         return null;
     }
 
-    @Override
-    public String getPassword() {
-        return super.getPassword();
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String getUsername() {
-        return super.getUsername();
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
     }
 
     @Override

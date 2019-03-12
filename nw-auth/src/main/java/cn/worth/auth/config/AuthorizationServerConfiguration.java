@@ -84,21 +84,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
 
         endpoints.tokenEnhancer(tokenEnhancerChain)
+                .tokenStore(new RedisTokenStore(redisConnectionFactory))
                 .authenticationManager(authenticationManager)
                 .userDetailsService(new UserDetailServiceImpl())
                 .reuseRefreshTokens(false)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 //                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理
 
-        //配置TokenService参数
-        DefaultTokenServices tokenService = new DefaultTokenServices();
-        tokenService.setTokenStore(new RedisTokenStore(redisConnectionFactory));
-        tokenService.setClientDetailsService(endpoints.getClientDetailsService());
-        tokenService.setTokenEnhancer(endpoints.getTokenEnhancer());
-        tokenService.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); //30天
-        tokenService.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(50)); //50天
-        tokenService.setReuseRefreshToken(false);
-        endpoints.tokenServices(tokenService);
     }
 
     @Override
