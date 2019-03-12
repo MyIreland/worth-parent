@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "cn.worth")
-@MapperScan("cn.worth.admin.mapper")
+@MapperScan("cn.worth.*.mapper")
 public class WorthApplication {
 
     public static void main(String[] args) {

@@ -1,6 +1,8 @@
 package cn.worth.auth.domain;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+
 import java.io.Serializable;
 
 /**
@@ -15,7 +17,8 @@ public class OauthClientDetails extends Model<OauthClientDetails> {
 
     private static final long serialVersionUID = 1L;
 
-    private String clientId;
+    @TableId("client_id")
+    private String clientId;//Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
 
     private String resourceIds;
 

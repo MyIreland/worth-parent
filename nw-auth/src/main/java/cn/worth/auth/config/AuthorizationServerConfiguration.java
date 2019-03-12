@@ -1,19 +1,29 @@
 package cn.worth.auth.config;
 
-import cn.worth.auth.service.CustomClientDetailService;
+import cn.worth.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-
+import javax.sql.DataSource;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,58 +37,60 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+
     @Autowired
-    AuthenticationManager authenticationManager;
+    @Qualifier("dataSource")
+    private DataSource dataSource;
+
     @Autowired
-    RedisConnectionFactory redisConnectionFactory;
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenEnhancer tokenEnhancer;
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private ClientDetailsService clientDetailsService;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //String finalSecret = "{bcrypt}"+new BCryptPasswordEncoder().encode("123456");
-        //clients.setBuilder(builder);
-        //这里通过实现 ClientDetailsService接口
-        clients.withClientDetails(new CustomClientDetailService());
-        /*
-        //配置客户端,一个用于password认证一个用于client认证
-        clients.inMemory()
-        .withClient("client_1")
-        .resourceIds(DEMO_RESOURCE_ID)
-        .authorizedGrantTypes("client_credentials", "refresh_token")
-        .scopes("select")
-        .authorities("oauth2")
-        .secret(finalSecret)
-        .and()
-        .withClient("client_2")
-        .resourceIds(DEMO_RESOURCE_ID)
-        .authorizedGrantTypes("password", "refresh_token")
-        .scopes("select")
-        .authorities("oauth2")
-        .secret(finalSecret)
-        .and()
-        .withClient("client_code")
-        .resourceIds(DEMO_RESOURCE_ID)
-        .authorizedGrantTypes("authorization_code", "client_credentials", "refresh_token",
-                "password", "implicit")
-        .scopes("all")
-        //.authorities("oauth2")
-        .redirectUris("http://www.baidu.com")
-        .accessTokenValiditySeconds(1200)
-        .refreshTokenValiditySeconds(50000);
-        */
+        clients.withClientDetails(clientDetailsService);
+//        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+//        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+//        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
+//        clientDetailsService.setPasswordEncoder(passwordEncoder);
+//        clients.withClientDetails(clientDetailsService);
     }
 
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints
-                .tokenStore(new RedisTokenStore(redisConnectionFactory))
+        //token增强配置
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(
+                Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
+
+        endpoints.tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
+                .reuseRefreshTokens(false)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+//                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理
 
         //配置TokenService参数
         DefaultTokenServices tokenService = new DefaultTokenServices();
-        tokenService.setTokenStore(endpoints.getTokenStore());
-        tokenService.setSupportRefreshToken(true);
+        tokenService.setTokenStore(new RedisTokenStore(redisConnectionFactory));
         tokenService.setClientDetailsService(endpoints.getClientDetailsService());
         tokenService.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenService.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); //30天
