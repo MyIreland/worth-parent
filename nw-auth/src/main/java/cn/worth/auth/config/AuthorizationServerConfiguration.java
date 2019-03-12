@@ -1,5 +1,7 @@
 package cn.worth.auth.config;
 
+import cn.worth.auth.service.impl.ClientDetailsServiceImpl;
+import cn.worth.auth.service.impl.UserDetailServiceImpl;
 import cn.worth.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -65,12 +67,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+//        clients.withClientDetails(new ClientDetailsServiceImpl());
+        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
+        clientDetailsService.setPasswordEncoder(passwordEncoder);
         clients.withClientDetails(clientDetailsService);
-//        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-//        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
-//        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
-//        clientDetailsService.setPasswordEncoder(passwordEncoder);
-//        clients.withClientDetails(clientDetailsService);
     }
 
 
@@ -83,7 +85,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
         endpoints.tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
+                .userDetailsService(new UserDetailServiceImpl())
                 .reuseRefreshTokens(false)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 //                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理

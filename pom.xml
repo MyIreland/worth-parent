@@ -31,6 +31,8 @@
         <velocity.version>1.7</velocity.version>
         <fastjson.version>1.2.31</fastjson.version>
         <commons-io.version>2.5</commons-io.version>
+        <commons-httpclient.version>3.0.1</commons-httpclient.version>
+        <commons.codec.version>1.10</commons.codec.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>

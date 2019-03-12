@@ -1,14 +1,16 @@
 package cn.worth.auth.service.impl;
 
+import cn.worth.auth.service.OauthClientDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -20,17 +22,20 @@ import java.util.concurrent.TimeUnit;
  * @Description:
  * @Modified by:
  */
-@Component("clientDetailsService")
+@Service("clientDetailsService")
 public class ClientDetailsServiceImpl implements ClientDetailsService {
+
+    @Autowired
+    private OauthClientDetailsService clientDetailsService;
 
     private static final Logger log = LoggerFactory.getLogger(ClientDetailsServiceImpl.class);
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         BaseClientDetails client = null;
+        log.info("clientDetailsService accepted clientId is ============={}", clientId);
         //这里可以改为查询数据库
         if ("client".equals(clientId)) {
-            log.info("clientId is ============={}", clientId);
             client = new BaseClientDetails();
             client.setClientId(clientId);
             client.setClientSecret("{noop}123456");

@@ -1,6 +1,7 @@
 package cn.worth.admin.service;
 
 import cn.worth.admin.domain.User;
+import cn.worth.common.pojo.UserVO;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -13,5 +14,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface UserService extends IService<User> {
 
-    User loadUserByUsername(String username);
+    UserVO loadUserByUsername(String username);
 }
