@@ -3,7 +3,10 @@ package cn.worth.auth.config;
 import cn.worth.auth.pojo.CustomUserDetails;
 import cn.worth.auth.service.impl.UserDetailServiceImpl;
 import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.constant.SecurityConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,7 +19,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +109,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey(CommonConstant.SIGN_KEY);
         return jwtAccessTokenConverter;
+    }
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
+    /**
+     * tokenstore 定制化处理
+     *
+     * @return TokenStore
+     * 1. 如果使用的 redis-cluster 模式请使用 RedisTokenStore
+     * RedisTokenStore tokenStore = new RedisTokenStore();
+     * tokenStore.setRedisTemplate(redisTemplate);
+     */
+    @Bean
+    public TokenStore redisTokenStore() {
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix(SecurityConstants.NW_PREFIX);
+        // 2018.09.04添加,解决同一username每次登陆access_token都相同的问题
+        tokenStore.setAuthenticationKeyGenerator(new RandomAuthenticationKeyGenerator());
+
+        return tokenStore;
     }
 
     /**

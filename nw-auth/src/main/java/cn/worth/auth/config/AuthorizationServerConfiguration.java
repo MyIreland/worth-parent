@@ -22,8 +22,10 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * OAuth 授权服务配置
  * https://segmentfault.com/a/1190000014371789
+ *
  * @Author: chenxiaoqing9
  * @Date: Created in 2019/3/11
  * @Description:
@@ -57,7 +60,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
+    private TokenStore redisTokenStore;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -67,7 +70,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//        clients.withClientDetails(new ClientDetailsServiceImpl());
         JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
         clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
         clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
@@ -79,18 +81,32 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         //token增强配置
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(
-                Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
-
-        endpoints.tokenEnhancer(tokenEnhancerChain)
-                .tokenStore(new RedisTokenStore(redisConnectionFactory))
+//        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+//        tokenEnhancerChain.setTokenEnhancers(
+//                Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
+//
+//        endpoints.tokenEnhancer(tokenEnhancerChain)
+//                .tokenStore(new RedisTokenStore(redisConnectionFactory))
+//                .authenticationManager(authenticationManager)
+//                .userDetailsService(new UserDetailServiceImpl())
+//                .reuseRefreshTokens(false)
+//                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+//                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理
+        endpoints.tokenStore(redisTokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(new UserDetailServiceImpl())
-                .reuseRefreshTokens(false)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
-//                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理
 
+        //配置TokenService参数
+        DefaultTokenServices tokenService = new DefaultTokenServices();
+        tokenService.setTokenStore(endpoints.getTokenStore());
+        tokenService.setSupportRefreshToken(true);
+        tokenService.setClientDetailsService(endpoints.getClientDetailsService());
+        tokenService.setTokenEnhancer(endpoints.getTokenEnhancer());
+        tokenService.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); //30天
+        tokenService.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(50)); //50天
+        tokenService.setReuseRefreshToken(false);
+        endpoints.tokenServices(tokenService);
     }
 
     @Override

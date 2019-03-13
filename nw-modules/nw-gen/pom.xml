@@ -14,10 +14,9 @@
     <dependencies>
         <!-- velocity , 默认 -->
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>${velocity-engine-core.version}</version>
-            <scope>test</scope>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
         <!-- mybatis-plus-generator -->
         <dependency>
