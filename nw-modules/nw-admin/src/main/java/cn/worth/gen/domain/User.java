@@ -1,4 +1,4 @@
-package cn.worth.admin.domain;
+package cn.worth.gen.domain;
 
 
 import com.baomidou.mybatisplus.activerecord.Model;

@@ -23,7 +23,7 @@ import java.io.PrintWriter;
  * 包装失败信息到AccessDeniedException
  */
 @Slf4j
-@Component
+//@Component
 public class CustomAccessDeniedHandler extends OAuth2AccessDeniedHandler {
     @Autowired
     private ObjectMapper objectMapper;

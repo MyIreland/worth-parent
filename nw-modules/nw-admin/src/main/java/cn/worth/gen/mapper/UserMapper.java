@@ -1,6 +1,6 @@
-package cn.worth.admin.mapper;
+package cn.worth.gen.mapper;
 
-import cn.worth.admin.domain.User;
+import cn.worth.gen.domain.User;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

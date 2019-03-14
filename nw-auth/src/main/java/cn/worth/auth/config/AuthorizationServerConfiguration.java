@@ -68,6 +68,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
@@ -92,7 +95,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 //                .reuseRefreshTokens(false)
 //                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 //                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理
-        endpoints.tokenStore(redisTokenStore)
+        endpoints.tokenStore(new RedisTokenStore(redisConnectionFactory))
                 .authenticationManager(authenticationManager)
                 .userDetailsService(new UserDetailServiceImpl())
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
@@ -116,7 +119,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         //addTokenEndpointAuthenticationFilter(IntegrationAuthenticationFilter())
         //IntegrationAuthenticationFilter 采用 @Component 注入
         security.allowFormAuthenticationForClients()
-                .tokenKeyAccess("isAuthenticated()")
-                .checkTokenAccess("permitAll()");
+                .tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
     }
 }

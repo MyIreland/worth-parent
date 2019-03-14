@@ -32,6 +32,7 @@ import java.util.Map;
  * http://blog.didispace.com/spring-security-oauth2-xjf-1/
  * https://www.cnblogs.com/cjsblog/p/9152455.html
  * https://segmentfault.com/a/1190000014371789 (多种认证方式)
+ *
  * @Author: chenxiaoqing9
  * @Date: Created in 2019/3/11
  * @Description:
@@ -81,7 +82,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("123456"))
+                .roles("test");
     }
 
     /**
@@ -101,6 +105,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
      * 定义token 签名的方式(非对称加密算法来对 Token 进行签名,也可以使用对称加密方式)
+     *
      * @return
      */
     @Bean

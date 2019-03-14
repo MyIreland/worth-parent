@@ -12,13 +12,14 @@
     <artifactId>nw-auth</artifactId>
 
     <dependencies>
-        <!--oauth2.0-->
+        <!-- spring-security-oauth2-autoconfigure -->
         <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>${spring-security-oauth2.version}</version>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+            <version>${spring-security-oauth2-autoconfigure.version}</version>
         </dependency>
 
+        <!-- spring-security-jwt -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>

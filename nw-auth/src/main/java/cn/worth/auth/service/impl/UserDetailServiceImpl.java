@@ -1,6 +1,6 @@
 package cn.worth.auth.service.impl;
 
-import cn.worth.admin.service.UserService;
+import cn.worth.gen.service.UserService;
 import cn.worth.auth.pojo.CustomUserDetails;
 import cn.worth.common.pojo.UserVO;
 import org.slf4j.Logger;

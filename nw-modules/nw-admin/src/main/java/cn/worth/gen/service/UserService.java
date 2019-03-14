@@ -1,6 +1,6 @@
-package cn.worth.admin.service;
+package cn.worth.gen.service;
 
-import cn.worth.admin.domain.User;
+import cn.worth.gen.domain.User;
 import cn.worth.common.pojo.UserVO;
 import com.baomidou.mybatisplus.service.IService;
 
