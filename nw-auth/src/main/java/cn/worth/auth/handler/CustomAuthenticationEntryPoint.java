@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 
+/**
+ * 用来解决匿名用户访问无权限资源时的异常
+ */
 //@Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

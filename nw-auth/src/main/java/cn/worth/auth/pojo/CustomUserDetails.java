@@ -1,10 +1,14 @@
 package cn.worth.auth.pojo;
 
 import cn.worth.common.pojo.UserVO;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,31 +18,40 @@ import java.util.Set;
  * @Modified by:
  */
 public class CustomUserDetails implements UserDetails {
-    private Long userId;
+    private Long id;
     private String username;
     private String password;
     private String email;
     private Integer status;
 //    private Set<RoleVO> roles;
     private Set<String> permissions;
-
-    private String orgId;
+    private Long orgId;
     private Long deptId;
+    /**
+     * 账号是否被锁 0-无 1-被锁
+     */
+    private Integer locked;
+    /**
+     * 账号是否过期 0-无 1-过期
+     */
+    private Integer expired;
 
     public CustomUserDetails(UserVO userVo) {
-        this.userId = userVo.getUserId();
+        this.id = userVo.getId();
         this.username = userVo.getUsername();
         this.password = userVo.getPassword();
         this.status = userVo.getStatus();
         this.email = userVo.getEmail();
         this.orgId = userVo.getOrgId();
         this.deptId = userVo.getDeptId();
+        this.locked = userVo.getLocked();
+        this.expired = userVo.getExpired();
         permissions = userVo.getPermissions();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection<GrantedAuthority> collection = new HashSet<>();
+        Collection<GrantedAuthority> collection = new HashSet<>();
 //        if (!CollectionUtils.isEmpty(roles)) {
 //            roles.forEach(role -> {
 //                if (role.getRoleCode().startsWith("ROLE_")) {
@@ -48,32 +61,10 @@ public class CustomUserDetails implements UserDetails {
 //                }
 //            });
 //        }
+        collection.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return null;
     }
 
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     @Override
     public String getUsername() {
@@ -93,6 +84,35 @@ public class CustomUserDetails implements UserDetails {
         this.password = password;
     }
 
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return expired == 0;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return locked == 0;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return status == 0;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -101,6 +121,13 @@ public class CustomUserDetails implements UserDetails {
         this.email = email;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Set<String> getPermissions() {
         return permissions;
@@ -110,31 +137,34 @@ public class CustomUserDetails implements UserDetails {
         this.permissions = permissions;
     }
 
-    public String getOrgId() {
+    public Long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+    public Integer getLocked() {
+        return locked;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
+    public void setLocked(Integer locked) {
+        this.locked = locked;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public Integer getExpired() {
+        return expired;
+    }
+
+    public void setExpired(Integer expired) {
+        this.expired = expired;
     }
 }

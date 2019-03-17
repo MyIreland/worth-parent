@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.worth.gen.mapper.UserMapper">
+<mapper namespace="cn.worth.admin.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.worth.gen.domain.User">
-        <id column="user_id" property="userId" />
+    <resultMap id="BaseResultMap" type="cn.worth.admin.domain.User">
+        <id column="id" property="id" />
         <result column="username" property="username" />
-        <result column="name" property="name" />
         <result column="password" property="password" />
-        <result column="dept_id" property="deptId" />
+        <result column="real_name" property="realName" />
+        <result column="sex" property="sex" />
+        <result column="pic_id" property="picId" />
+        <result column="birth" property="birth" />
         <result column="email" property="email" />
         <result column="mobile" property="mobile" />
+        <result column="dept_id" property="deptId" />
+        <result column="org_id" property="orgId" />
+        <result column="locked" property="locked" />
+        <result column="expired" property="expired" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
         <result column="status" property="status" />
-        <result column="user_id_create" property="userIdCreate" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
-        <result column="sex" property="sex" />
-        <result column="birth" property="birth" />
-        <result column="pic_id" property="picId" />
-        <result column="live_address" property="liveAddress" />
-        <result column="hobby" property="hobby" />
-        <result column="province" property="province" />
-        <result column="city" property="city" />
-        <result column="district" property="district" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, username, name, password, dept_id, email, mobile, status, user_id_create, gmt_create, gmt_modified, sex, birth, pic_id, live_address, hobby, province, city, district
+        id, username, password, real_name AS realName, sex, pic_id AS picId, birth, email, mobile, dept_id AS deptId, org_id AS orgId, locked, expired, create_time AS createTime, update_time AS updateTime, status
     </sql>
 
 </mapper>

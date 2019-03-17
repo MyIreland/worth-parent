@@ -17,10 +17,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author zhangjinkun@xdf.cn
- * @date 2018/07/25
- * 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler
- * 包装失败信息到AccessDeniedException
+ * @author chenxiaoqing9
+ * @date 2019/03/17
+ * 用来解决认证过的用户访问无权限资源时的异常
  */
 @Slf4j
 //@Component

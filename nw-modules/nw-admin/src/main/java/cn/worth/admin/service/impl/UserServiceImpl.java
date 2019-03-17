@@ -1,8 +1,8 @@
-package cn.worth.gen.service.impl;
+package cn.worth.admin.service.impl;
 
-import cn.worth.gen.domain.User;
-import cn.worth.gen.mapper.UserMapper;
-import cn.worth.gen.service.UserService;
+import cn.worth.admin.domain.User;
+import cn.worth.admin.mapper.UserMapper;
+import cn.worth.admin.service.UserService;
 import cn.worth.common.pojo.UserVO;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
