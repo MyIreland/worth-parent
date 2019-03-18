@@ -1,6 +1,5 @@
 package cn.worth.auth.config.bean;
 
-import cn.worth.auth.config.RandomAuthenticationKeyGenerator;
 import cn.worth.auth.pojo.CustomUserDetails;
 import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.constant.SecurityConstants;
