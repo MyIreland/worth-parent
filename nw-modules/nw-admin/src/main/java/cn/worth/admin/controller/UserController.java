@@ -3,7 +3,6 @@ package cn.worth.admin.controller;
 import cn.worth.common.pojo.R;
 import cn.worth.common.pojo.UserVO;
 import cn.worth.common.utils.UserUtils;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping("info")
-    public R current(Authentication authentication){
-        UserVO loginUser = (UserVO) authentication.getPrincipal();
+    public R current(){
+        UserVO loginUser = UserUtils.getLoginUser();
         return new R(loginUser);
     }
 
