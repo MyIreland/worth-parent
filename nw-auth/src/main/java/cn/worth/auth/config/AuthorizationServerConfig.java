@@ -3,7 +3,6 @@ package cn.worth.auth.config;
 import cn.worth.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,11 +12,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
 import javax.sql.DataSource;
 import java.util.Arrays;
 
@@ -48,6 +48,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private TokenEnhancer tokenEnhancer;
 
     @Autowired
+    private TokenStore redisTokenStore;
+
+    @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Override
@@ -64,24 +67,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         //token增强配置
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(
-                Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
-//
-//        endpoints.tokenEnhancer(tokenEnhancerChain)
-//                .tokenStore(new RedisTokenStore(redisConnectionFactory))
-//                .reuseRefreshTokens(false)
-//                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
-//                .exceptionTranslator(customWebResponseExceptionTranslator);// 异常转处理处理
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer, jwtAccessTokenConverter));
+
         endpoints.accessTokenConverter(jwtAccessTokenConverter)
                 .tokenEnhancer(tokenEnhancerChain)
-                .tokenStore(tokenStore())
+                .tokenStore(redisTokenStore)
                 .reuseRefreshTokens(false)
                 .authenticationManager(authenticationManager);
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter);
     }
 
     @Override

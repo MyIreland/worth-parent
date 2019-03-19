@@ -15,9 +15,9 @@ public class R<T> implements Serializable {
 
     public static final int NO_LOGIN = -1;
 
-    public static final int SUCCESS = 0;
+    public static final int SUCCESS = 200;
 
-    public static final int FAIL = 1;
+    public static final int FAIL = 500;
 
     public static final int NO_PERMISSION = 2;
 

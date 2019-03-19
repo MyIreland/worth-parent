@@ -17,7 +17,7 @@ import java.util.Date;
  * @author chenxiaoqing
  * @since 2019-03-17
  */
-@TableName("sys_user")
+@TableName("sys_user1")
 public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
