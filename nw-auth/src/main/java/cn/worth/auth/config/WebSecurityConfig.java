@@ -1,6 +1,6 @@
 package cn.worth.auth.config;
 
-import cn.worth.auth.service.impl.UserDetailServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,19 +26,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //通过自定义userDetailsService 来实现查询数据库，手机，二维码等多种验证方式
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return new UserDetailServiceImpl();
-    }
-
+    @Autowired
+    private UserDetailsService userDetailsService;
     /**
      * 用户验证
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.parentAuthenticationManager(authenticationManagerBean());
-        auth.userDetailsService(userDetailsService());
+        auth.userDetailsService(userDetailsService);
     }
 
     /**

@@ -1,4 +1,4 @@
-package cn.worth.auth.config;
+package cn.worth.auth.config.bean;
 
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;

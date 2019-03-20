@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,7 +16,7 @@ import java.util.Date;
  * @author chenxiaoqing
  * @since 2019-03-17
  */
-@TableName("sys_user1")
+@TableName("sys_user")
 public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;

@@ -60,7 +60,7 @@ public class CustomUserDetails implements UserDetails {
 //            });
 //        }
         collection.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        return null;
+        return collection;
     }
 
 

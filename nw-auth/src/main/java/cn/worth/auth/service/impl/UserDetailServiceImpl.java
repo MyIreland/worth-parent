@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @Description:
  * @Modified by:
  */
-@Service("userDetailService")
+@Service("userDetailsService")
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired

@@ -64,11 +64,6 @@ public class AuthConfigurationBeans {
         };
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
     /**
      * 定义token 签名的方式(非对称加密算法来对 Token 进行签名,也可以使用对称加密方式)
      *
