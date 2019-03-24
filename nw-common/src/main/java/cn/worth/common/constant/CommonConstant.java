@@ -18,11 +18,11 @@ public interface CommonConstant {
     /**
      * 删除
      */
-    String STATUS_DEL = "1";
+    Integer STATUS_DEL = 1;
     /**
      * 正常
      */
-    String STATUS_NORMAL = "0";
+    Integer STATUS_NORMAL = 0;
 
     /**
      * 锁定

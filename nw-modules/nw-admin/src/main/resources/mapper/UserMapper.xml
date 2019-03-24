@@ -13,6 +13,7 @@
         <result column="birth" property="birth" />
         <result column="email" property="email" />
         <result column="mobile" property="mobile" />
+        <result column="salt" property="salt" />
         <result column="dept_id" property="deptId" />
         <result column="org_id" property="orgId" />
         <result column="locked" property="locked" />
@@ -22,9 +23,74 @@
         <result column="status" property="status" />
     </resultMap>
 
+    <!-- userVo结果集 -->
+    <resultMap id="userVoResultMap" type="cn.worth.common.pojo.UserVO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="pic_id" property="picId"/>
+        <result column="email" property="email"/>
+        <result column="mobile" property="mobile" />
+        <result column="locked" property="locked"/>
+        <result column="expired" property="expired"/>
+        <result column="status" property="status"/>
+        <result column="org_id" property="orgId"/>
+        <result column="dept_id" property="deptId"/>
+        <!--<result column="deptName" property="deptName"/>-->
+        <result column="real_name" property="realName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <collection property="roles" ofType="cn.worth.common.pojo.RoleVo">
+            <id column="rid" property="id" />
+            <result column="role_name" property="roleName" />
+            <result column="role_sign" property="roleSign" />
+            <result column="remark" property="remark" />
+            <result column="rcreate_time" property="createTime" />
+            <result column="rupdate_time" property="updateTime" />
+        </collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, username, password, real_name AS realName, sex, pic_id AS picId, birth, email, mobile, dept_id AS deptId, org_id AS orgId, locked, expired, create_time AS createTime, update_time AS updateTime, status
+        id, username, password, real_name AS realName, sex, pic_id AS picId, birth, email, mobile, dept_id AS deptId, org_id AS orgId, locked, expired,salt, create_time AS createTime, update_time AS updateTime, status
     </sql>
+
+    <sql id="selectUserVoColumn">
+        SELECT
+            u.id,
+            u.username,
+            u.password,
+            u.real_name,
+            u.sex,
+            u.pic_id,
+            u.birth,
+            u.email,
+            u.mobile,
+            u.dept_id,
+            u.org_id,
+            u.locked,
+            u.expired,
+            u.salt,
+            u.create_time,
+            u.update_time,
+            u. STATUS,
+            r.id rid,
+            r.role_name,
+            r.role_sign,
+            r.remark,
+            r.create_time AS rcreate_time,
+            r.update_time AS rupdate_time
+        FROM
+            sys_user AS u
+        LEFT JOIN sys_user_role AS ur ON ur.user_id = u.id
+        LEFT JOIN sys_role AS r ON r.id = ur.role_id
+    </sql>
+
+
+    <select id="loadUserByUsername" resultMap="userVoResultMap">
+        <include refid="selectUserVoColumn"/>
+        WHERE u.username = #{username}
+    </select>
 
 </mapper>

@@ -31,8 +31,9 @@ public class ResourcesGenerator {
 
     @Test
     public void generateCode() {
-        boolean serviceNameStartWithI = true;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI,"sys_user");
+        boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
+        generateByTables(serviceNameStartWithI, "sys_dept", "sys_dict", "sys_menu",
+                "sys_org", "sys_role", "sys_role_menu", "sys_user_role");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
@@ -71,7 +72,7 @@ public class ResourcesGenerator {
         StrategyConfig strategyConfig = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         //设置父类
-//        strategyConfig.setSuperControllerClass(properties.getProperty("admin.superController"));
+        strategyConfig.setSuperControllerClass(properties.getProperty("admin.superController"));
         // 表名生成策略
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         //去除表名前缀 update
@@ -87,7 +88,7 @@ public class ResourcesGenerator {
          */
         PackageConfig pc = new PackageConfig();
         //update
-        pc.setParent("cn.worth.admin");
+        pc.setParent(properties.getProperty("gen.basePackageName"));
         pc.setController("controller");
         pc.setEntity("domain");
         autoGenerator.setPackageInfo(pc);

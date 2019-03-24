@@ -1,6 +1,7 @@
 package cn.worth.admin.mapper;
 
 import cn.worth.admin.domain.User;
+import cn.worth.common.pojo.UserVO;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+    UserVO loadUserByUsername(User userQuery);
 }

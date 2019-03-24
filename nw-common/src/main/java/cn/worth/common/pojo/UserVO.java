@@ -45,8 +45,12 @@ public class UserVO implements Serializable {
      * 手机号
      */
     private String mobile;
+
     private Long deptId;
+    private String deptName;
+
     private Long orgId;
+    private String orgName;
     /**
      * 账号是否被锁 0-无 1-被锁
      */
@@ -55,6 +59,11 @@ public class UserVO implements Serializable {
      * 账号是否过期 0-无 1-过期
      */
     private Integer expired;
+    /**
+     * 盐
+     */
+    private String salt;
+
     private Date createTime;
     private Date updateTime;
     /**
@@ -64,8 +73,7 @@ public class UserVO implements Serializable {
     /**
      * 角色列表
      */
-//    private Set<RoleVO> roles;
-
+    private Set<RoleVo> roles;
     /**
      * 操作权限列表
      */

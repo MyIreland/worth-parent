@@ -63,6 +63,8 @@ public class User extends Model<User> {
      * 账号是否过期 0-无 1-过期
      */
     private Integer expired;
+
+    private String salt;
     @TableField("create_time")
     private Date createTime;
     @TableField("update_time")
@@ -72,6 +74,13 @@ public class User extends Model<User> {
      */
     private Integer status;
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public Long getId() {
         return id;

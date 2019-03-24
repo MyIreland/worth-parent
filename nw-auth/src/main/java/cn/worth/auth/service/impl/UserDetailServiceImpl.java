@@ -1,6 +1,6 @@
 package cn.worth.auth.service.impl;
 
-import cn.worth.admin.service.UserService;
+import cn.worth.admin.service.IUserService;
 import cn.worth.auth.pojo.CustomUserDetails;
 import cn.worth.common.pojo.UserVO;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailServiceImpl.class);
 

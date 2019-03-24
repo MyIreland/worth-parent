@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping("info")
-    public R current(){
+    public R current() {
         UserVO loginUser = UserUtils.getLoginUser();
         return new R(loginUser);
     }

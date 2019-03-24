@@ -1,27 +1,21 @@
 package cn.worth.common.pojo;
 
+import cn.worth.common.enums.RCodeEnum;
 import java.io.Serializable;
 
 /**
- * 响应信息主体
- *
+ * 统一响应响应信息主体
  * @param <T>
- * @author zhangjinkun@xdf.cn
- * @date 2018/07/24
  */
 public class R<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final int NO_LOGIN = -1;
+    private static final int FAIL = RCodeEnum.BIZ_EXCEPTION.getCode();
 
-    public static final int SUCCESS = 200;
+    private static final int SUCCESS = RCodeEnum.SUCCESS.getCode();
 
-    public static final int FAIL = 500;
-
-    public static final int NO_PERMISSION = 2;
-
-    private String message = "success";
+    private String message = RCodeEnum.SUCCESS.getMsg();
 
     private int code = SUCCESS;
 
@@ -37,7 +31,7 @@ public class R<T> implements Serializable {
 
     private T data;
 
-    public R() {
+    R() {
         super();
     }
 

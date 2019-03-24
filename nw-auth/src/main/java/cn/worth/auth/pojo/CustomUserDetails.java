@@ -1,6 +1,8 @@
 package cn.worth.auth.pojo;
 
+import cn.worth.common.pojo.RoleVo;
 import cn.worth.common.pojo.UserVO;
+import cn.worth.common.utils.CollectionUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +23,7 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private String email;
     private Integer status;
-//    private Set<RoleVO> roles;
+    private Set<RoleVo> roles;
     private Set<String> permissions;
     private Long orgId;
     private Long deptId;
@@ -34,32 +36,33 @@ public class CustomUserDetails implements UserDetails {
      */
     private Integer expired;
 
-    public CustomUserDetails(UserVO userVo) {
-        this.id = userVo.getId();
-        this.username = userVo.getUsername();
-        this.password = userVo.getPassword();
-        this.status = userVo.getStatus();
-        this.email = userVo.getEmail();
-        this.orgId = userVo.getOrgId();
-        this.deptId = userVo.getDeptId();
-        this.locked = userVo.getLocked();
-        this.expired = userVo.getExpired();
-        permissions = userVo.getPermissions();
+    public CustomUserDetails(UserVO user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.status = user.getStatus();
+        this.email = user.getEmail();
+        this.orgId = user.getOrgId();
+        this.deptId = user.getDeptId();
+        this.locked = user.getLocked();
+        this.expired = user.getExpired();
+        roles = user.getRoles();
+        permissions = user.getPermissions();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new HashSet<>();
-//        if (!CollectionUtils.isEmpty(roles)) {
-//            roles.forEach(role -> {
-//                if (role.getRoleCode().startsWith("ROLE_")) {
-//                    collection.add(new SimpleGrantedAuthority(role.getRoleCode()));
-//                } else {
-//                    collection.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleCode()));
-//                }
-//            });
-//        }
-        collection.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if (!CollectionUtils.isEmpty(roles)) {
+            roles.forEach(role -> {
+                String roleSign = role.getRoleSign();
+                if (roleSign.startsWith("ROLE_")) {
+                    collection.add(new SimpleGrantedAuthority(roleSign));
+                } else {
+                    collection.add(new SimpleGrantedAuthority("ROLE_" + roleSign));
+                }
+            });
+        }
         return collection;
     }
 
@@ -125,6 +128,14 @@ public class CustomUserDetails implements UserDetails {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Set<RoleVo> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleVo> roles) {
+        this.roles = roles;
     }
 
     public Set<String> getPermissions() {

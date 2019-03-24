@@ -1,8 +1,22 @@
 package cn.worth.common.utils;
 
 import java.util.*;
-
+/**
+ * @Author: chenxiaoqing9
+ * @Date: Created in 2019/3/19
+ * @Description: 工具类
+ * @Modified by:
+ */
 public class CollectionUtils extends org.springframework.util.CollectionUtils {
+
+    public static boolean isNotEmpty(Collection<?> collection){
+        return !isEmpty(collection);
+    }
+
+    public static boolean isNotEmpty(Map<?, ?> map){
+        return !isEmpty(map);
+    }
+
     /**
      * 集合转成 HashMap<J, List<K>> 格式
      *
