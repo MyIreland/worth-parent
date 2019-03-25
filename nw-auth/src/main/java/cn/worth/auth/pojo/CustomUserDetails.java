@@ -21,6 +21,7 @@ public class CustomUserDetails implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String realName;
     private String email;
     private Integer status;
     private Set<RoleVo> roles;
@@ -40,6 +41,7 @@ public class CustomUserDetails implements UserDetails {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.realName = user.getRealName();
         this.status = user.getStatus();
         this.email = user.getEmail();
         this.orgId = user.getOrgId();
@@ -66,6 +68,13 @@ public class CustomUserDetails implements UserDetails {
         return collection;
     }
 
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
     @Override
     public String getUsername() {
