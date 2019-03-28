@@ -1,7 +1,7 @@
 package cn.worth.admin.resolver;
 
 import cn.worth.common.annotation.CurrentUser;
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.UserVO;
 import cn.worth.common.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;

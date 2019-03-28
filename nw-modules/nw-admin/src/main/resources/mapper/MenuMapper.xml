@@ -20,9 +20,9 @@
     <sql id="Base_Column_List">
         id, pid, name, url, perms, type, icon, sort, create_time AS createTime, update_time AS updateTime
     </sql>
-    <select id="findMenuByRoleIds" resultType="cn.worth.common.pojo.MenuVO">
+    <sql id="findMenuBaseSql">
         SELECT
-            m.*
+          m.*
         FROM
             sys_menu m,
             sys_role_menu rm,
@@ -36,8 +36,18 @@
                 #{each}
             </foreach>
         </if>
+    </sql>
+    <select id="findPermsByRoleIds" resultType="cn.worth.common.vo.MenuVO">
+        <include refid="findMenuBaseSql"/>
         ORDER BY
           m.sort
+    </select>
+
+    <select id="findMenusByRoleIds" resultType="cn.worth.common.vo.MenuVO">
+
+        <include refid="findMenuBaseSql"/>
+        AND m.TYPE != 2
+
     </select>
 
 </mapper>

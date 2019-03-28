@@ -4,9 +4,9 @@ import cn.worth.admin.domain.User;
 import cn.worth.admin.mapper.UserMapper;
 import cn.worth.admin.service.IMenuService;
 import cn.worth.admin.service.IUserService;
-import cn.worth.common.pojo.MenuVO;
-import cn.worth.common.pojo.RoleVo;
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.MenuVO;
+import cn.worth.common.vo.RoleVo;
+import cn.worth.common.vo.UserVO;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -40,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if(null != vo){
             Set<RoleVo> roles = vo.getRoles();
 
-            List<Long> roleIds = genRoleIds(roles);
+            List<Long> roleIds = gainRoleIds(roles);
 
             //设置用户权限
             setUserVoPerms(vo, roleIds);
@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     private void setUserVoPerms(UserVO vo, List<Long> roleIds) {
         if(CollectionUtils.isNotEmpty(roleIds)){
-            List<MenuVO> menuVos = menuService.findMenuByRoleIds(roleIds);
+            List<MenuVO> menuVos = menuService.findPermsByRoleIds(roleIds);
             Set<String> perms = new HashSet<>();
             if(CollectionUtils.isNotEmpty(menuVos)){
                 for (MenuVO menuVo : menuVos) {
@@ -65,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
     }
 
-    private List<Long> genRoleIds(Set<RoleVo> roles) {
+    private List<Long> gainRoleIds(Set<RoleVo> roles) {
         List<Long> roleIds = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(roles)){
             for (RoleVo role : roles) {

@@ -4,10 +4,16 @@ import cn.worth.admin.domain.Menu;
 import cn.worth.admin.service.IMenuService;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
+import cn.worth.common.utils.TreeUtils;
+import cn.worth.common.vo.MenuTree;
+import cn.worth.common.vo.MenuVO;
+import cn.worth.common.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -20,8 +26,39 @@ import java.util.Date;
 @RestController
 @RequestMapping("/menu")
 public class MenuController extends BaseController {
+
     @Autowired
     private IMenuService menuService;
+
+    /**
+     * 获取用户所有菜单权限树
+     *
+     * @return
+     */
+    @PostMapping("userPerms")
+    public R userPerms() {
+        List<Long> roleIds = gainUserRoleCodes();
+
+        List<MenuVO> userMenus = menuService.findPermsByRoleIds(roleIds);
+
+        List<MenuTree> data = buildTree(userMenus);
+        return R.success(data);
+    }
+
+    /**
+     * 获取用户所有菜单树
+     *
+     * @return
+     */
+    @PostMapping("userMenus")
+    public R userMenus() {
+        List<Long> roleIds = gainUserRoleCodes();
+
+        List<MenuVO> userMenus = menuService.findMenusByRoleIds(roleIds);
+
+        List<MenuTree> data = buildTree(userMenus);
+        return R.success(data);
+    }
 
     /**
      * 通过ID查询
@@ -70,5 +107,25 @@ public class MenuController extends BaseController {
     public R<Boolean> edit(@RequestBody Menu menu) {
         menu.setUpdateTime(new Date());
         return new R<>(menuService.updateById(menu));
+    }
+
+    private List<MenuTree> buildTree(List<MenuVO> userMenus) {
+
+        List<MenuTree> menuTrees = new ArrayList<>();
+
+        userMenus.forEach(each -> menuTrees.add(new MenuTree(each)));
+
+        List<MenuTree> buildTrees = TreeUtils.build(menuTrees, 0);
+        return buildTrees;
+    }
+
+    private List<Long> gainUserRoleCodes() {
+        Set<RoleVo> roleVos = getRoleVos();
+
+        List<Long> roleIds = new ArrayList<>();
+        for (RoleVo roleVo : roleVos) {
+            roleIds.add(roleVo.getId());
+        }
+        return roleIds;
     }
 }

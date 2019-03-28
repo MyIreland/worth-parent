@@ -1,7 +1,7 @@
 package cn.worth.admin.controller;
 
 import cn.worth.common.pojo.R;
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.UserVO;
 import cn.worth.common.utils.UserUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

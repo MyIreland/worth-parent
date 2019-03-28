@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description:
  * @Modified by:
  */
-public class IPUtil {
+public class IPUtils {
     /**
      * 获取用户真实IP地址，不使用request.getRemoteAddr();的原因是有可能用户使用了代理软件方式避免真实IP地址,
      * <p>

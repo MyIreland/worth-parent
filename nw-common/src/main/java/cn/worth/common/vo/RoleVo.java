@@ -1,4 +1,4 @@
-package cn.worth.common.pojo;
+package cn.worth.common.vo;
 
 import lombok.Getter;
 import lombok.Setter;

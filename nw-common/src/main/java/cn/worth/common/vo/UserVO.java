@@ -1,4 +1,4 @@
-package cn.worth.common.pojo;
+package cn.worth.common.vo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;

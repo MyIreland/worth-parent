@@ -1,8 +1,10 @@
 package cn.worth.common.controller;
 
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.RoleVo;
+import cn.worth.common.vo.UserVO;
 import cn.worth.common.utils.UserUtils;
 import org.springframework.stereotype.Controller;
+import java.util.Set;
 
 /**
  * @Author: MyIreland on.
@@ -11,15 +13,20 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class BaseController {
-    UserVO getUser() {
+
+    protected UserVO getUser() {
         return UserUtils.getLoginUser();
     }
 
-    Long getUserId() {
+    protected Long getUserId() {
         return getUser().getId();
     }
 
-    String getUsername() {
+    protected Set<RoleVo> getRoleVos(){
+        return getUser().getRoles();
+    }
+
+    protected String getUsername() {
         return getUser().getUsername();
     }
 }

@@ -2,7 +2,7 @@ package cn.worth.auth.service.impl;
 
 import cn.worth.admin.service.IUserService;
 import cn.worth.auth.pojo.CustomUserDetails;
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

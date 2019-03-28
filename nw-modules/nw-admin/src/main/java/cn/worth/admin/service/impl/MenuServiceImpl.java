@@ -3,7 +3,7 @@ package cn.worth.admin.service.impl;
 import cn.worth.admin.domain.Menu;
 import cn.worth.admin.mapper.MenuMapper;
 import cn.worth.admin.service.IMenuService;
-import cn.worth.common.pojo.MenuVO;
+import cn.worth.common.vo.MenuVO;
 import cn.worth.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,14 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Override
-    public List<MenuVO> findMenuByRoleIds(List<Long> roleIds) {
+    public List<MenuVO> findPermsByRoleIds(List<Long> roleIds) {
         if(CollectionUtils.isEmpty(roleIds)) return null;
-        return baseMapper.findMenuByRoleIds(roleIds);
+        return baseMapper.findPermsByRoleIds(roleIds);
+    }
+
+    @Override
+    public List<MenuVO> findMenusByRoleIds(List<Long> roleIds) {
+        if(CollectionUtils.isEmpty(roleIds)) return null;
+        return baseMapper.findMenusByRoleIds(roleIds);
     }
 }

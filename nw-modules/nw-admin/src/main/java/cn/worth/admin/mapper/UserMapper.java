@@ -1,7 +1,7 @@
 package cn.worth.admin.mapper;
 
 import cn.worth.admin.domain.User;
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.UserVO;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

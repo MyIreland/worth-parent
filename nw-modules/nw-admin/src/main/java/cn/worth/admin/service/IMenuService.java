@@ -1,7 +1,7 @@
 package cn.worth.admin.service;
 
 import cn.worth.admin.domain.Menu;
-import cn.worth.common.pojo.MenuVO;
+import cn.worth.common.vo.MenuVO;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
@@ -16,5 +16,7 @@ import java.util.List;
  */
 public interface IMenuService extends IService<Menu> {
 
-    List<MenuVO> findMenuByRoleIds(List<Long> roleIds);
+    List<MenuVO> findPermsByRoleIds(List<Long> roleIds);
+
+    List<MenuVO> findMenusByRoleIds(List<Long> roleIds);
 }

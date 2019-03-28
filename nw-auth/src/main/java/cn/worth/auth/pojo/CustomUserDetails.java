@@ -1,7 +1,7 @@
 package cn.worth.auth.pojo;
 
-import cn.worth.common.pojo.RoleVo;
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.vo.RoleVo;
+import cn.worth.common.vo.UserVO;
 import cn.worth.common.utils.CollectionUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

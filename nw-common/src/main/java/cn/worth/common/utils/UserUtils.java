@@ -1,11 +1,14 @@
 package cn.worth.common.utils;
 
-import cn.worth.common.pojo.UserVO;
+import cn.worth.common.exception.BusinessException;
+import cn.worth.common.vo.RoleVo;
+import cn.worth.common.vo.UserVO;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import java.util.Set;
 
 /**
  * @Author: chenxiaoqing9
@@ -27,6 +30,10 @@ public class UserUtils {
             UserVO userVO = JSONObject.parseObject(JSONObject.toJSONString(principal), UserVO.class);
             return userVO;
         }
-        return null;
+        throw new BusinessException("用户未登录");
+    }
+
+    public static Set<RoleVo> userRoles(){
+        return getLoginUser().getRoles();
     }
 }
