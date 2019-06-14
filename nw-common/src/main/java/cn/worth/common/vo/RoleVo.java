@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author: MyIreland on.
@@ -36,4 +38,8 @@ public class RoleVo implements Serializable {
      * 创建时间
      */
     private Date updateTime;
+    /**
+     * 操作权限列表
+     */
+    private Set<MenuVO> permissions = new HashSet<>();
 }

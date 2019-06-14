@@ -10,9 +10,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>nw-common</module>
-        <module>nw-auth</module>
         <module>nw-modules</module>
         <module>nw-starter</module>
+        <module>nw-auth-shiro</module>
+        <module>nw-sys</module>
     </modules>
 
     <parent>

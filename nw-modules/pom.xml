@@ -12,7 +12,6 @@
     <artifactId>nw-modules</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>nw-admin</module>
         <module>nw-gen</module>
     </modules>
 

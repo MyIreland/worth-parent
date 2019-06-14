@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,7 +24,7 @@ public class UserVO implements Serializable {
      */
     private String username;
     private String password;
-    private String realName;
+    private String name;
     /**
      * 性别
      */
@@ -51,32 +51,16 @@ public class UserVO implements Serializable {
 
     private Long orgId;
     private String orgName;
-    /**
-     * 账号是否被锁 0-无 1-被锁
-     */
-    private Integer locked;
-    /**
-     * 账号是否过期 0-无 1-过期
-     */
-    private Integer expired;
-    /**
-     * 盐
-     */
-    private String salt;
 
-    private Date createTime;
-    private Date updateTime;
+    private Date gmtCreate;
+    private Date gmtModified;
     /**
      * 状态 0:禁用，1:正常
      */
-    private Integer status;
+    private Integer state;
     /**
      * 角色列表
      */
-    private Set<RoleVo> roles;
-    /**
-     * 操作权限列表
-     */
-    private Set<String> permissions;
+    private Set<RoleVo> roles = new HashSet<>();
 
 }
