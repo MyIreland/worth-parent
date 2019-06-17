@@ -1,4 +1,4 @@
-package cn.worth.sys.resolver;
+package cn.worth.common.resolver;
 
 import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.vo.UserVO;

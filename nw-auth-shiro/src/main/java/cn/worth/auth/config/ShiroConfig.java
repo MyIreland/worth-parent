@@ -36,6 +36,8 @@ public class ShiroConfig {
     private String password;
     private int port;
     private int timeout;
+    @Value("${shiro.cache.expire}")
+    private int expire;
     @Value("${shiro.cache.type}")
     private String cacheType;
     @Autowired
@@ -85,7 +87,7 @@ public class ShiroConfig {
     }
 
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean factory(DefaultWebSecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
 
         // 添加自己的过滤器并且取名为jwt
@@ -139,6 +141,7 @@ public class ShiroConfig {
     public RedisCacheManager rediscacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
+        redisCacheManager.setExpire(expire);
         return redisCacheManager;
     }
 
@@ -152,7 +155,7 @@ public class ShiroConfig {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(host);
         redisManager.setPort(port);
-        redisManager.setTimeout(timeout);// 配置缓存过期时间
+        redisManager.setTimeout(timeout);// 配置连接超时时间
         redisManager.setPassword(password);
         return redisManager;
     }

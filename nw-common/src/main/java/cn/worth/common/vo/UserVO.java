@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -63,4 +65,18 @@ public class UserVO implements Serializable {
      */
     private Set<RoleVo> roles = new HashSet<>();
 
+    private Set<String> perms = new HashSet<>();
+
+    public Set<String> getPerms() {
+        for (RoleVo role : roles) {
+            Set<MenuVO> permissions = role.getPermissions();
+            for (MenuVO permission : permissions) {
+                String perms = permission.getPerms();
+                if(StringUtils.isNotBlank(perms)){
+                    this.perms.add(perms);
+                }
+            }
+        }
+        return perms;
+    }
 }
