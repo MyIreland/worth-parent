@@ -22,15 +22,18 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
+#shiro
+shiro:
+  retry-limit:
+    expire: 1000*60*60*2 #2小时
+  cache:
+    type: redis
+  ignoreUrls:
+    - /swagger-resources/**
+    - /swagger-ui.html
+    - /**
 
 #Redis 缓存时长
 redis:
   cache:
     expiration: 3600
-security:
-  encode:
-    key: 'new-worth-new-wo' #必须16位
-ignore:
-  urls:
-    - /swagger-resources/**
-    - /swagger-ui.html

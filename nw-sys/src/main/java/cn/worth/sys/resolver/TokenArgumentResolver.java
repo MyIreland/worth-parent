@@ -27,7 +27,8 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
      */
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        return methodParameter.getParameterType().equals(UserVO.class) && methodParameter.hasParameterAnnotation(CurrentUser.class);
+        // 如果参数类型是User并且有CurrentUser注解则支持
+        return methodParameter.getParameterType().isAssignableFrom(UserVO.class) && methodParameter.hasParameterAnnotation(CurrentUser.class);
     }
 
     /**

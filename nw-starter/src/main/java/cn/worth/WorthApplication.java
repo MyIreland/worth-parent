@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @Modified by:
  */
 @SpringBootApplication
-@ComponentScan(basePackages = "cn.worth")
 @MapperScan("cn.worth.*.mapper")
 public class WorthApplication {
 
