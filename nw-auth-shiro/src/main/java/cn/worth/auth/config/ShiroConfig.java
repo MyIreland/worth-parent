@@ -12,23 +12,23 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import javax.servlet.Filter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: MyIreland
  * @Date: 2019/6/13 16:05
  * @Version 1.0
  */
-@Configuration
 @Getter
 @Setter
+@Configuration
 @ConfigurationProperties(prefix = "spring.redis")
 public class ShiroConfig {
 
@@ -37,7 +37,9 @@ public class ShiroConfig {
     private int port;
     private int timeout;
     @Value("${shiro.cache.type}")
-    private String cacheType ;
+    private String cacheType;
+    @Autowired
+    private ShiroFilterUrlRuleMapProperties filterUrlRuleMapProperties;
 
     /**
      * 加这个为了控制生命周期 加了static让他先加载
@@ -92,17 +94,19 @@ public class ShiroConfig {
         factoryBean.setFilters(filterMap);
 
         factoryBean.setSecurityManager(securityManager);
-        factoryBean.setUnauthorizedUrl("/401");
-
         /*
          * 自定义url规则
          * http://shiro.apache.org/web.html#urls-
          */
         Map<String, String> filterRuleMap = new HashMap<>();
+        LinkedList<String> ignoreUrls = filterUrlRuleMapProperties.getIgnoreUrls();
+        for (String ignoreUrl : ignoreUrls) {
+            filterRuleMap.put(ignoreUrl, "anon");
+        }
+        filterRuleMap.put("/**", "authc");
         // 所有请求通过我们自己的JWT Filter
 //        filterRuleMap.put("/**", "jwt");
-        // 访问401和404页面不通过我们的Filter
-        filterRuleMap.put("/401", "anon");
+
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;
     }

@@ -1,6 +1,5 @@
 package cn.worth.auth.config;
 
-import cn.worth.common.config.ApplicationContextRegister;
 import cn.worth.common.utils.JWTUtil;
 import cn.worth.common.vo.MenuVO;
 import cn.worth.common.vo.RoleVo;
@@ -42,9 +41,6 @@ public class UserRealm extends AuthorizingRealm {
 //            throw new AuthenticationException("token invalid");
 //        }
         UserVO userVO = userService.loadUserByUsername(userName);
-        if (userVO == null) {
-            throw new AuthenticationException("User didn't existed!");
-        }
 
         SimpleAuthenticationInfo userRealm = new SimpleAuthenticationInfo(userVO, userVO.getPassword(), getName());
 

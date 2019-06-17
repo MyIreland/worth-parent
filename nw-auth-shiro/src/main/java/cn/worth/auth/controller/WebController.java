@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@RequestMapping("auth")
 public class WebController {
 
     @Autowired
     private IUserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public R login(String username, String password) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
