@@ -31,8 +31,7 @@ shiro:
   ignoreUrls:
     - /swagger-resources/**
     - /swagger-ui.html
-    - /401
-    - /404
+    - /**
 
 #Redis 缓存时长
 redis:

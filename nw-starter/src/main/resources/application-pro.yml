@@ -19,8 +19,9 @@ spring:
 #        max-idle: 8 #连接池中的最大空闲连接
 #        min-idle: 0 #连接池中的最小空闲连接
 logging:
-    path: C:/logs
-    level:
-        com.baomidou: DEBUG
-        org.springframework: DEBUG
-        cn.xdf.ppdk: DEBUG
+  path: C:/logs
+  level:
+    com.baomidou: DEBUG
+    com.spring4all.swagger: DEBUG
+    org.springframework: DEBUG
+    cn.xdf.ppdk: DEBUG

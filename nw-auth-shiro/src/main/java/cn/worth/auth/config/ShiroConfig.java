@@ -103,7 +103,6 @@ public class ShiroConfig {
         for (String ignoreUrl : ignoreUrls) {
             filterRuleMap.put(ignoreUrl, "anon");
         }
-        filterRuleMap.put("/**", "authc");
         // 所有请求通过我们自己的JWT Filter
 //        filterRuleMap.put("/**", "jwt");
 

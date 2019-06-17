@@ -23,6 +23,5 @@ logging:
   path: C:/logs
   level:
     com.baomidou: DEBUG
-    com.spring4all.swagger: DEBUG
-    org.springframework.security: DEBUG
+    org.springframework: DEBUG
     cn.worth: DEBUG
