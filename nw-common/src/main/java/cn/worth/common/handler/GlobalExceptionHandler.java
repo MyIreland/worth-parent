@@ -26,31 +26,31 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public R handle401(ShiroException e) {
-        return R.fail(401, e.getMessage());
+        return R.fail(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
     }
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnknownAccountException.class)
     public R handleUnknownAccountException(UnknownAccountException e) {
-        return R.fail(401, "账号不存在");
+        return R.fail(HttpStatus.UNAUTHORIZED.value(), "账号不存在");
     }
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AuthenticationException.class)
     public R handleAuthenticationException(AuthenticationException e) {
-        return R.fail(401, "账号不存在");
+        return R.fail(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
     }
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(IncorrectCredentialsException.class)
     public R handleIncorrectCredentialsException(IncorrectCredentialsException e) {
-        return R.fail(401, "用户名或者密码错误");
+        return R.fail(HttpStatus.UNAUTHORIZED.value(), "用户名或者密码错误");
     }
     // 捕捉shiro的异常
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(LockedAccountException.class)
     public R handleLockedAccountException(LockedAccountException e) {
-        return R.fail(401, "账号已被锁定");
+        return R.fail(HttpStatus.UNAUTHORIZED.value(), "账号已被锁定");
     }
 
     /**
@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public R serviceException(BusinessException e) {
         String message = e.getMessage();
-        log.info("保存全局异常信息 ex={}", message, e);
+        log.info("出现异常信息:{}", message, e);
         return R.fail(message);
     }
 
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R exception(Exception e) {
         String message = e.getMessage();
-        log.info("保存全局异常信息 ex={}", message, e);
+        log.info("出现异常信息:{}", message, e);
         return R.fail(message);
     }
 }

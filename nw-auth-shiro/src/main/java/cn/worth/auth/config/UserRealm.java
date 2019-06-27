@@ -1,5 +1,6 @@
 package cn.worth.auth.config;
 
+import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.utils.JWTUtil;
 import cn.worth.common.vo.MenuVO;
 import cn.worth.common.vo.RoleVo;
@@ -30,6 +31,7 @@ public class UserRealm extends AuthorizingRealm {
      * @return
      * @throws AuthenticationException
      */
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
@@ -41,6 +43,14 @@ public class UserRealm extends AuthorizingRealm {
 //            throw new AuthenticationException("token invalid");
 //        }
         UserVO userVO = userService.loadUserByUsername(userName);
+
+        if(null == userVO){
+            throw new UnknownAccountException();
+        }
+
+        if(UserStateEnum.LOCKED.ordinal() == userVO.getState()){
+            throw new LockedAccountException();
+        }
 
         SimpleAuthenticationInfo userRealm = new SimpleAuthenticationInfo(userVO, userVO.getPassword(), getName());
 
@@ -74,5 +84,11 @@ public class UserRealm extends AuthorizingRealm {
         simpleAuthorizationInfo.addStringPermissions(perms);
         return simpleAuthorizationInfo;
     }
+
+    @Override
+    public String getName() {
+        return "UserRealm";
+    }
+
 
 }

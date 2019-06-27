@@ -1,6 +1,8 @@
 package cn.worth.auth.config;
 
+import cn.worth.auth.consts.ShiroConstant;
 import cn.worth.common.enums.UserStateEnum;
+import cn.worth.common.utils.RedisClientManager;
 import cn.worth.common.vo.UserVO;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.service.IUserService;
@@ -22,16 +24,18 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private RedisClientManager redisClientManager;
 
     private Cache<String, AtomicInteger> passwordRetryCache;
 
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
-        passwordRetryCache = cacheManager.getCache("passwordRetryCache");
+        passwordRetryCache = cacheManager.getCache(ShiroConstant.PASSWORD_RETRY_CACHE);
     }
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-
+        String username1 = redisClientManager.get("username");
         //获取用户名
         String username = (String)token.getPrincipal();
         //获取用户登录次数
