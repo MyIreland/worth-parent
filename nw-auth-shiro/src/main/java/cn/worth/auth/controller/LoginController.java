@@ -4,7 +4,6 @@ import cn.worth.common.controller.BaseController;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
-import cn.worth.common.utils.ShiroUtils;
 import cn.worth.common.vo.UserVO;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.service.IUserService;
@@ -15,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * @Author: MyIreland
@@ -64,6 +60,13 @@ public class LoginController extends BaseController {
             user.setState(UserStateEnum.ACTIVE.ordinal());
             userService.updateById(user);
         }
+    }
+
+    @PostMapping("currentUser")
+    public R currentUser(){
+        UserVO user = getUser();
+        System.out.println(user);
+        return R.success(user);
     }
 
     private void validateParam(String username, String password) {

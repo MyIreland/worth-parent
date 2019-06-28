@@ -2,7 +2,6 @@ package cn.worth.auth.config;
 
 import cn.worth.auth.consts.ShiroConstant;
 import cn.worth.common.enums.UserStateEnum;
-import cn.worth.common.utils.RedisClientManager;
 import cn.worth.common.vo.UserVO;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.service.IUserService;
