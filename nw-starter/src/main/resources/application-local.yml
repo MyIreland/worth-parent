@@ -22,8 +22,9 @@ spring:
 logging:
 #  path: C:/logs
   level:
-    com.baomidou: error
+    com.baomidou: debug
     org.springframework.web: error
+    org.apache.shiro: debug
     cn.worth: DEBUG
 
 worth:

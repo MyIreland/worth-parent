@@ -20,7 +20,7 @@ mybatis-plus:
     #capital-mode: true
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
 #shiro
 shiro:
@@ -33,7 +33,7 @@ shiro:
   ignoreUrls:
     - /swagger-resources/**
     - /swagger-ui.html
-    - /**
+#    - /**
 
 #Redis 缓存时长
 redis:
