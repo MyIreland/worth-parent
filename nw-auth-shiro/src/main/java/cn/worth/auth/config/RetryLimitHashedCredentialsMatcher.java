@@ -24,28 +24,29 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
 
     @Autowired
     private IUserService userService;
-    @Autowired
-    private RedisClientManager redisClientManager;
 
     private Cache<String, AtomicInteger> passwordRetryCache;
 
+    private static final String PASSWORD_RETRY_CACHE = ShiroConstant.PASSWORD_RETRY_CACHE;
+
     public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
-        passwordRetryCache = cacheManager.getCache(ShiroConstant.PASSWORD_RETRY_CACHE);
+        passwordRetryCache = cacheManager.getCache(PASSWORD_RETRY_CACHE);
     }
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-        String username1 = redisClientManager.get("username");
         //获取用户名
         String username = (String)token.getPrincipal();
         //获取用户登录次数
-        AtomicInteger retryCount = passwordRetryCache.get(username);
+        String retryCacheNameKey = PASSWORD_RETRY_CACHE + username;
+        AtomicInteger retryCount = passwordRetryCache.get(retryCacheNameKey);
         if (retryCount == null) {
             //如果用户没有登陆过,登陆次数加1 并放入缓存
             retryCount = new AtomicInteger(0);
-            passwordRetryCache.put(username, retryCount);
+            passwordRetryCache.put(retryCacheNameKey, retryCount);
         }
-        int retryTimes = retryCount.incrementAndGet();
+        int retryTimes = retryCount.intValue();
+
         if (retryTimes > 5) {
             //如果用户登陆失败次数大于5次 抛出锁定用户异常  并修改数据库字段
             UserVO userVO = userService.loadUserByUsername(username);
@@ -58,33 +59,23 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
                 userService.updateById(user);
             }
             log.info("锁定用户" + userVO.getUsername());
+            removeRetryAccountLimitKey(retryCacheNameKey);
             //抛出用户锁定异常
             throw new LockedAccountException();
         }
         //判断用户账号和密码是否正确
         boolean matches = super.doCredentialsMatch(token, info);
         if (matches) {
-            //如果正确,从缓存中将用户登录计数 清除
-            passwordRetryCache.remove(username);
+            removeRetryAccountLimitKey(retryCacheNameKey);
         }
+        retryTimes++;
+        passwordRetryCache.put(retryCacheNameKey, new AtomicInteger(retryTimes));
         return matches;
     }
 
-    /**
-     * 根据用户名 解锁用户
-     * @param username
-     * @return
-     */
-    public void unlockAccount(String username){
-        UserVO userVO = userService.loadUserByUsername(username);
-        if (userVO != null){
-            User user = new User();
-            //修改数据库的状态字段为锁定
-            user.setId(userVO.getId());
-            user.setState(0);
-            userService.updateById(user);
-            passwordRetryCache.remove(username);
-        }
+    private void removeRetryAccountLimitKey(String retryCacheNameKey) {
+        //如果正确,从缓存中将用户登录计数 清除
+        passwordRetryCache.remove(retryCacheNameKey);
     }
 
 }

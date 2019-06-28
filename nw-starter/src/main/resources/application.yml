@@ -29,6 +29,7 @@ shiro:
   cache:
     type: redis
     expire: 7200000 #2小时
+    prefix: shiro_redis_cache
   ignoreUrls:
     - /swagger-resources/**
     - /swagger-ui.html

@@ -25,3 +25,9 @@ logging:
     com.baomidou: error
     org.springframework.web: error
     cn.worth: DEBUG
+
+worth:
+  env:
+    redis:
+      key:
+        prefix: LOCAL_

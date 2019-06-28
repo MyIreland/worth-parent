@@ -10,12 +10,12 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @Configuration
 public class RedisClientAutoConfiguration {
 
-//    @Value("${redis.key.prefix}")
-//    private String keyPrefix;
+    @Value("${worth.env.redis.key.prefix}")
+    private String keyPrefix;
 
     @Bean
     @ConditionalOnMissingBean
     public RedisClientManager redisClientManager(StringRedisTemplate redisTemplate) {
-        return new RedisClientManager("", redisTemplate);
+        return new RedisClientManager(keyPrefix, redisTemplate);
     }
 }

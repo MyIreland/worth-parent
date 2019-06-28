@@ -23,3 +23,8 @@ logging:
   level:
     root: error
     cn.worth: info
+
+worth:
+  redis:
+    key:
+      prefix: WORTH_PRO
