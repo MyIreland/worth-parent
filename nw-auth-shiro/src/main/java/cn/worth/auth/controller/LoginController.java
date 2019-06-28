@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 /**
  * @Author: MyIreland
  * @Date: 2019/6/17 13:52
@@ -29,9 +32,12 @@ public class LoginController extends BaseController {
     private IUserService userService;
 
     @PostMapping("login")
-    public R login(String username, String password){
-        validateParam(username, password);
+    public R login(String username, String password) {
         UserVO user = getUser();
+        if (null != user) {
+            return R.success(user);
+        }
+        validateParam(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
         Subject subject = SecurityUtils.getSubject();
@@ -44,13 +50,14 @@ public class LoginController extends BaseController {
 
     /**
      * 根据用户名 解锁用户
+     *
      * @param username
      * @return
      */
     @PostMapping("unlockAccount")
-    public void unlockAccount(String username){
+    public void unlockAccount(String username) {
         UserVO userVO = userService.loadUserByUsername(username);
-        if (userVO != null){
+        if (userVO != null) {
             User user = new User();
             //修改数据库的状态字段为锁定
             user.setId(userVO.getId());
@@ -59,15 +66,8 @@ public class LoginController extends BaseController {
         }
     }
 
-    @PostMapping("currentUser")
-    public R currentUser(){
-        UserVO user = getUser();
-        System.out.println(user);
-        return R.success(user);
-    }
-
     private void validateParam(String username, String password) {
-        if(null == username || null == password){
+        if (null == username || null == password) {
             throw new BusinessException("参数不能有空");
         }
     }

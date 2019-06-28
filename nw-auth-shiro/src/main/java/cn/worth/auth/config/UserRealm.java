@@ -24,6 +24,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     private IUserService userService;
+
     /**
      * 用户认证器
      *
@@ -44,11 +45,11 @@ public class UserRealm extends AuthorizingRealm {
 //        }
         UserVO userVO = userService.loadUserByUsername(userName);
 
-        if(null == userVO){
+        if (null == userVO) {
             throw new UnknownAccountException();
         }
 
-        if(UserStateEnum.LOCKED.ordinal() == userVO.getState()){
+        if (UserStateEnum.LOCKED.ordinal() == userVO.getState()) {
             throw new LockedAccountException();
         }
 
