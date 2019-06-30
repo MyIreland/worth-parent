@@ -3,7 +3,7 @@ spring:
   application:
     name: new-worth
   profiles:
-    active: local
+    active: local,shiro
 mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   typeAliasesPackage: cn.worth.*.domain
@@ -22,17 +22,6 @@ mybatis-plus:
     map-underscore-to-camel-case: true
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
-#shiro
-shiro:
-  retry-limit:
-    expire: 7200000 #2小时
-  cache:
-    type: redis
-    expire: 7200000 #2小时
-  ignoreUrls:
-    - /swagger-resources/**
-    - /swagger-ui.html
-#    - /**
 
 #Redis 缓存时长
 redis:

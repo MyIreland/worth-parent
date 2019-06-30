@@ -1,0 +1,11 @@
+#shiro
+shiro:
+  retry-limit:
+    expire: 7200000 #2小时
+  cache:
+    type: redis
+    expire: 7200000 #2小时
+  ignoreUrls:
+    - /swagger-resources/**
+    - /swagger-ui.html
+#    - /**

@@ -89,19 +89,25 @@
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
             <version>3.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--shiro-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.3.2</version>
+            <artifactId>shiro-spring-boot-web-starter</artifactId>
+            <version>${shiro.spring.version}</version>
         </dependency>
         <!--jwt-->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.2.0</version>
+            <version>${jwt.auth0.version}</version>
         </dependency>
 
     </dependencies>

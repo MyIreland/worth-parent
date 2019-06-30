@@ -1,8 +1,6 @@
 package cn.worth.common.controller;
 
-import cn.worth.common.utils.ShiroUtils;
 import cn.worth.common.vo.UserVO;
-import org.springframework.stereotype.Controller;
 
 /**
  * @Author: MyIreland on.
@@ -11,14 +9,14 @@ import org.springframework.stereotype.Controller;
  */
 public class BaseController {
     public UserVO getUser() {
-        return ShiroUtils.getUser();
+        return null;
     }
 
     public Long getUserId() {
-        return getUser().getId();
+        return null;
     }
 
     public String getUsername() {
-        return getUser().getUsername();
+        return null;
     }
 }

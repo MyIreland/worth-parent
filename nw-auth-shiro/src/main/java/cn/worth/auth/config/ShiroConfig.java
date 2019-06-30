@@ -1,6 +1,7 @@
 package cn.worth.auth.config;
 
 import cn.worth.auth.consts.ShiroConstant;
+import cn.worth.auth.filter.JwtAuthFilter;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
@@ -86,16 +87,16 @@ public class ShiroConfig {
         return manager;
     }
 
-    @Bean("shiroFilter")
+    @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+        factoryBean.setSecurityManager(securityManager);
 
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<>();
-//        filterMap.put("jwt", new JWTFilter());
+        filterMap.put("jwt", new JwtAuthFilter());
         factoryBean.setFilters(filterMap);
 
-        factoryBean.setSecurityManager(securityManager);
         /*
          * 自定义url规则
          * http://shiro.apache.org/web.html#urls-
@@ -106,7 +107,7 @@ public class ShiroConfig {
             filterRuleMap.put(ignoreUrl, "anon");
         }
         // 所有请求通过我们自己的JWT Filter
-//        filterRuleMap.put("/**", "jwt");
+        filterRuleMap.put("/**", "jwt");
 
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;

@@ -2,7 +2,6 @@ package cn.worth.auth.config;
 
 import cn.worth.auth.consts.ShiroConstant;
 import cn.worth.common.enums.UserStateEnum;
-import cn.worth.common.utils.RedisClientManager;
 import cn.worth.common.vo.UserVO;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.service.IUserService;
@@ -42,8 +41,8 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
             retryCount = new AtomicInteger(0);
             passwordRetryCache.put(username, retryCount);
         }
-        int retryTimes = retryCount.incrementAndGet();
-        if (retryTimes > 5) {
+        int currentLimitTimes = retryCount.intValue();
+        if (currentLimitTimes > 5) {
             //如果用户登陆失败次数大于5次 抛出锁定用户异常  并修改数据库字段
             UserVO userVO = userService.loadUserByUsername(username);
             if (userVO != null && UserStateEnum.ACTIVE.ordinal() == userVO.getState()){
@@ -63,8 +62,11 @@ public class RetryLimitHashedCredentialsMatcher extends SimpleCredentialsMatcher
         if (matches) {
             //如果正确,从缓存中将用户登录计数 清除
             passwordRetryCache.remove(username);
+            return true;
         }
-        return matches;
+        currentLimitTimes++;
+        passwordRetryCache.put(username, new AtomicInteger(currentLimitTimes));
+        return false;
     }
 
     /**

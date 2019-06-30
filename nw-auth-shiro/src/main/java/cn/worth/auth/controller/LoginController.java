@@ -4,7 +4,7 @@ import cn.worth.common.controller.BaseController;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
-import cn.worth.common.utils.ShiroUtils;
+import cn.worth.common.utils.JWTUtil;
 import cn.worth.common.vo.UserVO;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.service.IUserService;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("auth")
+@RequestMapping("unauthorized")
 public class LoginController extends BaseController {
 
     @Autowired
@@ -41,7 +41,9 @@ public class LoginController extends BaseController {
 
         subject.login(token);
 
-        return R.success(subject.getPrincipal());
+        String jwtToken = JWTUtil.createToken(username);
+
+        return R.success(jwtToken);
 
     }
 

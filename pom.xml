@@ -29,7 +29,7 @@
         <mybatis-plus-generator.version>3.0.7.1</mybatis-plus-generator.version>
         <druid.version>1.1.3</druid.version>
         <lombok.version>1.16.20</lombok.version>
-
+        <shiro.spring.version>1.4.0</shiro.spring.version>
         <velocity.version>1.7</velocity.version>
         <fastjson.version>1.2.31</fastjson.version>
         <commons-io.version>2.5</commons-io.version>
@@ -38,6 +38,7 @@
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
+        <jwt.auth0.version>3.2.0</jwt.auth0.version>
 
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth2-autoconfigure.version>2.0.6.RELEASE</spring-security-oauth2-autoconfigure.version>
