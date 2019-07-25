@@ -1,0 +1,50 @@
+#spring
+spring:
+  application:
+    name: new-worth
+  profiles:
+    active: local
+server:
+  host: 127.0.0.1
+  port: 8080
+auth-server: http://${server.host}:${server.port}
+
+security:
+  oauth2:
+    client:
+      client-id: client # 授权服务器配置的client id
+      client-secret: 123456 # 授权服务器配置的client secret
+      scope: test
+      access-token-uri: ${auth-server}/oauth/token # 获取access token接口
+      user-authorization-uri: ${auth-server}/oauth/authorize #  获取Authorization Code接口
+    resource:
+      token-info-uri: ${auth-server}/oauth/check_token # 验证token的接口
+#      user-info-uri: ${auth-server}/user # 一个可以获取认证授权的自定义接口，可以在授权服务器，也可以在其他服务器上
+#      prefer-token-info: true # 如果同时配置了token-info-uri 和 user-info-uri，这个现象设置使用哪个取验证授权
+ignore:
+  urls:
+    - /**
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  typeAliasesPackage: cn.worth.*.domain
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+  configuration:
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
+
+#Redis 缓存时长
+redis:
+  cache:
+    expiration: 3600

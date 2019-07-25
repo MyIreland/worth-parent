@@ -39,7 +39,7 @@ public class AuthConfigurationBeans {
         CustomRedisTokenStore tokenStore = new CustomRedisTokenStore(redisConnectionFactory);
         tokenStore.setPrefix(SecurityConstants.NW_PREFIX);
         //解决同一username每次登陆access_token都相同的问题
-//        tokenStore.setAuthenticationKeyGenerator(new RandomAuthenticationKeyGenerator());
+        tokenStore.setAuthenticationKeyGenerator(new RandomAuthenticationKeyGenerator());
 
         return tokenStore;
     }

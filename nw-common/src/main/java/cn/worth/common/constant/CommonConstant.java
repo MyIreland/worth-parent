@@ -60,7 +60,7 @@ public interface CommonConstant {
     String CONTENT_TYPE = "application/json; charset=utf-8";
 
     /**
-     * 阿里大鱼
+     * 阿里云短信
      */
     String ALIYUN_SMS = "aliyun_sms";
 }

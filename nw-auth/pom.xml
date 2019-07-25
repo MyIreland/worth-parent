@@ -15,10 +15,9 @@
 
         <dependency>
             <groupId>cn.worth</groupId>
-            <artifactId>nw-admin</artifactId>
+            <artifactId>nw-sys</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
 
         <!-- spring-security-oauth2-autoconfigure -->
         <dependency>

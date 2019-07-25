@@ -23,33 +23,26 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private String realName;
     private String email;
+    /**
+     * 状态 0-正常，1-删除，2-锁住, 3-过期
+     */
     private Integer status;
+    private Integer expired;
     private Set<RoleVo> roles;
     private Set<String> permissions;
     private Long orgId;
     private Long deptId;
-    /**
-     * 账号是否被锁 0-无 1-被锁
-     */
-    private Integer locked;
-    /**
-     * 账号是否过期 0-无 1-过期
-     */
-    private Integer expired;
 
     public CustomUserDetails(UserVO user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.realName = user.getRealName();
-        this.status = user.getStatus();
+        this.status = user.getState();
+        this.expired = user.getExpired();
         this.email = user.getEmail();
         this.orgId = user.getOrgId();
         this.deptId = user.getDeptId();
-        this.locked = user.getLocked();
-        this.expired = user.getExpired();
         roles = user.getRoles();
-        permissions = user.getPermissions();
     }
 
     @Override
@@ -97,12 +90,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return expired == 0;
+        return expired != 1;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return locked == 0;
+        return status != 2;
     }
 
     @Override
@@ -169,20 +162,5 @@ public class CustomUserDetails implements UserDetails {
 
     public void setDeptId(Long deptId) {
         this.deptId = deptId;
-    }
-    public Integer getLocked() {
-        return locked;
-    }
-
-    public void setLocked(Integer locked) {
-        this.locked = locked;
-    }
-
-    public Integer getExpired() {
-        return expired;
-    }
-
-    public void setExpired(Integer expired) {
-        this.expired = expired;
     }
 }

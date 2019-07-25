@@ -12,7 +12,7 @@
         <module>nw-common</module>
         <module>nw-modules</module>
         <module>nw-starter</module>
-        <module>nw-auth-shiro</module>
+        <module>nw-auth</module>
         <module>nw-sys</module>
     </modules>
 

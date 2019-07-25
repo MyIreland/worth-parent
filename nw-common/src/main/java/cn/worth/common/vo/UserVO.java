@@ -57,9 +57,13 @@ public class UserVO implements Serializable {
     private Date gmtCreate;
     private Date gmtModified;
     /**
-     * 状态 0:禁用，1:正常
+     * 状态 0:禁用，1:正常 2：锁住
      */
     private Integer state;
+    /**
+     * 状态 0:正常，1:过期
+     */
+    private Integer expired;
     /**
      * 角色列表
      */

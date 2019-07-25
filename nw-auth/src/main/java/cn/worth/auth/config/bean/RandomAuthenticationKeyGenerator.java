@@ -7,8 +7,6 @@ import java.util.UUID;
 
 /**
  * 解决同一username每次登陆access_token都相同的问题,看下RedisTokenStore的方法getAccessToken便知<br>
- * 2018.09.04添加
- *
  * @author chenxiaoqing
  * @see org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator
  * @see org.springframework.security.oauth2.provider.token.TokenStore
