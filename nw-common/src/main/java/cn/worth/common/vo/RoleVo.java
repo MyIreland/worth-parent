@@ -25,7 +25,7 @@ public class RoleVo implements Serializable {
     /**
      * 角色标识
      */
-    private String roleSign;
+    private String roleCode;
     /**
      * 备注
      */

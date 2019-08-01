@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -20,4 +21,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
     List<MenuVO> findPermsByRoleIds(@Param("roleIds") List<Long> roleIds);
 
     List<MenuVO> findMenusByRoleIds(@Param("roleIds") List<Long> roleIds);
+
+    Set<MenuVO> findMenuByRole(@Param("role") String role);
 }

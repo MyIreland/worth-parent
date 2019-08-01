@@ -12,8 +12,8 @@
         <module>nw-common</module>
         <module>nw-modules</module>
         <module>nw-starter</module>
-        <module>nw-auth</module>
         <module>nw-sys</module>
+        <module>nw-oauth2</module>
     </modules>
 
     <parent>
@@ -39,7 +39,6 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
         <jwt.auth0.version>3.2.0</jwt.auth0.version>
-
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <spring-security-oauth2-autoconfigure.version>2.0.6.RELEASE</spring-security-oauth2-autoconfigure.version>
     </properties>

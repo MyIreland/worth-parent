@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -20,6 +21,11 @@ import java.util.List;
  */
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
+
+    @Override
+    public Set<MenuVO> findMenuByRole(String role) {
+        return baseMapper.findMenuByRole(role);
+    }
 
     @Override
     public List<MenuVO> findPermsByRoleIds(List<Long> roleIds) {

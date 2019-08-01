@@ -49,5 +49,8 @@
         AND m.TYPE != 2
 
     </select>
+    <select id="findMenuByRole" resultType="cn.worth.common.vo.MenuVO">
+
+    </select>
 
 </mapper>

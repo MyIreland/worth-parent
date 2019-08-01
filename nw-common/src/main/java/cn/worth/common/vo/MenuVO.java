@@ -28,6 +28,10 @@ public class MenuVO implements Serializable {
      */
     private String url;
     /**
+     * 请求方法
+     */
+    private String method;
+    /**
      * 授权(多个用逗号分隔，如：user:list,user:create)
      */
     private String perms;
