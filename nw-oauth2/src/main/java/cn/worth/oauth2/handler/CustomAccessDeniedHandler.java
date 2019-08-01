@@ -34,7 +34,7 @@ public class CustomAccessDeniedHandler extends OAuth2AccessDeniedHandler {
      */
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException, ServletException {
-        log.info("授权失败，禁止访问 {}", request.getRequestURI());
+        log.info("用户授权失败，禁止访问 {}", request.getRequestURI());
         response.setCharacterEncoding(CommonConstant.UTF8);
         response.setContentType(CommonConstant.CONTENT_TYPE);
         R<String> result = new R<>(new OAuth2Exception("授权失败，禁止访问"));

@@ -26,7 +26,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        log.info("授权失败，禁止访问 {}", request.getRequestURI());
+        log.info("客户端授权失败，禁止访问 {}", request.getRequestURI());
 
         response.setCharacterEncoding(CommonConstant.UTF8);
         response.setContentType(CommonConstant.CONTENT_TYPE);

@@ -1,5 +1,6 @@
 package cn.worth.oauth2.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -16,17 +17,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(UserDetailsService userDetailsService, @Lazy AuthenticationManager authenticationManager) {
-        this.userDetailsService = userDetailsService;
-        this.authenticationManager = authenticationManager;
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.parentAuthenticationManager(authenticationManager);
+//        auth.parentAuthenticationManager(authenticationManagerBean()); todo 因为加了这个导致重复判断验证用户，死循环查询数据库。
         auth.userDetailsService(userDetailsService);
     }
 
