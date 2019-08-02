@@ -20,6 +20,7 @@ import java.io.IOException;
 
 /**
  * AuthenticationEntryPoint 用来解决匿名用户访问无权限资源时的异常
+ * 通过 验证失败之后转发/error，而/error未授权匿名用户可以访问，从而使授权错误进来次类
  */
 @Slf4j
 @Component
