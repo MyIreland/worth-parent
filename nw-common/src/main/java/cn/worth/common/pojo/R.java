@@ -2,6 +2,7 @@ package cn.worth.common.pojo;
 
 import cn.worth.common.enums.RCodeEnum;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 统一响应响应信息主体
@@ -9,15 +10,25 @@ import java.io.Serializable;
  */
 public class R<T> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private static final int FAIL = RCodeEnum.BIZ_EXCEPTION.getCode();
-
-    private static final int SUCCESS = RCodeEnum.SUCCESS.getCode();
-
+    /**
+     * 附带信息
+     */
     private String message = RCodeEnum.SUCCESS.getMsg();
 
-    private int code = SUCCESS;
+    /**
+     * 状态码
+     */
+    private int code = RCodeEnum.SUCCESS.getCode();
+
+    /**
+     * 时间戳
+     */
+    private long timestamp = new Date().getTime();
+
+    /**
+     * 请求地址
+     */
+    private String path;
 
     private Boolean cbkOriginData;
 
@@ -49,7 +60,7 @@ public class R<T> implements Serializable {
     public R(Throwable e) {
         super();
         this.message = e.getMessage();
-        this.code = FAIL;
+        this.code = RCodeEnum.BIZ_EXCEPTION.getCode();
     }
 
     public static R success(String message) {
@@ -73,7 +84,7 @@ public class R<T> implements Serializable {
 
     public static R fail(String message) {
         R r = new R();
-        r.setCode(FAIL);
+        r.setCode(RCodeEnum.BIZ_EXCEPTION.getCode());
         r.setMessage(message);
 
         return r;
@@ -85,6 +96,14 @@ public class R<T> implements Serializable {
         r.setMessage(message);
 
         return r;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getMessage() {
@@ -101,6 +120,14 @@ public class R<T> implements Serializable {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public T getData() {

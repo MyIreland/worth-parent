@@ -3,6 +3,7 @@ package cn.worth.oauth2.config;
 import cn.worth.oauth2.common.FilterIgnorePropertiesConfiguration;
 import cn.worth.oauth2.handler.CustomAccessDeniedHandler;
 import cn.worth.oauth2.handler.CustomAuthenticationEntryPoint;
+import cn.worth.oauth2.handler.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +17,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
  * 资源服务器配置
@@ -42,9 +42,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Autowired
     private CustomAuthenticationEntryPoint entryPoint;
 
-    @Autowired
-    private LogoutSuccessHandler customLogoutSuccessHandler;
-
     @Value("${spring.application.name}")
     private String resourceId;
 
@@ -59,8 +56,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .logout()
                 .logoutUrl("/oauth/logout")
-                .logoutSuccessHandler(customLogoutSuccessHandler)
-        ;
+                .logoutSuccessHandler(customLogoutSuccessHandler());
 
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
                 .authorizeRequests();
@@ -72,11 +68,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.
-                resourceId(resourceId).
-                expressionHandler(expressionHandler).
-                accessDeniedHandler(accessDeniedHandler).
-                authenticationEntryPoint(entryPoint);
+        resources.resourceId(resourceId)
+                .expressionHandler(expressionHandler)
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(entryPoint);
     }
 
     /**
@@ -91,5 +86,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         OAuth2WebSecurityExpressionHandler expressionHandler = new OAuth2WebSecurityExpressionHandler();
         expressionHandler.setApplicationContext(applicationContext);
         return expressionHandler;
+    }
+
+    @Bean
+    public CustomLogoutSuccessHandler customLogoutSuccessHandler(){
+        return new CustomLogoutSuccessHandler();
     }
 }

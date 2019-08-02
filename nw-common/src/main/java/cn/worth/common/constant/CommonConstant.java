@@ -4,7 +4,7 @@ public interface CommonConstant {
     /**
      * token请求头名称
      */
-    String REQ_HEADER = "Authorization";
+    String AUTH_HEADER = "Authorization";
 
     /**
      * token分割符

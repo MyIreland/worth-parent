@@ -23,6 +23,7 @@ spring:
 ignore:
   urls:
     - /oauth/**
+    - /error/**
 
 logging:
 #  path: C:/logs

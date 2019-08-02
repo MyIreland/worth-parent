@@ -26,7 +26,7 @@ public class CustomLogoutSuccessHandler extends AbstractAuthenticationTargetUrlR
     //@CacheEvict(value = SecurityConstants.TOKEN_USER_DETAIL, key = "#accesstoken")
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        String accessToken = request.getHeader(CommonConstant.REQ_HEADER).split(CommonConstant.TOKEN_SPLIT)[1];
+        String accessToken = request.getHeader(CommonConstant.AUTH_HEADER).split(CommonConstant.TOKEN_SPLIT)[1];
         if (!StringUtils.isEmpty(accessToken)) {
             consumerTokenServices.revokeToken(accessToken);
         }
