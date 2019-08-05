@@ -39,7 +39,10 @@
             <result property="roleCode" column="role_code"/>
             <collection property="permissions" ofType="cn.worth.common.vo.MenuVO">
                 <id property="id" column="mid"/>
-                <result property="perms" column="permission"/>
+                <result property="permission" column="permission"/>
+                <result property="url" column="url"/>
+                <result property="method" column="method"/>
+                <result property="type" column="type"/>
             </collection>
         </collection>
     </resultMap>
@@ -57,7 +60,10 @@
             r.id rid,
             r.role_code,
             m.id mid,
-            m.permission
+            m.permission,
+            m.url,
+            m.method,
+            m.type
         FROM
             sys_user AS u
             LEFT JOIN sys_user_role AS ur ON ur.user_id = u.id

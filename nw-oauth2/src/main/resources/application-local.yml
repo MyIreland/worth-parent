@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/w_platform?useUnicode=true&characterEncoding=utf8&&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/nw-worth?useUnicode=true&characterEncoding=utf8&&useSSL=false
     username: root
     password: 1234
   cache:

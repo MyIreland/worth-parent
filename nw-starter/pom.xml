@@ -11,13 +11,4 @@
 
     <artifactId>nw-starter</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>cn.worth</groupId>
-            <artifactId>nw-auth-shiro</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
-
-
 </project>

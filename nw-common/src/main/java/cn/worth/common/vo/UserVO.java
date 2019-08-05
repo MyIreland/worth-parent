@@ -1,5 +1,7 @@
 package cn.worth.common.vo;
 
+import cn.worth.common.enums.MenuTypeEnum;
+import cn.worth.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
@@ -72,12 +74,16 @@ public class UserVO implements Serializable {
     private Set<String> perms = new HashSet<>();
 
     public Set<String> getPerms() {
-        for (RoleVo role : roles) {
-            Set<MenuVO> permissions = role.getPermissions();
-            for (MenuVO permission : permissions) {
-                String perms = permission.getPerms();
-                if(StringUtils.isNotBlank(perms)){
-                    this.perms.add(perms);
+        if(CollectionUtils.isEmpty(perms)){
+            for (RoleVo role : roles) {
+                Set<MenuVO> permissions = role.getPermissions();
+                for (MenuVO permission : permissions) {
+                    String perms = permission.getPermission();
+                    Integer type = permission.getType();
+                    MenuTypeEnum menuTypeByCode = MenuTypeEnum.getMenuTypeByCode(type);
+                    if(MenuTypeEnum.BUTTON == menuTypeByCode && StringUtils.isNotBlank(perms)){
+                        this.perms.add(perms);
+                    }
                 }
             }
         }

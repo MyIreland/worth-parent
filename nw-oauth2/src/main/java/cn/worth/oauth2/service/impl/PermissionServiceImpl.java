@@ -3,9 +3,11 @@ package cn.worth.oauth2.service.impl;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.MenuVO;
+import cn.worth.oauth2.service.AuthPermissionService;
 import cn.worth.oauth2.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,8 @@ import java.util.Set;
 @Slf4j
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
-//    @Autowired
-//    private IMenuService menuService;
+    @Autowired
+    private AuthPermissionService permissionService;
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 

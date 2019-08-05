@@ -34,7 +34,7 @@ public class MenuVO implements Serializable {
     /**
      * 授权(多个用逗号分隔，如：user:list,user:create)
      */
-    private String perms;
+    private String permission;
     /**
      * 类型   0：目录   1：菜单   2：按钮
      */
