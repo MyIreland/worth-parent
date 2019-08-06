@@ -51,6 +51,11 @@ public class R<T> implements Serializable {
         this.data = data;
     }
 
+    public R(RCodeEnum rCodeEnum) {
+        this.code = rCodeEnum.getCode();
+        this.message = rCodeEnum.getMsg();
+    }
+
     public R(T data, String message) {
         super();
         this.data = data;

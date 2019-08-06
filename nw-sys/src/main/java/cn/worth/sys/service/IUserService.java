@@ -1,7 +1,9 @@
 package cn.worth.sys.service;
 
+import cn.worth.common.pojo.R;
 import cn.worth.sys.domain.User;
 import cn.worth.common.vo.UserVO;
+import cn.worth.sys.pojo.UserPojo;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -14,5 +16,11 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IUserService extends IService<User> {
 
-    UserVO loadUserByUsername(String username);
+    R loadUserByUsername(String username);
+
+    R addOrUpdate(UserPojo userPojo);
+
+    R del(Long userId);
+
+    R lockUser(Long userId);
 }

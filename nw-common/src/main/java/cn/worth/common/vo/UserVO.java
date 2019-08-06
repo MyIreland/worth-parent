@@ -2,12 +2,9 @@ package cn.worth.common.vo;
 
 import cn.worth.common.enums.MenuTypeEnum;
 import cn.worth.common.utils.CollectionUtils;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +18,6 @@ import java.util.Set;
 @Setter
 public class UserVO implements Serializable {
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 用户名

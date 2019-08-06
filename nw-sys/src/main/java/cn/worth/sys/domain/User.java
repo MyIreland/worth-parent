@@ -1,83 +1,225 @@
 package cn.worth.sys.domain;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import lombok.Getter;
-import lombok.Setter;
-import java.io.Serializable;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 用户表
  * </p>
  *
  * @author chenxiaoqing
- * @since 2019-03-17
+ * @since 2019-08-06
  */
-@Getter
-@Setter
 @TableName("sys_user")
 public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键ID
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 用户名
      */
     private String username;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 性别 1-男 2-女
+     */
+    private String sex;
+    /**
+     * 0管理员1普通用户2微信用户
+     */
+    private Integer type;
+    /**
+     * 随机盐
+     */
+    private String salt;
+    /**
+     * 姓名
+     */
     @TableField("real_name")
     private String realName;
     /**
-     * 性别
+     * 手机
      */
-    private Integer sex;
+    private String mobile;
     /**
-     * 头像图片id
+     * 头像
      */
-    @TableField("pic_id")
-    private Long picId;
+    private String avatar;
     /**
-     * 出身日期
+     * 机构ID
      */
-    private Date birth;
+    @TableField("org_id")
+    private Long orgId;
+    /**
+     * 部门ID
+     */
+    @TableField("dept_id")
+    private Long deptId;
+    /**
+     * 状态 0-正常 1-锁住 2- 过期
+     */
+    private Integer status;
     /**
      * 邮箱
      */
     private String email;
     /**
-     * 手机号
+     * 创建时间
      */
-    private String mobile;
-    @TableField("dept_id")
-    private Long deptId;
-    @TableField("org_id")
-    private Long orgId;
+    @TableField("gmt_create")
+    private Date gmtCreate;
     /**
-     * 账号是否被锁 0-无 1-被锁 
+     * 修改时间
      */
-    private Integer locked;
+    @TableField("gmt_update")
+    private Date gmtUpdate;
     /**
-     * 账号是否过期 0-无 1-过期
+     * 0-正常，1-删除
      */
-    private Integer expired;
+    @TableField("del_flag")
+    private String delFlag;
 
-    private String salt;
-    @TableField("create_time")
-    private Date createTime;
-    @TableField("update_time")
-    private Date updateTime;
-    /**
-     * 状态 0:禁用，1:正常
-     */
-    private Integer state;
+    public Integer getType() {
+        return type;
+    }
 
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtUpdate() {
+        return gmtUpdate;
+    }
+
+    public void setGmtUpdate(Date gmtUpdate) {
+        this.gmtUpdate = gmtUpdate;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
+    }
 
     @Override
     protected Serializable pkVal() {
@@ -90,19 +232,19 @@ public class User extends Model<User> {
         ", id=" + id +
         ", username=" + username +
         ", password=" + password +
-        ", realName=" + realName +
         ", sex=" + sex +
-        ", picId=" + picId +
-        ", birth=" + birth +
-        ", email=" + email +
+        ", type=" + type +
+        ", salt=" + salt +
+        ", realName=" + realName +
         ", mobile=" + mobile +
-        ", deptId=" + deptId +
+        ", avatar=" + avatar +
         ", orgId=" + orgId +
-        ", locked=" + locked +
-        ", expired=" + expired +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", state=" + state +
+        ", deptId=" + deptId +
+        ", status=" + status +
+        ", email=" + email +
+        ", gmtCreate=" + gmtCreate +
+        ", gmtUpdate=" + gmtUpdate +
+        ", delFlag=" + delFlag +
         "}";
     }
 }
