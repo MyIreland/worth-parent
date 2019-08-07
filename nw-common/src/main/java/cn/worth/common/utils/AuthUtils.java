@@ -8,11 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Base64;
 
-/**
- * @author zhangjinkun@xdf.cn
- * @date 2018/7/25
- * 认证授权相关工具类
- */
 @Slf4j
 public class AuthUtils {
     private static final String BASIC_ = "Basic ";

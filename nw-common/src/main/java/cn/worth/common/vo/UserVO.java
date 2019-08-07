@@ -10,10 +10,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author zhangjinkun@xdf.cn
- * @date 2018/7/25
- */
 @Getter
 @Setter
 public class UserVO implements Serializable {
