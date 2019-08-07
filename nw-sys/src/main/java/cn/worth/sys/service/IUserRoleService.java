@@ -1,6 +1,8 @@
 package cn.worth.sys.service;
 
+import cn.worth.common.pojo.R;
 import cn.worth.sys.domain.UserRole;
+import cn.worth.sys.param.BindUserRoleParam;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -13,5 +15,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IUserRoleService extends IService<UserRole> {
 
-    int deleteByUserId(Long userId);
+    R bindUserRole(BindUserRoleParam param);
+
+    R getRoleIdsByUserId(Long userId);
 }

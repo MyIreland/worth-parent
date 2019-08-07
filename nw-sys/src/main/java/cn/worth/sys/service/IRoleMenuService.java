@@ -1,6 +1,8 @@
 package cn.worth.sys.service;
 
+import cn.worth.common.pojo.R;
 import cn.worth.sys.domain.RoleMenu;
+import cn.worth.sys.param.BindRoleMenuParam;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IRoleMenuService extends IService<RoleMenu> {
 
+    R findMenuIdsByRoleId(Long roleId);
+
+    R bindRoleMenu(BindRoleMenuParam param);
 }

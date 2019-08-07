@@ -1,6 +1,5 @@
 package cn.worth.common.controller;
 
-import cn.worth.common.pojo.R;
 import cn.worth.common.vo.UserVO;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -17,9 +16,9 @@ public class BaseController<E extends IService<T>, T> {
     @Autowired
     private E service;
 
-    public R list(Page<T> page, T model) {
+    protected Page<T> selectPage(Page<T> page, T model) {
         Page<T> pageList = service.selectPage(page, new EntityWrapper<>(model));
-        return R.success(pageList);
+        return pageList;
     }
 
     public UserVO getUser() {

@@ -13,5 +13,15 @@
     <sql id="Base_Column_List">
         id, user_id AS userId, role_id AS roleId
     </sql>
+    <select id="getRoleIdsByUserId" resultType="java.lang.Long">
+        SELECT
+            r.*
+        FROM
+            sys_role r,
+            sys_user_role ur
+        WHERE
+            ur.role_id = r.id
+            AND ur.user_id = #{userId}
+    </select>
 
 </mapper>

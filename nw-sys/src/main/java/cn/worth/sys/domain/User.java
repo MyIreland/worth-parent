@@ -62,8 +62,8 @@ public class User extends Model<User> {
     /**
      * 机构ID
      */
-    @TableField("org_id")
-    private Long orgId;
+    @TableField("tenant_id")
+    private Long tenantId;
     /**
      * 部门ID
      */
@@ -91,7 +91,15 @@ public class User extends Model<User> {
      * 0-正常，1-删除
      */
     @TableField("del_flag")
-    private String delFlag;
+    private Integer delFlag;
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
 
     public Integer getType() {
         return type;
@@ -165,12 +173,12 @@ public class User extends Model<User> {
         this.avatar = avatar;
     }
 
-    public Long getOrgId() {
-        return orgId;
+    public Long getTenantId() {
+        return tenantId;
     }
 
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
     }
 
     public Long getDeptId() {
@@ -213,13 +221,6 @@ public class User extends Model<User> {
         this.gmtUpdate = gmtUpdate;
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
 
     @Override
     protected Serializable pkVal() {
@@ -238,7 +239,7 @@ public class User extends Model<User> {
         ", realName=" + realName +
         ", mobile=" + mobile +
         ", avatar=" + avatar +
-        ", orgId=" + orgId +
+        ", tenantId=" + tenantId +
         ", deptId=" + deptId +
         ", status=" + status +
         ", email=" + email +

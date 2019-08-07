@@ -1,68 +1,84 @@
 package cn.worth.sys.domain;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
-
-import java.io.Serializable;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
- * 菜单管理
+ * 菜单权限表
  * </p>
  *
  * @author chenxiaoqing
- * @since 2019-03-22
+ * @since 2019-08-07
  */
 @TableName("sys_menu")
 public class Menu extends Model<Menu> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
     /**
-     * 父菜单ID，一级菜单为0
+     * 菜单ID
      */
-    private Long pid;
+    private Long id;
     /**
      * 菜单名称
      */
     private String name;
     /**
-     * 菜单URL
+     * 菜单权限标识
+     */
+    private String permission;
+    /**
+     * 请求链接
      */
     private String url;
     /**
-     * 授权(多个用逗号分隔，如：user:list,user:create)
+     * 请求方法
      */
-    private String perms;
+    private String method;
     /**
-     * 类型   0：目录   1：菜单   2：按钮
+     * 父菜单ID
      */
-    private Integer type;
+    @TableField("parent_id")
+    private Long parentId;
     /**
-     * 菜单图标
+     * 图标
      */
     private String icon;
     /**
-     * 排序
+     * 排序值
      */
     private Integer sort;
     /**
+     * 菜单类型 （0菜单 1按钮 2链接）
+     */
+    private String type;
+    /**
      * 创建时间
      */
-    @TableField("create_time")
-    private Date createTime;
+    @TableField("gmt_create")
+    private Date gmtCreate;
     /**
-     * 修改时间
+     * 更新时间
      */
-    @TableField("update_time")
-    private Date updateTime;
+    @TableField("gmt_update")
+    private Date gmtUpdate;
+    /**
+     * 0--正常 1--删除
+     */
+    @TableField("del_flag")
+    private Integer delFlag;
 
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
 
     public Long getId() {
         return id;
@@ -70,14 +86,6 @@ public class Menu extends Model<Menu> {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
     }
 
     public String getName() {
@@ -88,6 +96,14 @@ public class Menu extends Model<Menu> {
         this.name = name;
     }
 
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -96,20 +112,20 @@ public class Menu extends Model<Menu> {
         this.url = url;
     }
 
-    public String getPerms() {
-        return perms;
+    public String getMethod() {
+        return method;
     }
 
-    public void setPerms(String perms) {
-        this.perms = perms;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public Integer getType() {
-        return type;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getIcon() {
@@ -128,20 +144,28 @@ public class Menu extends Model<Menu> {
         this.sort = sort;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getType() {
+        return type;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtUpdate() {
+        return gmtUpdate;
+    }
+
+    public void setGmtUpdate(Date gmtUpdate) {
+        this.gmtUpdate = gmtUpdate;
     }
 
     @Override
@@ -153,15 +177,17 @@ public class Menu extends Model<Menu> {
     public String toString() {
         return "Menu{" +
         ", id=" + id +
-        ", pid=" + pid +
         ", name=" + name +
+        ", permission=" + permission +
         ", url=" + url +
-        ", perms=" + perms +
-        ", type=" + type +
+        ", method=" + method +
+        ", parentId=" + parentId +
         ", icon=" + icon +
         ", sort=" + sort +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
+        ", type=" + type +
+        ", gmtCreate=" + gmtCreate +
+        ", gmtUpdate=" + gmtUpdate +
+        ", delFlag=" + delFlag +
         "}";
     }
 }

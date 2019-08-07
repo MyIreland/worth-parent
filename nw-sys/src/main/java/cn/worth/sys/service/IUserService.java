@@ -23,4 +23,6 @@ public interface IUserService extends IService<User> {
     R del(Long userId);
 
     R lockUser(Long userId);
+
+    R unLockUser(Long userId);
 }

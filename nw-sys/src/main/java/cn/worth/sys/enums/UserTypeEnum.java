@@ -7,5 +7,5 @@ package cn.worth.sys.enums;
  * @description
  **/
 public enum UserTypeEnum {
-    ADMIN,COMMON_USER,WX_USER;
+    ADMIN, COMMON_USER, WX_USER;
 }

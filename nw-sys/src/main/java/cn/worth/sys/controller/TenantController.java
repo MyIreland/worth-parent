@@ -1,7 +1,8 @@
 package cn.worth.sys.controller;
 
-import cn.worth.sys.domain.Org;
-import cn.worth.sys.service.IOrgService;
+import cn.worth.common.constant.CommonConstant;
+import cn.worth.sys.domain.Tenant;
+import cn.worth.sys.service.ITenantService;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,10 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/org")
-public class OrgController extends BaseController {
+public class TenantController extends BaseController {
+
     @Autowired
-    private IOrgService orgService;
+    private ITenantService tenantService;
 
     /**
      * 通过ID查询
@@ -30,8 +32,8 @@ public class OrgController extends BaseController {
      * @return Org
      */
     @GetMapping("/{id}")
-    public R<Org> get(@PathVariable Long id) {
-        return new R<>(orgService.selectById(id));
+    public R<Tenant> get(@PathVariable Long id) {
+        return new R<>(tenantService.selectById(id));
     }
 
 
@@ -42,8 +44,8 @@ public class OrgController extends BaseController {
      * @return success/false
      */
     @PostMapping
-    public R<Boolean> add(@RequestBody Org org) {
-        return new R<>(orgService.insert(org));
+    public R<Boolean> add(@RequestBody Tenant org) {
+        return new R<>(tenantService.insert(org));
     }
 
     /**
@@ -54,10 +56,11 @@ public class OrgController extends BaseController {
      */
     @DeleteMapping("/{id}")
     public R<Boolean> delete(@PathVariable Long id) {
-        Org org = new Org();
-        org.setId(id);
-        org.setUpdateTime(new Date());
-        return new R<>(orgService.updateById(org));
+        Tenant tenant = new Tenant();
+        tenant.setId(id);
+        tenant.setGmtUpdate(new Date());
+        tenant.setDelFlag(CommonConstant.STATUS_DEL);
+        return new R<>(tenantService.updateById(tenant));
     }
 
     /**
@@ -67,8 +70,8 @@ public class OrgController extends BaseController {
      * @return success/false
      */
     @PutMapping
-    public R<Boolean> edit(@RequestBody Org org) {
-        org.setUpdateTime(new Date());
-        return new R<>(orgService.updateById(org));
+    public R<Boolean> edit(@RequestBody Tenant org) {
+        org.setGmtUpdate(new Date());
+        return new R<>(tenantService.updateById(org));
     }
 }

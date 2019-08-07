@@ -32,7 +32,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "sys_user");
+        generateByTables(serviceNameStartWithI, "sys_dict");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
@@ -80,6 +80,7 @@ public class ResourcesGenerator {
         strategyConfig.setCapitalMode(true);
         strategyConfig.setEntityLombokModel(false);
         strategyConfig.setInclude(tableNames);
+        strategyConfig.setRestControllerStyle(true);
         autoGenerator.setStrategy(strategyConfig);
 
         /*

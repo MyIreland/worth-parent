@@ -17,14 +17,6 @@ import java.util.Set;
  */
 public interface IMenuService extends IService<Menu> {
 
-    /**
-     * 通过角色名查询菜单
-     *
-     * @param role 角色名称
-     * @return 菜单列表
-     */
-    Set<MenuVO> findMenuByRole(String role);
-
     List<MenuVO> findPermsByRoleIds(List<Long> roleIds);
 
     List<MenuVO> findMenusByRoleIds(List<Long> roleIds);

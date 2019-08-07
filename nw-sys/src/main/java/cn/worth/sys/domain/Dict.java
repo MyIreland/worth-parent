@@ -1,13 +1,13 @@
 package cn.worth.sys.domain;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import java.util.Date;
  * </p>
  *
  * @author chenxiaoqing
- * @since 2019-03-22
+ * @since 2019-08-07
  */
 @TableName("sys_dict")
 public class Dict extends Model<Dict> {
@@ -28,13 +28,13 @@ public class Dict extends Model<Dict> {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
-     * 标签名
-     */
-    private String name;
-    /**
      * 数据值
      */
     private String value;
+    /**
+     * 标签名
+     */
+    private String label;
     /**
      * 类型
      */
@@ -46,31 +46,34 @@ public class Dict extends Model<Dict> {
     /**
      * 排序（升序）
      */
-    private Integer sort;
+    private BigDecimal sort;
     /**
-     * 父级编号
+     * 创建时间
      */
-    private Long pid;
+    @TableField("gmt_create")
+    private Date gmtCreate;
+    /**
+     * 更新时间
+     */
+    @TableField("gmt_update")
+    private Date gmtUpdate;
     /**
      * 备注信息
      */
     private String remarks;
     /**
-     * 创建时间
-     */
-    @TableField("create_date")
-    private Date createDate;
-    /**
-     * 更新时间
-     */
-    @TableField("update_date")
-    private Date updateDate;
-    /**
      * 删除标记
      */
     @TableField("del_flag")
-    private String delFlag;
+    private Integer delFlag;
 
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
 
     public Long getId() {
         return id;
@@ -80,20 +83,20 @@ public class Dict extends Model<Dict> {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getValue() {
         return value;
     }
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getType() {
@@ -112,20 +115,28 @@ public class Dict extends Model<Dict> {
         this.description = description;
     }
 
-    public Integer getSort() {
+    public BigDecimal getSort() {
         return sort;
     }
 
-    public void setSort(Integer sort) {
+    public void setSort(BigDecimal sort) {
         this.sort = sort;
     }
 
-    public Long getPid() {
-        return pid;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setPid(Long pid) {
-        this.pid = pid;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtUpdate() {
+        return gmtUpdate;
+    }
+
+    public void setGmtUpdate(Date gmtUpdate) {
+        this.gmtUpdate = gmtUpdate;
     }
 
     public String getRemarks() {
@@ -134,30 +145,6 @@ public class Dict extends Model<Dict> {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
     }
 
     @Override
@@ -169,15 +156,14 @@ public class Dict extends Model<Dict> {
     public String toString() {
         return "Dict{" +
         ", id=" + id +
-        ", name=" + name +
         ", value=" + value +
+        ", label=" + label +
         ", type=" + type +
         ", description=" + description +
         ", sort=" + sort +
-        ", pid=" + pid +
+        ", gmtCreate=" + gmtCreate +
+        ", gmtUpdate=" + gmtUpdate +
         ", remarks=" + remarks +
-        ", createDate=" + createDate +
-        ", updateDate=" + updateDate +
         ", delFlag=" + delFlag +
         "}";
     }

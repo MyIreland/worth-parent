@@ -23,11 +23,6 @@ import java.util.Set;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Override
-    public Set<MenuVO> findMenuByRole(String role) {
-        return baseMapper.findMenuByRole(role);
-    }
-
-    @Override
     public List<MenuVO> findPermsByRoleIds(List<Long> roleIds) {
         if(CollectionUtils.isEmpty(roleIds)) return null;
         return baseMapper.findPermsByRoleIds(roleIds);

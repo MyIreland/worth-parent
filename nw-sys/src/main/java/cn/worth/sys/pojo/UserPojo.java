@@ -57,7 +57,7 @@ public class UserPojo {
     /**
      * 角色集合
      */
-    private List<Long> roles;
+    private List<Long> roleIds;
 
     public Long getId() {
         return id;
@@ -147,11 +147,11 @@ public class UserPojo {
         this.email = email;
     }
 
-    public List<Long> getRoles() {
-        return roles;
+    public List<Long> getRoleIds() {
+        return roleIds;
     }
 
-    public void setRoles(List<Long> roles) {
-        this.roles = roles;
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 }

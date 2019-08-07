@@ -14,4 +14,15 @@
         id, role_id AS roleId, menu_id AS menuId
     </sql>
 
+    <select id="findMenuIdsByRoleId" resultType="java.lang.Long">
+        SELECT
+            m.id
+        FROM
+            sys_menu m,
+            sys_role_menu rm
+        WHERE
+            rm.menu_id = m.id
+            AND rm.role_id = #{roleId}
+    </select>
+
 </mapper>

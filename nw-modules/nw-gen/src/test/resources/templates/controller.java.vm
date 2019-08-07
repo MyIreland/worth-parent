@@ -1,15 +1,15 @@
 package $!{package.Controller};
 import java.util.Map;
 import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.xdf.gongdan.common.constant.CommonConstant;
+import cn.worth.common.constant.CommonConstant;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import cn.xdf.gongdan.common.util.Query;
-import cn.xdf.gongdan.common.util.R;
+import cn.worth.common.pojo.R;
 import $!{package.Entity}.$!{entity};
-import $!{package.Service}.$!{entity}Service;
+import $!{package.Service}.I$!{entity}Service;
 #if($!{superControllerClassPackage})
 import $!{superControllerClassPackage};
 #end
@@ -25,7 +25,9 @@ import $!{superControllerClassPackage};
 @RestController
 @RequestMapping("/$!{table.entityPath}")
 public class $!{table.controllerName} extends $!{superControllerClass} {
-    @Autowired private $!{entity}Service $!{table.entityPath}Service;
+
+    @Autowired
+    private I$!{entity}Service $!{table.entityPath}Service;
 
     /**
     * 通过ID查询
@@ -34,7 +36,7 @@ public class $!{table.controllerName} extends $!{superControllerClass} {
     * @return $!{entity}
     */
     @GetMapping("/{id}")
-    public R<$!{entity}> get(@PathVariable Long id) {
+    public R<$!{entity}> get(@PathVariable Long id){
         return new R<>($!{table.entityPath}Service.selectById(id));
     }
 
@@ -42,46 +44,46 @@ public class $!{table.controllerName} extends $!{superControllerClass} {
     /**
     * 分页查询信息
     *
-    * @param params 分页对象
     * @return 分页对象
     */
     @RequestMapping("/page")
-    public Page page(@RequestParam Map<String, Object> params) {
-        params.put(CommonConstant.DEL_FLAG, CommonConstant.STATUS_NORMAL);
-        return $!{table.entityPath}Service.selectPage(new Query<>(params), new EntityWrapper<>());
+    public R page(Page<$!{entity}> entityPage, $!{entity} entity){
+        Page<$!{entity}> page=selectPage(entityPage, entity);
+        return R.success(page);
     }
 
     /**
-     * 添加
-     * @param  $!{table.entityPath}  实体
-     * @return success/false
-     */
+    * 添加
+    * @param  $!{table.entityPath} 实体
+    * @return success/false
+    */
     @PostMapping
-    public R<Boolean> add(@RequestBody $!{entity} $!{table.entityPath}) {
+    public R<Boolean> add(@RequestBody $!{entity} $!{table.entityPath}){
         return new R<>($!{table.entityPath}Service.insert($!{table.entityPath}));
     }
 
     /**
-     * 删除
-     * @param id ID
-     * @return success/false
-     */
+    * 删除
+    * @param id ID
+    * @return success/false
+    */
     @DeleteMapping("/{id}")
-    public R<Boolean> delete(@PathVariable Long id) {
-        $!{entity} $!{table.entityPath} = new $!{entity}();
+    public R<Boolean> delete(@PathVariable Long id){
+        $!{entity} $!{table.entityPath} =new $!{entity}();
         $!{table.entityPath}.setId(id);
-        $!{table.entityPath}.setUpdateTime(new Date());
+        $!{table.entityPath}.setDelFlag(CommonConstant.STATUS_DEL);
+        $!{table.entityPath}.setGmtUpdate(new Date());
         return new R<>($!{table.entityPath}Service.updateById($!{table.entityPath}));
     }
 
     /**
-     * 编辑
-     * @param  $!{table.entityPath}  实体
-     * @return success/false
-     */
+    * 编辑
+    * @param  $!{table.entityPath} 实体
+    * @return success/false
+    */
     @PutMapping
-    public R<Boolean> edit(@RequestBody $!{entity} $!{table.entityPath}) {
-        $!{table.entityPath}.setUpdateTime(new Date());
+    public R<Boolean> edit(@RequestBody $!{entity} $!{table.entityPath}){
+        $!{table.entityPath}.setGmtUpdate(new Date());
         return new R<>($!{table.entityPath}Service.updateById($!{table.entityPath}));
     }
 }

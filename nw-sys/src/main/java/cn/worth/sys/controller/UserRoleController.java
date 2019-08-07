@@ -1,68 +1,33 @@
 package cn.worth.sys.controller;
 
-import cn.worth.sys.domain.UserRole;
-import cn.worth.sys.service.IUserRoleService;
-import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
+import cn.worth.sys.param.BindUserRoleParam;
+import cn.worth.sys.service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>
- * 用户与角色对应关系 前端控制器
- * </p>
- *
- * @author chenxiaoqing
- * @since 2019-03-22
- */
+ * @author myireland
+ * @version 1.0.0
+ * @date 2019-08-07
+ * @description
+ **/
 @RestController
-@RequestMapping("/userRole")
-public class UserRoleController extends BaseController {
+@RequestMapping("userRole")
+public class UserRoleController {
+
     @Autowired
     private IUserRoleService userRoleService;
 
-    /**
-     * 通过ID查询
-     *
-     * @param id ID
-     * @return UserRole
-     */
-    @GetMapping("/{id}")
-    public R<UserRole> get(@PathVariable Long id) {
-        return new R<>(userRoleService.selectById(id));
+    @PostMapping("bindUserRole")
+    public R bindUserRole(@RequestBody BindUserRoleParam param){
+        return userRoleService.bindUserRole(param);
+    }
+
+    @GetMapping("{userId}")
+    public R getRoleIdsByUserId(@PathVariable Long userId){
+        return userRoleService.getRoleIdsByUserId(userId);
     }
 
 
-    /**
-     * 添加
-     *
-     * @param userRole 实体
-     * @return success/false
-     */
-    @PostMapping
-    public R<Boolean> add(@RequestBody UserRole userRole) {
-        return new R<>(userRoleService.insert(userRole));
-    }
-
-    /**
-     * 删除
-     *
-     * @param id ID
-     * @return success/false
-     */
-    @DeleteMapping("/{id}")
-    public R<Boolean> delete(@PathVariable Long id) {
-        return new R<>(userRoleService.deleteById(id));
-    }
-
-    /**
-     * 编辑
-     *
-     * @param userRole 实体
-     * @return success/false
-     */
-    @PutMapping
-    public R<Boolean> edit(@RequestBody UserRole userRole) {
-        return new R<>(userRoleService.updateById(userRole));
-    }
 }

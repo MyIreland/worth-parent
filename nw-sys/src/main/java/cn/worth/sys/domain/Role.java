@@ -1,21 +1,20 @@
 package cn.worth.sys.domain;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-
-import java.io.Serializable;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
- * 角色
+ * 
  * </p>
  *
  * @author chenxiaoqing
- * @since 2019-03-22
+ * @since 2019-08-07
  */
 @TableName("sys_role")
 public class Role extends Model<Role> {
@@ -24,31 +23,39 @@ public class Role extends Model<Role> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    /**
-     * 角色名称
-     */
     @TableField("role_name")
     private String roleName;
+    @TableField("role_code")
+    private String roleCode;
+    @TableField("role_desc")
+    private String roleDesc;
     /**
-     * 角色标识
+     * 角色类型 0-正常角色 1-管理员角色
      */
-    @TableField("role_sign")
-    private String roleSign;
+    @TableField("role_type")
+    private Integer roleType;
     /**
-     * 备注
+     * 租户id
      */
-    private String remark;
+    @TableField("tenant_id")
+    private Long tenantId;
+    @TableField("gmt_create")
+    private Date gmtCreate;
+    @TableField("gmt_update")
+    private Date gmtUpdate;
     /**
-     * 创建时间
+     * 删除标识（0-正常,1-删除）
      */
-    @TableField("create_time")
-    private Date createTime;
-    /**
-     * 创建时间
-     */
-    @TableField("update_time")
-    private Date updateTime;
+    @TableField("del_flag")
+    private Integer delFlag;
 
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
 
     public Long getId() {
         return id;
@@ -66,36 +73,52 @@ public class Role extends Model<Role> {
         this.roleName = roleName;
     }
 
-    public String getRoleSign() {
-        return roleSign;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setRoleSign(String roleSign) {
-        this.roleSign = roleSign;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getRoleDesc() {
+        return roleDesc;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setRoleDesc(String roleDesc) {
+        this.roleDesc = roleDesc;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Integer getRoleType() {
+        return roleType;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setRoleType(Integer roleType) {
+        this.roleType = roleType;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Long getTenantId() {
+        return tenantId;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtUpdate() {
+        return gmtUpdate;
+    }
+
+    public void setGmtUpdate(Date gmtUpdate) {
+        this.gmtUpdate = gmtUpdate;
     }
 
     @Override
@@ -108,10 +131,13 @@ public class Role extends Model<Role> {
         return "Role{" +
         ", id=" + id +
         ", roleName=" + roleName +
-        ", roleSign=" + roleSign +
-        ", remark=" + remark +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
+        ", roleCode=" + roleCode +
+        ", roleDesc=" + roleDesc +
+        ", roleType=" + roleType +
+        ", tenantId=" + tenantId +
+        ", gmtCreate=" + gmtCreate +
+        ", gmtUpdate=" + gmtUpdate +
+        ", delFlag=" + delFlag +
         "}";
     }
 }

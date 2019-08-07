@@ -1,27 +1,37 @@
 package cn.worth.sys.controller;
 
-import cn.worth.sys.domain.Role;
-import cn.worth.sys.service.IRoleService;
-import cn.worth.common.controller.BaseController;
+import java.util.Date;
+
+import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.pojo.R;
+import cn.worth.sys.service.IRoleService;
+import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
+import cn.worth.sys.domain.Role;
+import cn.worth.common.controller.BaseController;
 
 /**
  * <p>
- * 角色 前端控制器
+ * 前端控制器
  * </p>
  *
  * @author chenxiaoqing
- * @since 2019-03-22
+ * @since 2019-08-07
  */
 @RestController
 @RequestMapping("/role")
 public class RoleController extends BaseController {
+
     @Autowired
     private IRoleService roleService;
+
+
+    @PostMapping
+    public R pageList(Page<Role> page, Role role){
+        Page<Role> rolePage = selectPage(page, role);
+        return R.success(rolePage);
+    }
 
     /**
      * 通过ID查询
@@ -29,7 +39,7 @@ public class RoleController extends BaseController {
      * @param id ID
      * @return Role
      */
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public R<Role> get(@PathVariable Long id) {
         return new R<>(roleService.selectById(id));
     }
@@ -42,6 +52,7 @@ public class RoleController extends BaseController {
      */
     @PostMapping
     public R<Boolean> add(@RequestBody Role role) {
+        role.setGmtCreate(new Date());
         return new R<>(roleService.insert(role));
     }
 
@@ -55,7 +66,8 @@ public class RoleController extends BaseController {
     public R<Boolean> delete(@PathVariable Long id) {
         Role role = new Role();
         role.setId(id);
-        role.setUpdateTime(new Date());
+        role.setGmtUpdate(new Date());
+        role.setDelFlag(CommonConstant.STATUS_DEL);
         return new R<>(roleService.updateById(role));
     }
 
@@ -67,7 +79,7 @@ public class RoleController extends BaseController {
      */
     @PutMapping
     public R<Boolean> edit(@RequestBody Role role) {
-        role.setUpdateTime(new Date());
+        role.setGmtUpdate(new Date());
         return new R<>(roleService.updateById(role));
     }
 }

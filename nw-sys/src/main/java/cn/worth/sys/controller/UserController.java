@@ -1,5 +1,6 @@
 package cn.worth.sys.controller;
 
+import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.sys.domain.User;
@@ -23,9 +24,9 @@ public class UserController extends BaseController<IUserService, User> {
     private IUserService userService;
 
     @PostMapping
-    public R listPage(Page<User> userPage) {
-
-
+    public R listPage(Page<User> userPage, User user) {
+        Page<User> page = selectPage(userPage, user);
+        return R.success(page);
     }
 
     @GetMapping("{userId}")
@@ -51,5 +52,10 @@ public class UserController extends BaseController<IUserService, User> {
     @PostMapping("lockUser")
     public R lockUser(@PathVariable Long userId) {
         return userService.lockUser(userId);
+    }
+
+    @PostMapping("unLockUser")
+    public R unLockUser(@PathVariable Long userId) {
+        return userService.unLockUser(userId);
     }
 }

@@ -1,5 +1,6 @@
 package cn.worth.sys.service.impl;
 
+import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.enums.RCodeEnum;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
@@ -9,6 +10,7 @@ import cn.worth.sys.domain.User;
 import cn.worth.sys.domain.UserRole;
 import cn.worth.sys.enums.UserTypeEnum;
 import cn.worth.sys.mapper.UserMapper;
+import cn.worth.sys.param.BindUserRoleParam;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserRoleService;
 import cn.worth.sys.service.IUserService;
@@ -61,26 +63,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Transactional
     public R del(Long userId) {
-
-        updateUserStatus(userId, UserStateEnum.DELETE.ordinal());
+        User userParams = new User();
+        userParams.setId(userId);
+        userParams.setDelFlag(CommonConstant.STATUS_DEL);
+        baseMapper.updateById(userParams);
 
         return new R(RCodeEnum.SUCCESS);
     }
 
-    private void updateUserStatus(Long userId, int status) {
-        User userParams = new User();
-        userParams.setId(userId);
-        userParams.setStatus(status);
-        baseMapper.updateById(userParams);
-    }
-
     @Override
+    @Transactional
     public R lockUser(Long userId) {
 
         verifyParams(userId);
 
         updateUserStatus(userId, UserStateEnum.LOCKED.ordinal());
+
+        return new R(RCodeEnum.SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public R unLockUser(Long userId) {
+        verifyParams(userId);
+
+        updateUserStatus(userId, UserStateEnum.ACTIVE.ordinal());
 
         return new R(RCodeEnum.SUCCESS);
     }
@@ -91,18 +100,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
     }
 
+    private void updateUserStatus(Long userId, int status) {
+        User userParams = new User();
+        userParams.setId(userId);
+        userParams.setStatus(status);
+        baseMapper.updateById(userParams);
+    }
+
     private void updateUserRole(UserPojo userPojo, User user) {
         Long userId = user.getId();
-        List<Long> roles = userPojo.getRoles();
-        List<UserRole> userRoles = new ArrayList<>();
-        for (Long roleId : roles) {
-            UserRole userRole = new UserRole();
-            userRole.setRoleId(roleId);
-            userRole.setUserId(userId);
-            userRoles.add(userRole);
-        }
-        userRoleService.deleteByUserId(userId);
-        userRoleService.insertBatch(userRoles);
+        BindUserRoleParam param = new BindUserRoleParam();
+        param.setUserId(userId);
+        param.setRoleIds(userPojo.getRoleIds());
+        userRoleService.bindUserRole(param);
     }
 
     private User addOrUpdateUser(UserPojo userPojo) {

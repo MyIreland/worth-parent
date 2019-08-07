@@ -17,8 +17,8 @@ import java.util.Date;
  * @author chenxiaoqing
  * @since 2019-03-22
  */
-@TableName("sys_org")
-public class Org extends Model<Org> {
+@TableName("sys_tenant")
+public class Tenant extends Model<Tenant> {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,28 +26,60 @@ public class Org extends Model<Org> {
     private Long id;
     private Long pid;
     private String name;
+    @TableField("brief_name")
+    private String briefName;
+    private Integer type;
     private String address;
     private String phone;
     private String email;
-    private String desc;
+    private String remark;
     private Integer status;
-    /**
-     * 公司网址
-     */
-    @TableField("net_address")
-    private String netAddress;
-    /**
-     * 创办时间
-     */
-    @TableField("founding_date")
-    private Date foundingDate;
-    @TableField("create_time")
-    private Date createTime;
-    @TableField("update_time")
-    private Date updateTime;
+    @TableField("gmt_create")
+    private Date gmtCreate;
+    @TableField("gmt_update")
+    private Date gmtUpdate;
     @TableField("del_flag")
     private Integer delFlag;
 
+    public String getBriefName() {
+        return briefName;
+    }
+
+    public void setBriefName(String briefName) {
+        this.briefName = briefName;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtUpdate() {
+        return gmtUpdate;
+    }
+
+    public void setGmtUpdate(Date gmtUpdate) {
+        this.gmtUpdate = gmtUpdate;
+    }
 
     public Long getId() {
         return id;
@@ -97,52 +129,12 @@ public class Org extends Model<Org> {
         this.email = email;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getNetAddress() {
-        return netAddress;
-    }
-
-    public void setNetAddress(String netAddress) {
-        this.netAddress = netAddress;
-    }
-
-    public Date getFoundingDate() {
-        return foundingDate;
-    }
-
-    public void setFoundingDate(Date foundingDate) {
-        this.foundingDate = foundingDate;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Integer getDelFlag() {
@@ -156,24 +148,5 @@ public class Org extends Model<Org> {
     @Override
     protected Serializable pkVal() {
         return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return "Org{" +
-        ", id=" + id +
-        ", pid=" + pid +
-        ", name=" + name +
-        ", address=" + address +
-        ", phone=" + phone +
-        ", email=" + email +
-        ", desc=" + desc +
-        ", status=" + status +
-        ", netAddress=" + netAddress +
-        ", foundingDate=" + foundingDate +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", delFlag=" + delFlag +
-        "}";
     }
 }
