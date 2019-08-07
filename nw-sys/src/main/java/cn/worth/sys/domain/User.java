@@ -37,7 +37,7 @@ public class User extends Model<User> {
     /**
      * 性别 1-男 2-女
      */
-    private String sex;
+    private Integer sex;
     /**
      * 0管理员1普通用户2微信用户
      */
@@ -133,11 +133,11 @@ public class User extends Model<User> {
         this.password = password;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
