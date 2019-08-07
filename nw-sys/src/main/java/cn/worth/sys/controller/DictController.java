@@ -21,7 +21,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("dict")
-public class DictController extends BaseController {
+public class DictController extends BaseController<IDictService, Dict> {
 
     @Autowired
     private IDictService dictService;

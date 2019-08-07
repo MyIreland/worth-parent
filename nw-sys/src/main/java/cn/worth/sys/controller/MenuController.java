@@ -5,18 +5,15 @@ import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.TreeUtils;
 import cn.worth.common.vo.MenuTree;
-import cn.worth.common.vo.MenuVO;
 import cn.worth.sys.domain.Menu;
 import cn.worth.sys.service.IMenuService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -28,7 +25,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/menu")
-public class MenuController extends BaseController {
+public class MenuController extends BaseController<IMenuService, Menu> {
 
     @Autowired
     private IMenuService menuService;

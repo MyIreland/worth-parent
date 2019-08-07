@@ -21,13 +21,13 @@ import cn.worth.common.controller.BaseController;
  */
 @RestController
 @RequestMapping("/role")
-public class RoleController extends BaseController {
+public class RoleController extends BaseController<IRoleService, Role> {
 
     @Autowired
     private IRoleService roleService;
 
 
-    @PostMapping
+    @PostMapping("pageList")
     public R pageList(Page<Role> page, Role role){
         Page<Role> rolePage = selectPage(page, role);
         return R.success(rolePage);
@@ -50,7 +50,7 @@ public class RoleController extends BaseController {
      * @param role 实体
      * @return success/false
      */
-    @PostMapping
+    @PostMapping("add")
     public R<Boolean> add(@RequestBody Role role) {
         role.setGmtCreate(new Date());
         return new R<>(roleService.insert(role));

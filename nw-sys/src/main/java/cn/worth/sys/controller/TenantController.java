@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/org")
-public class TenantController extends BaseController {
+public class TenantController extends BaseController<ITenantService, Tenant> {
 
     @Autowired
     private ITenantService tenantService;

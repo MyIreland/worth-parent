@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/dept")
-public class DeptController extends BaseController {
+public class DeptController extends BaseController<IDeptService, Dept> {
 
     @Autowired
     private IDeptService deptService;

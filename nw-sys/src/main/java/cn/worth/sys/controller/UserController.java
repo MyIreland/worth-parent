@@ -23,7 +23,7 @@ public class UserController extends BaseController<IUserService, User> {
     @Autowired
     private IUserService userService;
 
-    @PostMapping
+    @PostMapping("listPage")
     public R listPage(Page<User> userPage, User user) {
         Page<User> page = selectPage(userPage, user);
         return R.success(page);

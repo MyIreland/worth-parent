@@ -2,6 +2,7 @@ package cn.worth.sys.controller;
 
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
+import cn.worth.sys.domain.RoleMenu;
 import cn.worth.sys.param.BindRoleMenuParam;
 import cn.worth.sys.service.IRoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("roleMenu")
-public class RoleMenuController extends BaseController {
+public class RoleMenuController {
     @Autowired
     private IRoleMenuService roleMenuService;
 

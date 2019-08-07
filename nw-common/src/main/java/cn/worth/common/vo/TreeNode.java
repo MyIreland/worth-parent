@@ -14,8 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 public class TreeNode {
-    protected String id;
-    protected String parentId;
+    protected Long id;
+    protected Long parentId;
     protected List<TreeNode> children = new ArrayList<>();
 
     public void add(TreeNode node) {
