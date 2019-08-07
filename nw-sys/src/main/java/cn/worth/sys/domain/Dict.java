@@ -46,7 +46,7 @@ public class Dict extends Model<Dict> {
     /**
      * 排序（升序）
      */
-    private BigDecimal sort;
+    private Integer sort;
     /**
      * 创建时间
      */
@@ -115,11 +115,11 @@ public class Dict extends Model<Dict> {
         this.description = description;
     }
 
-    public BigDecimal getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(BigDecimal sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 
