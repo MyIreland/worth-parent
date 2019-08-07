@@ -1,6 +1,7 @@
 package cn.worth.common.resolver;
 
 import cn.worth.common.annotation.CurrentUser;
+import cn.worth.common.utils.UserUtils;
 import cn.worth.common.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +45,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
                                   ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest,
                                   WebDataBinderFactory webDataBinderFactory) {
-
-        return "";
+        UserVO loginUser = UserUtils.getLoginUser();
+        return loginUser;
     }
 }
