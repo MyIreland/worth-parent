@@ -3,7 +3,7 @@ spring:
   application:
     name: new-worth
   profiles:
-    active: local,shiro
+    active: local
 mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   typeAliasesPackage: cn.worth.*.domain
@@ -20,7 +20,7 @@ mybatis-plus:
     #capital-mode: true
   configuration:
     map-underscore-to-camel-case: true
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
 
 #Redis 缓存时长
