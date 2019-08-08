@@ -19,7 +19,7 @@ import java.util.Date;
  * @since 2019-03-22
  */
 @RestController
-@RequestMapping("/org")
+@RequestMapping("/tenant")
 public class TenantController extends BaseController<ITenantService, Tenant> {
 
     @Autowired
@@ -29,7 +29,7 @@ public class TenantController extends BaseController<ITenantService, Tenant> {
      * 通过ID查询
      *
      * @param id ID
-     * @return Org
+     * @return tenant
      */
     @GetMapping("/{id}")
     public R<Tenant> get(@PathVariable Long id) {
@@ -40,12 +40,12 @@ public class TenantController extends BaseController<ITenantService, Tenant> {
     /**
      * 添加
      *
-     * @param org 实体
+     * @param tenant 实体
      * @return success/false
      */
     @PostMapping
-    public R<Boolean> add(@RequestBody Tenant org) {
-        return new R<>(tenantService.insert(org));
+    public R<Boolean> add(@RequestBody Tenant tenant) {
+        return new R<>(tenantService.insert(tenant));
     }
 
     /**
@@ -66,12 +66,12 @@ public class TenantController extends BaseController<ITenantService, Tenant> {
     /**
      * 编辑
      *
-     * @param org 实体
+     * @param tenant 实体
      * @return success/false
      */
     @PutMapping
-    public R<Boolean> edit(@RequestBody Tenant org) {
-        org.setGmtUpdate(new Date());
-        return new R<>(tenantService.updateById(org));
+    public R<Boolean> edit(@RequestBody Tenant tenant) {
+        tenant.setGmtUpdate(new Date());
+        return new R<>(tenantService.updateById(tenant));
     }
 }
