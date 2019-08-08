@@ -1,6 +1,6 @@
-package cn.worth.tools.service.impl;
+package cn.worth.tools.storage.service.impl;
 
-import cn.worth.tools.service.StorageService;
+import cn.worth.tools.storage.service.StorageService;
 import org.springframework.stereotype.Component;
 import java.io.InputStream;
 

@@ -23,6 +23,11 @@ spring:
 ignore:
   urls:
     - /oauth/**
+    - /swagger-resources/**
+    - /swagger-ui.html
+    - /v2/api-docs
+    - /swagger/api-docs
+    - /webjars/**
 
 logging:
   #  path: C:/logs

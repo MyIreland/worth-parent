@@ -1,9 +1,9 @@
 package cn.worth;
 
+import com.spring4all.swagger.EnableSwagger2Doc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @Author: chenxiaoqing9
@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @MapperScan("cn.worth.*.mapper")
+//@EnableSwagger2Doc
 public class WorthApplication {
 
     public static void main(String[] args) {

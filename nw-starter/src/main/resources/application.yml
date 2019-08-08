@@ -27,3 +27,11 @@ mybatis-plus:
 redis:
   cache:
     expiration: 3600
+
+swagger:
+  authorization:
+    key-name: Authorization
+  title: 后台管理系统接口文档
+  base-package: cn.worth
+  exclude-path: /error, /ops/**
+  description: 登录接口 /ppdk-api/oauth/token?username=admin&password=123456&randomStr=37811532935365145&code=5nge&grant_type=password&scope=server， 请求头加Authorization; Basic d286Z29uZ2Rhbg==

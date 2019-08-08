@@ -8,6 +8,8 @@ import cn.worth.sys.domain.User;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserService;
 import com.baomidou.mybatisplus.plugins.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @Description:
  * @Modified by:
  */
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("user")
 public class UserController extends BaseController<IUserService, User> {
@@ -25,6 +28,7 @@ public class UserController extends BaseController<IUserService, User> {
     private IUserService userService;
 
     @PostMapping("listPage")
+    @ApiOperation("分页查询用户列表")
     public R listPage(Page<User> userPage, User user) {
         Page<User> page = selectPage(userPage, user);
         return R.success(page);

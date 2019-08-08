@@ -17,11 +17,7 @@
             <artifactId>nw-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>cn.worth</groupId>-->
-<!--            <artifactId>nw-oauth2</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>cn.worth</groupId>
             <artifactId>nw-tools</artifactId>

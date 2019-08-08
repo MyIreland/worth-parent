@@ -13,7 +13,7 @@ import cn.worth.sys.param.BindUserRoleParam;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserRoleService;
 import cn.worth.sys.service.IUserService;
-import cn.worth.tools.service.StorageService;
+import cn.worth.tools.storage.service.StorageService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
