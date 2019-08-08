@@ -5,9 +5,8 @@ import cn.worth.common.enums.RCodeEnum;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
-import cn.worth.common.vo.UserVO;
+import cn.worth.common.vo.LoginedUser;
 import cn.worth.sys.domain.User;
-import cn.worth.sys.domain.UserRole;
 import cn.worth.sys.enums.UserTypeEnum;
 import cn.worth.sys.mapper.UserMapper;
 import cn.worth.sys.param.BindUserRoleParam;
@@ -21,9 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
@@ -46,14 +42,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public R loadUserByUsername(String username) {
         User userQuery = new User();
         userQuery.setUsername(username);
-        UserVO vo = baseMapper.loadUserByUsername(userQuery);
+        LoginedUser vo = baseMapper.loadUserByUsername(userQuery);
 
         return R.success(vo);
     }
 
     @Override
     @Transactional
-    public R addOrUpdate(UserPojo userPojo) {
+    public R addOrUpdate(UserPojo userPojo, LoginedUser userVO) {
 
         User user = addOrUpdateUser(userPojo);
 

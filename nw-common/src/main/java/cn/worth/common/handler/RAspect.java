@@ -18,7 +18,7 @@ import java.util.Arrays;
 @Slf4j
 @Aspect
 @Component
-public class ControllerAop {
+public class RAspect {
     @Pointcut("execution(public cn.worth.common.pojo.R *(..))")
     public void pointCutR() {
     }

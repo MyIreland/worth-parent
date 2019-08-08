@@ -1,7 +1,7 @@
 package cn.worth.oauth2.service.impl;
 
 import cn.worth.common.utils.CollectionUtils;
-import cn.worth.common.vo.UserVO;
+import cn.worth.common.vo.LoginedUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,21 +10,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
-    private String userId;
+    private Long id;
     private String username;
     private String password;
     private String email;
-    private String status;
+    private Integer status;
     private Set<String> roleCodes;
     private Set<String> permissions;
 
-    public UserDetailsImpl(UserVO userVO) {
-        this.userId = userVO.getId() + "";
-        this.username = userVO.getUsername();
-        this.password = userVO.getPassword();
-        this.email = userVO.getEmail();
-        this.status = userVO.getState() + "";
-        this.permissions = userVO.getPerms();
+    public UserDetailsImpl(LoginedUser authUser) {
+        this.id = authUser.getId();
+        this.username = authUser.getUsername();
+        this.password = authUser.getPassword();
+        this.email = authUser.getEmail();
+        this.status = authUser.getState();
+        this.permissions = authUser.getPerms();
     }
 
     @Override
@@ -68,12 +68,12 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    public String getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setUsername(String username) {
@@ -92,11 +92,11 @@ public class UserDetailsImpl implements UserDetails {
         this.email = email;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

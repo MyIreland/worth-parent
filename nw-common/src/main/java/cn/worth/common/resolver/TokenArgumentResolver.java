@@ -1,8 +1,7 @@
 package cn.worth.common.resolver;
 
-import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.utils.UserUtils;
-import cn.worth.common.vo.UserVO;
+import cn.worth.common.vo.LoginedUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
@@ -29,7 +28,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
         // 如果参数类型是User并且有CurrentUser注解则支持
-        return methodParameter.getParameterType().isAssignableFrom(UserVO.class) && methodParameter.hasParameterAnnotation(CurrentUser.class);
+        return methodParameter.getParameterType().isAssignableFrom(LoginedUser.class) && methodParameter.hasParameterAnnotation(cn.worth.common.annotation.CurrentUser.class);
     }
 
     /**
@@ -45,7 +44,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
                                   ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest,
                                   WebDataBinderFactory webDataBinderFactory) {
-        UserVO loginUser = UserUtils.getLoginUser();
+        LoginedUser loginUser = UserUtils.getLoginUser();
         return loginUser;
     }
 }

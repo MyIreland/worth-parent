@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
  * @description 授权错误码
  **/
 public enum AuthErrorEnum {
-    INVALID_CLIENT(HttpStatus.UNAUTHORIZED.value(), "无效客户端"),
+    INVALID_CLIENT(HttpStatus.UNAUTHORIZED.value(), "验证权限出错，请重新登录"),
     INVALID_USER(HttpStatus.UNAUTHORIZED.value(), "无效用户"),
     CLIRNENT_NO_AUTH(HttpStatus.UNAUTHORIZED.value(), "授权客户端失败"),
     USER_NO_AUTH(HttpStatus.FORBIDDEN.value(), "当前用户无权限访问"),

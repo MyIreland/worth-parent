@@ -1,7 +1,7 @@
 package cn.worth.common.utils;
 
 import cn.worth.common.constant.CommonConstant;
-import cn.worth.common.vo.UserVO;
+import cn.worth.common.vo.LoginedUser;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import io.jsonwebtoken.Claims;
@@ -77,7 +77,7 @@ public class UserUtils {
         MDC.put(KEY_USER, username);
     }
 
-    public static UserVO getLoginUser() {
+    public static LoginedUser getLoginUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof OAuth2Authentication) {
             OAuth2Authentication oAuth2Auth = (OAuth2Authentication) authentication;
@@ -85,8 +85,8 @@ public class UserUtils {
 
             Object principal = authentication.getPrincipal();
 
-            UserVO userVO = JSONObject.parseObject(JSONObject.toJSONString(principal), UserVO.class);
-            return userVO;
+            LoginedUser authUser = JSONObject.parseObject(JSONObject.toJSONString(principal), LoginedUser.class);
+            return authUser;
         }
 
         return null;

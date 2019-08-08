@@ -136,7 +136,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
             final Map<String, Object> additionalInfo = new HashMap<>(2);
             UserDetailsImpl user = (UserDetailsImpl) authentication.getUserAuthentication().getPrincipal();
             if (user != null) {
-                additionalInfo.put("userId", user.getUserId());
+                additionalInfo.put("id", user.getId());
             }
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
             return accessToken;
