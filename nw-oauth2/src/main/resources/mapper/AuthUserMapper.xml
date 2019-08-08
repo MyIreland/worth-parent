@@ -24,7 +24,7 @@
     </resultMap>
 
     <!-- userVo结果集 -->
-    <resultMap id="userVoResultMap" type="cn.worth.common.vo.LoginedUser">
+    <resultMap id="userVoResultMap" type="cn.worth.common.vo.LoginUser">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>

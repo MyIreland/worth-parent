@@ -1,7 +1,7 @@
 package cn.worth.oauth2.service.impl;
 
 import cn.worth.common.utils.CollectionUtils;
-import cn.worth.common.vo.LoginedUser;
+import cn.worth.common.vo.LoginUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class UserDetailsImpl implements UserDetails {
     private Set<String> roleCodes;
     private Set<String> permissions;
 
-    public UserDetailsImpl(LoginedUser authUser) {
+    public UserDetailsImpl(LoginUser authUser) {
         this.id = authUser.getId();
         this.username = authUser.getUsername();
         this.password = authUser.getPassword();

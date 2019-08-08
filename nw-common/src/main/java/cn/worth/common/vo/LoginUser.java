@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class LoginedUser implements Serializable {
+public class LoginUser implements Serializable {
 
     private Long id;
     /**

@@ -5,7 +5,7 @@ import cn.worth.common.enums.RCodeEnum;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
-import cn.worth.common.vo.LoginedUser;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.enums.UserTypeEnum;
 import cn.worth.sys.mapper.UserMapper;
@@ -39,17 +39,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IUserRoleService userRoleService;
 
     @Override
-    public R loadUserByUsername(String username) {
-        User userQuery = new User();
-        userQuery.setUsername(username);
-        LoginedUser vo = baseMapper.loadUserByUsername(userQuery);
-
-        return R.success(vo);
-    }
-
-    @Override
     @Transactional
-    public R addOrUpdate(UserPojo userPojo, LoginedUser userVO) {
+    public R addOrUpdate(UserPojo userPojo, LoginUser userVO) {
 
         User user = addOrUpdateUser(userPojo);
 

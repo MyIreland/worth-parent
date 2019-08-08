@@ -1,7 +1,7 @@
 package cn.worth.sys.mapper;
 
 import cn.worth.sys.domain.User;
-import cn.worth.common.vo.LoginedUser;
+import cn.worth.common.vo.LoginUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +15,4 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-    LoginedUser loadUserByUsername(User userQuery);
 }

@@ -3,7 +3,7 @@ package cn.worth.sys.controller;
 import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
-import cn.worth.common.vo.LoginedUser;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserService;
@@ -36,12 +36,12 @@ public class UserController extends BaseController<IUserService, User> {
     }
 
     @PostMapping
-    public R add(@RequestBody UserPojo userPojo, @CurrentUser LoginedUser userVO) {
+    public R add(@RequestBody UserPojo userPojo, @CurrentUser LoginUser userVO) {
         return userService.addOrUpdate(userPojo, userVO);
     }
 
     @PutMapping
-    public R update(@RequestBody UserPojo userPojo, @CurrentUser LoginedUser userVO) {
+    public R update(@RequestBody UserPojo userPojo, @CurrentUser LoginUser userVO) {
         return userService.addOrUpdate(userPojo, userVO);
     }
 
