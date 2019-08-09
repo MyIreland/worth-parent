@@ -16,8 +16,12 @@ public class BaseController<E extends IService<T>, T> {
     @Autowired
     private E service;
 
-    protected Page<T> selectPage(Page<T> page, T model) {
-        Page<T> pageList = service.selectPage(page, new EntityWrapper<>(model));
+    protected Page<T> selectPage(Page<T> page, EntityWrapper<T> entityWrapper) {
+        if(null == entityWrapper){
+            entityWrapper = new EntityWrapper<>();
+            entityWrapper.orderBy("id");
+        }
+        Page<T> pageList = service.selectPage(page, entityWrapper);
         return pageList;
     }
 

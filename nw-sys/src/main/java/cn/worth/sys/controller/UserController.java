@@ -7,6 +7,7 @@ import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserService;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,10 @@ public class UserController extends BaseController<IUserService, User> {
 
     @PostMapping("listPage")
     public R listPage(Page<User> userPage, User user) {
-        Page<User> page = selectPage(userPage, user);
+
+        EntityWrapper<User> entityWrapper = new EntityWrapper<>(user);
+        entityWrapper.orderBy("username");
+        Page<User> page = selectPage(userPage, entityWrapper);
         return R.success(page);
     }
 

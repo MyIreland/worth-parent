@@ -29,7 +29,7 @@ public class RoleController extends BaseController<IRoleService, Role> {
 
     @PostMapping("pageList")
     public R pageList(Page<Role> page, Role role){
-        Page<Role> rolePage = selectPage(page, role);
+        Page<Role> rolePage = selectPage(page, null);
         return R.success(rolePage);
     }
 
