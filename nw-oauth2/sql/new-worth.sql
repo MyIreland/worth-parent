@@ -1182,8 +1182,8 @@ CREATE TABLE `sys_tenant` (
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   `status` tinyint(1) DEFAULT '0' COMMENT '状态：0.未开通，1.已开通',
   `del_flag` tinyint(1) DEFAULT '0' COMMENT '是否删除（0：否，1：是）',
-  `gmt_create` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `gmt_create` datetime COMMENT '创建时间',
+  `gmt_modified` datetime COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='客户表';
 
