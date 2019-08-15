@@ -13,7 +13,9 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private String realName;
     private String email;
+    private String avatar;
     private Integer status;
     private Set<String> roleCodes;
     private Set<String> permissions;
@@ -21,9 +23,11 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl(LoginUser authUser) {
         this.id = authUser.getId();
         this.username = authUser.getUsername();
+        this.realName = authUser.getRealName();
         this.password = authUser.getPassword();
         this.email = authUser.getEmail();
-        this.status = authUser.getState();
+        this.status = authUser.getStatus();
+        this.avatar = authUser.getAvatar();
         this.permissions = authUser.getPerms();
     }
 
@@ -36,6 +40,22 @@ public class UserDetailsImpl implements UserDetails {
             });
         }
         return collection;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override

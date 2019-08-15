@@ -4,6 +4,7 @@ import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,6 +29,14 @@ public class GlobalExceptionHandler {
     public R serviceException(BusinessException e) {
         String message = e.getMessage();
         log.info("出现异常信息:{}", message, e);
+        return R.fail(message);
+    }
+
+    @ExceptionHandler(OAuth2Exception.class)
+    @ResponseStatus(HttpStatus.OK)
+    public R oAuth2Exception(OAuth2Exception e) {
+        String message = e.getMessage();
+        log.info("登陆异常:{}", message, e);
         return R.fail(message);
     }
 

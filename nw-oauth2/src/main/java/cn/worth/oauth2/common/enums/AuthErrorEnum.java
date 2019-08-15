@@ -13,7 +13,7 @@ public enum AuthErrorEnum {
     INVALID_USER(HttpStatus.UNAUTHORIZED.value(), "无效用户"),
     CLIRNENT_NO_AUTH(HttpStatus.UNAUTHORIZED.value(), "授权客户端失败"),
     USER_NO_AUTH(HttpStatus.FORBIDDEN.value(), "当前用户无权限访问"),
-    INVALID_USER_OR_PASSWORD(HttpStatus.UNAUTHORIZED.value(), "账户或者密码错误");
+    ERROR_ACCOUNT_OR_PASSWORD(HttpStatus.UNAUTHORIZED.value(), "账户或者密码错误");
 
     private int code;
     private String desc;

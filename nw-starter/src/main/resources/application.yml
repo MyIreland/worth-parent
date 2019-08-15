@@ -4,6 +4,10 @@ spring:
     name: new-worth
   profiles:
     active: local
+
+server:
+  port: 8087
+
 mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   typeAliasesPackage: cn.worth.*.domain

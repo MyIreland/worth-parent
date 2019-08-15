@@ -14,50 +14,70 @@ import java.util.Set;
 @Setter
 public class LoginUser implements Serializable {
 
+    /**
+     * 主键ID
+     */
     private Long id;
     /**
      * 用户名
      */
     private String username;
-    private String password;
-    private String name;
     /**
-     * 性别
+     * 密码
+     */
+    private String password;
+    /**
+     * 性别 1-男 2-女
      */
     private Integer sex;
     /**
-     * 头像图片id
+     * 0管理员1普通用户2微信用户
      */
-    private Long picId;
+    private Integer type;
     /**
-     * 出身日期
+     * 随机盐
      */
-    private Date birth;
+    private String salt;
+    /**
+     * 姓名
+     */
+    private String realName;
+    /**
+     * 手机
+     */
+    private String mobile;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 机构ID
+     */
+    private Long tenantId;
+    /**
+     * 部门ID
+     */
+    private Long deptId;
+    /**
+     * 状态 0-正常 1-锁住 2- 过期
+     */
+    private Integer status;
     /**
      * 邮箱
      */
     private String email;
     /**
-     * 手机号
+     * 创建时间
      */
-    private String mobile;
-
-    private Long deptId;
-    private String deptName;
-
-    private Long orgId;
-    private String orgName;
-
     private Date gmtCreate;
-    private Date gmtModified;
     /**
-     * 状态 0:禁用，1:正常 2：锁住
+     * 修改时间
      */
-    private Integer state;
+    private Date gmtUpdate;
     /**
-     * 状态 0:正常，1:过期
+     * 0-正常，1-删除
      */
-    private Integer expired;
+    private Integer delFlag;
     /**
      * 角色列表
      */

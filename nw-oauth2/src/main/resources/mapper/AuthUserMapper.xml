@@ -3,23 +3,17 @@
 <mapper namespace="cn.worth.oauth2.mapper.AuthUserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.worth.oauth2.domain.AuthUser">
+    <resultMap id="BaseResultMap" type="cn.worth.common.vo.LoginUser">
         <id column="id" property="id" />
         <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="real_name" property="realName" />
         <result column="sex" property="sex" />
         <result column="pic_id" property="picId" />
         <result column="birth" property="birth" />
         <result column="email" property="email" />
         <result column="mobile" property="mobile" />
-        <result column="salt" property="salt" />
         <result column="dept_id" property="deptId" />
         <result column="org_id" property="orgId" />
-        <result column="locked" property="locked" />
         <result column="expired" property="expired" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
         <result column="status" property="state" />
     </resultMap>
 
@@ -29,11 +23,10 @@
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
         <result column="mobile" property="mobile" />
-        <result column="status" property="state"/>
-        <result column="org_id" property="orgId"/>
-        <result column="dept_id" property="deptId"/>
-        <result column="real_name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="real_name" property="realName"/>
         <collection property="roles" ofType="cn.worth.common.vo.RoleVo">
             <id property="id" column="rid"/>
             <result property="roleCode" column="role_code"/>
@@ -55,6 +48,7 @@
             u.real_name,
             u.sex,
             u.email,
+	        u.avatar,
             u.`status`,
             u.mobile,
             r.id rid,

@@ -17,58 +17,77 @@ public class AuthUser extends Model<AuthUser> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键ID
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 用户名
      */
     private String username;
-    private String password;
-    @TableField("real_name")
-    private String realName;
     /**
-     * 性别
+     * 密码
+     */
+    private String password;
+    /**
+     * 性别 1-男 2-女
      */
     private Integer sex;
     /**
-     * 头像图片id
+     * 0管理员1普通用户2微信用户
      */
-    @TableField("pic_id")
-    private Long picId;
+    private Integer type;
     /**
-     * 出身日期
+     * 随机盐
      */
-    private Date birth;
+    private String salt;
+    /**
+     * 姓名
+     */
+    @TableField("real_name")
+    private String realName;
+    /**
+     * 手机
+     */
+    private String mobile;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 机构ID
+     */
+    @TableField("tenant_id")
+    private Long tenantId;
+    /**
+     * 部门ID
+     */
+    @TableField("dept_id")
+    private Long deptId;
+    /**
+     * 状态 0-正常 1-锁住 2- 过期
+     */
+    private Integer status;
     /**
      * 邮箱
      */
     private String email;
     /**
-     * 手机号
+     * 创建时间
      */
-    private String mobile;
-    @TableField("dept_id")
-    private Long deptId;
-    @TableField("org_id")
-    private Long orgId;
+    @TableField("gmt_create")
+    private Date gmtCreate;
     /**
-     * 账号是否被锁 0-无 1-被锁 
+     * 修改时间
      */
-    private Integer locked;
+    @TableField("gmt_update")
+    private Date gmtUpdate;
     /**
-     * 账号是否过期 0-无 1-过期
+     * 0-正常，1-删除
      */
-    private Integer expired;
-
-    private String salt;
-    @TableField("create_time")
-    private Date createTime;
-    @TableField("update_time")
-    private Date updateTime;
-    /**
-     * 状态 0:禁用，1:正常
-     */
-    private Integer state;
+    @TableField("del_flag")
+    private Integer delFlag;
 
 
     @Override
@@ -84,17 +103,9 @@ public class AuthUser extends Model<AuthUser> {
         ", password=" + password +
         ", realName=" + realName +
         ", sex=" + sex +
-        ", picId=" + picId +
-        ", birth=" + birth +
         ", email=" + email +
         ", mobile=" + mobile +
         ", deptId=" + deptId +
-        ", orgId=" + orgId +
-        ", locked=" + locked +
-        ", expired=" + expired +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", state=" + state +
         "}";
     }
 }

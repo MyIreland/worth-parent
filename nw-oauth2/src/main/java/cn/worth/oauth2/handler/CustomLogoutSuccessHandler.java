@@ -1,6 +1,6 @@
 package cn.worth.oauth2.handler;
 
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.utils.AuthUtils;
 import cn.worth.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,8 +25,7 @@ public class CustomLogoutSuccessHandler extends AbstractAuthenticationTargetUrlR
     @Override
     //@CacheEvict(value = SecurityConstants.TOKEN_USER_DETAIL, key = "#accesstoken")
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
-        String accessToken = request.getHeader(CommonConstant.AUTH_HEADER).split(CommonConstant.TOKEN_SPLIT)[1];
+        String accessToken = AuthUtils.getBearerToken(request);
         if (!StringUtils.isEmpty(accessToken)) {
             consumerTokenServices.revokeToken(accessToken);
         }

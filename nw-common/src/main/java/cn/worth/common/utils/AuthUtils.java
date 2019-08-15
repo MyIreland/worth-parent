@@ -12,6 +12,10 @@ import java.util.Base64;
 public class AuthUtils {
     private static final String BASIC_ = "Basic ";
 
+    public static String getBearerToken(HttpServletRequest request){
+        return request.getHeader(CommonConstant.AUTH_HEADER).split(CommonConstant.TOKEN_SPLIT)[1];
+    }
+
     /**
      * 从header 请求中的clientId/clientsecect
      *

@@ -1,5 +1,6 @@
 package cn.worth.oauth2.handler;
 
+import cn.worth.oauth2.common.enums.AuthErrorEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -26,7 +27,7 @@ public class CustomWebResponseExceptionTranslator implements WebResponseExceptio
     @Override
     public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
         log.error(e.getMessage());
-        if (e instanceof InvalidTokenException) {
+            if (e instanceof InvalidTokenException) {
             InvalidTokenException invalidTokenException = (InvalidTokenException) e;
             if("Token was not recognised".equals(invalidTokenException.getMessage())){
                 return ResponseEntity
@@ -37,9 +38,10 @@ public class CustomWebResponseExceptionTranslator implements WebResponseExceptio
 
         if (e instanceof OAuth2Exception) {
             OAuth2Exception oAuth2Exception = (OAuth2Exception) e;
+            AuthErrorEnum errorAccountOrPassword = AuthErrorEnum.ERROR_ACCOUNT_OR_PASSWORD;
             return ResponseEntity
                     .status(oAuth2Exception.getHttpErrorCode())
-                    .body(new OAuth2Exception(oAuth2Exception.getMessage()));
+                    .body(new OAuth2Exception(errorAccountOrPassword.getDesc()));
         } else if (e instanceof DisabledException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
                     .body(new OAuth2Exception(e.getMessage()));
