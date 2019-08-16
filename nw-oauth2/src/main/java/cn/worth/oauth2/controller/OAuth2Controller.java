@@ -24,8 +24,8 @@ public class OAuth2Controller {
     @Resource
     private ConsumerTokenServices consumerTokenServices;
 
-    @GetMapping("userInfo")
-    public R userInfo(@CurrentUser LoginUser loginUser){
+    @GetMapping("currentUser")
+    public R currentUser(@CurrentUser LoginUser loginUser){
         return R.success(loginUser);
     }
 
