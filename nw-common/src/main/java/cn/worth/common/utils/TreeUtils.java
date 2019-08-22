@@ -1,4 +1,5 @@
 package cn.worth.common.utils;
+
 import cn.worth.common.vo.TreeNode;
 
 import java.util.ArrayList;
@@ -12,66 +13,24 @@ import java.util.List;
  */
 public class TreeUtils {
     /**
-     * 两层循环实现建树
-     *
-     * @param treeNodes 传入的树节点列表
-     * @param root 父节点的父标识
-     * @return
-     */
-    public static <T extends TreeNode> List<T> build(List<T> treeNodes, Object root) {
-
-        List<T> trees = new ArrayList<>();
-
-        root += "";
-        for (T treeNode : treeNodes) {
-
-            if (root.equals(treeNode.getParentId())) {
-                trees.add(treeNode);
-            }
-
-            for (T it : treeNodes) {
-                if (it.getParentId().equals(treeNode.getId())) {
-                    if (treeNode.getChildren() == null) {
-                        treeNode.setChildren(new ArrayList<>());
-                    }
-                    treeNode.add(it);
-                }
-            }
-        }
-        return trees;
-    }
-
-    /**
-     * 使用递归方法建树
-     *
+     * 返回树状结构数据
      * @param treeNodes
+     * @param pid
+     * @param <T>
      * @return
      */
-    public static <T extends TreeNode> List<T> buildByRecursive(List<T> treeNodes, Object root) {
-        List<T> trees = new ArrayList<T>();
-        for (T treeNode : treeNodes) {
-            if (root.equals(treeNode.getParentId())) {
-                trees.add(findChildren(treeNode, treeNodes));
+    public static <T extends TreeNode> List<T> buildTree(List<T> treeNodes, Object pid) {
+        List<T> vos = new ArrayList<>();
+        for (T node : treeNodes) {
+            Long parentId = node.getParentId();
+            Long id = node.getId();
+            if (parentId.longValue() == ((Long)pid).longValue()) {
+                List<T> ts = buildTree(treeNodes, id);
+                node.setChildren(ts);
+                vos.add(node);
             }
         }
-        return trees;
+        return vos;
     }
 
-    /**
-     * 递归查找子节点
-     *
-     * @param treeNodes
-     * @return
-     */
-    public static <T extends TreeNode> T findChildren(T treeNode, List<T> treeNodes) {
-        for (T it : treeNodes) {
-            if (treeNode.getId().longValue() == it.getParentId().longValue()) {
-                if (treeNode.getChildren() == null) {
-                    treeNode.setChildren(new ArrayList<TreeNode>());
-                }
-                treeNode.add(findChildren(it, treeNodes));
-            }
-        }
-        return treeNode;
-    }
 }

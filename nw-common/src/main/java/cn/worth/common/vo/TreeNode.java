@@ -13,12 +13,12 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class TreeNode {
+public class TreeNode<T extends TreeNode> {
     protected Long id;
     protected Long parentId;
-    protected List<TreeNode> children = new ArrayList<>();
+    protected List<T> children = new ArrayList<>();
 
-    public void add(TreeNode node) {
+    public void add(T node) {
         children.add(node);
     }
 }

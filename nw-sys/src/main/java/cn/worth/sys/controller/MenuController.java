@@ -48,14 +48,20 @@ public class MenuController extends BaseController<IMenuService, Menu> {
      */
     @RequestMapping("/tree")
     public R tree() {
-        List<Menu> menus = menuService.selectList(new EntityWrapper<>());
+        EntityWrapper<Menu> wrapper = new EntityWrapper<>();
+        wrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
+        List<Menu> menus = menuService.selectList(wrapper);
+
         List<MenuTree> menuTrees = new ArrayList<>();
         for (Menu menu : menus) {
             MenuTree menuTree = new MenuTree();
-            BeanUtils.copyProperties(menu, menuTree);
+            menuTree.setId(menu.getId());
+            menuTree.setParentId(menu.getParentId());
+            menuTree.setLabel(menu.getName());
+            menuTree.setSort(menu.getSort());
             menuTrees.add(menuTree);
         }
-        List<MenuTree> tree = TreeUtils.buildByRecursive(menuTrees, -1);
+        List<MenuTree> tree = TreeUtils.buildTree(menuTrees, -1L);
         return R.success(tree);
     }
 
@@ -69,6 +75,10 @@ public class MenuController extends BaseController<IMenuService, Menu> {
     public R<Boolean> add(@RequestBody Menu menu) {
         menu.setGmtCreate(new Date());
         menu.setGmtUpdate(new Date());
+        Long parentId = menu.getParentId();
+        if(null == parentId){
+            menu.setParentId(-1L);
+        }
         menu.setDelFlag(CommonConstant.STATUS_NORMAL);
         return new R<>(menuService.insert(menu));
     }
