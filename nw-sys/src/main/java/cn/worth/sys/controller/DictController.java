@@ -3,6 +3,8 @@ package cn.worth.sys.controller;
 import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
+import cn.worth.common.utils.CollectionUtils;
+import cn.worth.common.utils.StringUtils;
 import cn.worth.sys.domain.Dict;
 import cn.worth.sys.service.IDictService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -46,21 +48,29 @@ public class DictController extends BaseController<IDictService, Dict> {
      *
      * @return 分页对象
      */
-    @RequestMapping("/page")
-    public R page(Page<Dict> entityPage, Dict entity) {
+    @PostMapping("/page")
+    public R page(Page<Dict> entityPage, Dict query) {
 
-        EntityWrapper<Dict> conditionWrapper = getDictEntityWrapper(entity);
+        EntityWrapper conditionWrapper = getDictEntityWrapper(query);
 
         Page<Dict> page = selectPage(entityPage, conditionWrapper);
         return R.success(page);
     }
 
-    private EntityWrapper<Dict> getDictEntityWrapper(Dict entity) {
-        EntityWrapper<Dict> conditionWrapper = new EntityWrapper<>(entity);
+    private EntityWrapper getDictEntityWrapper(Dict query) {
+        EntityWrapper conditionWrapper = new EntityWrapper<>();
         List<String> ascColumns = new ArrayList<>();
         ascColumns.add("type");
         ascColumns.add("sort");
-        conditionWrapper.orderAsc(ascColumns);
+        ascColumns.add("id");
+        conditionWrapper.orderDesc(ascColumns);
+        String description = query.getDescription();
+        String type = query.getType();
+        if(StringUtils.isNotBlank(description)){
+            conditionWrapper.eq("type", type);
+            conditionWrapper.eq("description", description);
+        }
+        conditionWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         return conditionWrapper;
     }
 
@@ -88,6 +98,21 @@ public class DictController extends BaseController<IDictService, Dict> {
         dict.setDelFlag(CommonConstant.STATUS_DEL);
         dict.setGmtUpdate(new Date());
         return new R<>(dictService.updateById(dict));
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     * @return success/false
+     */
+    @PostMapping("batchDel")
+    public R batchDel(List<Long> ids) {
+        if(CollectionUtils.isNotEmpty(ids)){
+            dictService.deleteBatchIds(ids);
+        }
+
+        return R.success(true);
     }
 
     /**
