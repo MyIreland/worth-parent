@@ -67,8 +67,10 @@ public class DictController extends BaseController<IDictService, Dict> {
         String description = query.getDescription();
         String type = query.getType();
         if(StringUtils.isNotBlank(description)){
-            conditionWrapper.eq("type", type);
             conditionWrapper.eq("description", description);
+        }
+        if(StringUtils.isNotBlank(type)){
+            conditionWrapper.eq("type", type);
         }
         conditionWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         return conditionWrapper;

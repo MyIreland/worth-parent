@@ -7,7 +7,7 @@ import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
-import cn.worth.sys.enums.UserTypeEnum;
+import cn.worth.sys.enums.EntityTypeEnum;
 import cn.worth.sys.mapper.UserMapper;
 import cn.worth.sys.param.BindUserRoleParam;
 import cn.worth.sys.pojo.UserPojo;
@@ -106,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = new User();
         BeanUtils.copyProperties(userPojo, user);
         user.setStatus(UserStateEnum.ACTIVE.ordinal());
-        user.setType(UserTypeEnum.COMMON_USER.ordinal());
+        user.setType(EntityTypeEnum.COMMON.ordinal());
         Long userId = user.getId();
         if (null == userId) {
             baseMapper.insert(user);
