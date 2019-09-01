@@ -1,10 +1,18 @@
 package cn.worth.sys.controller;
 
 import java.util.Date;
+import java.util.List;
 
+import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
+import cn.worth.common.utils.StringUtils;
+import cn.worth.common.vo.LoginUser;
+import cn.worth.sys.enums.EntityTypeEnum;
 import cn.worth.sys.service.IRoleService;
+import cn.worth.sys.utils.VerifyUtils;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +35,39 @@ public class RoleController extends BaseController<IRoleService, Role> {
     private IRoleService roleService;
 
 
-    @PostMapping("pageList")
-    public R pageList(Page<Role> page, Role role){
-        Page<Role> rolePage = selectPage(page, null);
+    @PostMapping("page")
+    public R page(Page<Role> page, Role role, @CurrentUser LoginUser user){
+        EntityWrapper<Role> wrapper = getRoleWrapper(role, user);
+        Page<Role> rolePage = selectPage(page, wrapper);
         return R.success(rolePage);
+    }
+
+    @PostMapping("list")
+    public R list(Role role, @CurrentUser LoginUser user){
+        EntityWrapper<Role> roleWrapper = getRoleWrapper(role, user);
+
+        List<Role> roles = roleService.selectList(roleWrapper);
+        return R.success(roles);
+    }
+
+    private EntityWrapper<Role> getRoleWrapper(Role role, LoginUser user) {
+        EntityWrapper<Role> wrapper = new EntityWrapper<>();
+        wrapper.orderBy("id");
+        wrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
+        wrapper.eq("tenant_id", user.getTenantId());
+        String roleCode = role.getRoleCode();
+        String roleName = role.getRoleName();
+        Integer roleType = role.getRoleType();
+        if(StringUtils.isNotBlank(roleCode)){
+            wrapper.eq("role_code", roleCode);
+        }
+        if(StringUtils.isNotBlank(roleName)){
+            wrapper.eq("role_name", roleName);
+        }
+        if(null != roleType){
+            wrapper.eq("role_type", roleType);
+        }
+        return wrapper;
     }
 
     /**
@@ -50,9 +87,13 @@ public class RoleController extends BaseController<IRoleService, Role> {
      * @param role 实体
      * @return success/false
      */
-    @PostMapping("add")
-    public R<Boolean> add(@RequestBody Role role) {
-        role.setGmtCreate(new Date());
+    @PostMapping()
+    public R<Boolean> add(@RequestBody Role role, @CurrentUser LoginUser loginUser) {
+        Date gmtCreate = new Date();
+        role.setGmtCreate(gmtCreate);
+        role.setTenantId(loginUser.getTenantId());
+        role.setGmtUpdate(gmtCreate);
+        role.setDelFlag(CommonConstant.STATUS_NORMAL);
         return new R<>(roleService.insert(role));
     }
 
@@ -64,11 +105,22 @@ public class RoleController extends BaseController<IRoleService, Role> {
      */
     @DeleteMapping("/{id}")
     public R<Boolean> delete(@PathVariable Long id) {
-        Role role = new Role();
-        role.setId(id);
-        role.setGmtUpdate(new Date());
-        role.setDelFlag(CommonConstant.STATUS_DEL);
-        return new R<>(roleService.updateById(role));
+
+        verifyParam(id);
+
+        Role roleQuery = new Role();
+        roleQuery.setId(id);
+        roleQuery.setGmtUpdate(new Date());
+        roleQuery.setDelFlag(CommonConstant.STATUS_DEL);
+        return new R<>(roleService.updateById(roleQuery));
+    }
+
+    private void verifyParam(@PathVariable Long id) {
+        Role role = roleService.selectById(id);
+        if(null == role){
+            throw new BusinessException("error id");
+        }
+        VerifyUtils.verifyAdmin(role.getRoleType());
     }
 
     /**
@@ -78,7 +130,7 @@ public class RoleController extends BaseController<IRoleService, Role> {
      * @return success/false
      */
     @PutMapping
-    public R<Boolean> edit(@RequestBody Role role) {
+    public R<Boolean> update(@RequestBody Role role) {
         role.setGmtUpdate(new Date());
         return new R<>(roleService.updateById(role));
     }

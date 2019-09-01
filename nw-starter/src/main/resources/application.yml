@@ -4,6 +4,9 @@ spring:
     name: new-worth
   profiles:
     active: local
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 server:
   port: 8087

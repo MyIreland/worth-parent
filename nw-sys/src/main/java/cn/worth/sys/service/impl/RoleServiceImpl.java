@@ -6,6 +6,8 @@ import cn.worth.sys.service.IRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色 服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
+    @Override
+    public List<Long> getRoleIdsByUserId(Long userId) {
+        return baseMapper.getRoleIdsByUserId(userId);
+    }
 }

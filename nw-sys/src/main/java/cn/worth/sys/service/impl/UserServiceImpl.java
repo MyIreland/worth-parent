@@ -5,6 +5,7 @@ import cn.worth.common.enums.RCodeEnum;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
+import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.enums.EntityTypeEnum;
@@ -13,6 +14,7 @@ import cn.worth.sys.param.BindUserRoleParam;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserRoleService;
 import cn.worth.sys.service.IUserService;
+import cn.worth.sys.utils.VerifyUtils;
 import cn.worth.tools.storage.service.StorageService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -39,10 +45,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IUserRoleService userRoleService;
 
     @Override
-    @Transactional
     public R addOrUpdate(UserPojo userPojo, LoginUser userVO) {
 
-        User user = addOrUpdateUser(userPojo);
+        User user = addOrUpdateUser(userPojo, userVO);
 
         updateUserRole(userPojo, user);
 
@@ -50,8 +55,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
     public R del(Long userId) {
+        verifyParams(userId);
+        verifyAdmin(userId);
         User userParams = new User();
         userParams.setId(userId);
         userParams.setDelFlag(CommonConstant.STATUS_DEL);
@@ -60,8 +66,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return new R(RCodeEnum.SUCCESS);
     }
 
+    private void verifyAdmin(Long userId) {
+        User user = selectById(userId);
+        if(null == user){
+            throw new BusinessException("user is null");
+        }
+        Integer type = user.getType();
+        VerifyUtils.verifyAdmin(type);
+    }
+
     @Override
-    @Transactional
     public R lockUser(Long userId) {
 
         verifyParams(userId);
@@ -72,7 +86,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
     public R unLockUser(Long userId) {
         verifyParams(userId);
 
@@ -102,15 +115,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         userRoleService.bindUserRole(param);
     }
 
-    private User addOrUpdateUser(UserPojo userPojo) {
+    private User addOrUpdateUser(UserPojo userPojo, LoginUser userVO) {
         User user = new User();
         BeanUtils.copyProperties(userPojo, user);
         user.setStatus(UserStateEnum.ACTIVE.ordinal());
         user.setType(EntityTypeEnum.COMMON.ordinal());
         Long userId = user.getId();
+        Date currentDate = new Date();
         if (null == userId) {
+            user.setGmtUpdate(currentDate);
+            user.setGmtUpdate(currentDate);
+            user.setTenantId(userVO.getTenantId());
             baseMapper.insert(user);
         } else {
+            user.setGmtUpdate(currentDate);
             baseMapper.updateById(user);
         }
         return user;

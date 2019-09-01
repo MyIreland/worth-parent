@@ -1,5 +1,8 @@
 package cn.worth.sys.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 /**
@@ -8,6 +11,8 @@ import java.util.List;
  * @date 2019-08-06
  * @description
  **/
+@Getter
+@Setter
 public class UserPojo {
     /**
      * 主键ID
@@ -24,11 +29,11 @@ public class UserPojo {
     /**
      * 性别 1-男 2-女
      */
-    private String sex;
+    private Integer sex;
     /**
-     * 0管理员1微信用户
+     * 0-普通 1-管理员 2-微信用户
      */
-    private String type;
+    private Integer type;
     /**
      * 姓名
      */
@@ -44,7 +49,7 @@ public class UserPojo {
     /**
      * 机构ID
      */
-    private Long orgId;
+    private Long tenantId;
     /**
      * 部门ID
      */
@@ -58,100 +63,4 @@ public class UserPojo {
      * 角色集合
      */
     private List<Long> roleIds;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Long> getRoleIds() {
-        return roleIds;
-    }
-
-    public void setRoleIds(List<Long> roleIds) {
-        this.roleIds = roleIds;
-    }
 }

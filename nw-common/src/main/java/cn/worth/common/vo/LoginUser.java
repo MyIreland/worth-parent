@@ -51,7 +51,7 @@ public class LoginUser implements Serializable {
      */
     private String avatar;
     /**
-     * 机构ID
+     * 租户ID
      */
     private Long tenantId;
     /**

@@ -5,7 +5,9 @@ import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.Dict;
+import cn.worth.sys.param.BatchDelDictParam;
 import cn.worth.sys.service.IDictService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -60,9 +62,9 @@ public class DictController extends BaseController<IDictService, Dict> {
     private EntityWrapper getDictEntityWrapper(Dict query) {
         EntityWrapper conditionWrapper = new EntityWrapper<>();
         List<String> ascColumns = new ArrayList<>();
+        ascColumns.add("id");
         ascColumns.add("type");
         ascColumns.add("sort");
-        ascColumns.add("id");
         conditionWrapper.orderDesc(ascColumns);
         String description = query.getDescription();
         String type = query.getType();
@@ -105,13 +107,21 @@ public class DictController extends BaseController<IDictService, Dict> {
     /**
      * 删除
      *
-     * @param ids
+     * @param param
      * @return success/false
      */
     @PostMapping("batchDel")
-    public R batchDel(List<Long> ids) {
+    public R batchDel(@RequestBody BatchDelDictParam param) {
+        List<Long> ids = param.getIds();
         if(CollectionUtils.isNotEmpty(ids)){
-            dictService.deleteBatchIds(ids);
+            List<Dict> dicts = new ArrayList<>();
+            for (Long id : ids) {
+                Dict dict = new Dict();
+                dict.setId(id);
+                dict.setDelFlag(CommonConstant.STATUS_DEL);
+                dicts.add(dict);
+            }
+            dictService.updateBatchById(dicts);
         }
 
         return R.success(true);

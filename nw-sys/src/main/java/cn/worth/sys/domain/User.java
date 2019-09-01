@@ -39,7 +39,7 @@ public class User extends Model<User> {
      */
     private Integer sex;
     /**
-     * 0管理员1普通用户2微信用户
+     * 0-普通 1-管理员 2-微信用户
      */
     private Integer type;
     /**

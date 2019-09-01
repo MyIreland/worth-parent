@@ -7,14 +7,12 @@
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="sex" property="sex" />
-        <result column="pic_id" property="picId" />
-        <result column="birth" property="birth" />
+        <result column="avatar" property="avatar" />
         <result column="email" property="email" />
         <result column="mobile" property="mobile" />
         <result column="dept_id" property="deptId" />
-        <result column="org_id" property="orgId" />
-        <result column="expired" property="expired" />
-        <result column="status" property="state" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="status" property="status" />
     </resultMap>
 
     <!-- userVo结果集 -->
@@ -24,6 +22,7 @@
         <result column="password" property="password"/>
         <result column="email" property="email"/>
         <result column="avatar" property="avatar"/>
+        <result column="tenant_id" property="tenantId"/>
         <result column="mobile" property="mobile" />
         <result column="status" property="status"/>
         <result column="real_name" property="realName"/>
@@ -51,6 +50,7 @@
 	        u.avatar,
             u.`status`,
             u.mobile,
+            u.tenant_id,
             r.id rid,
             r.role_code,
             m.id mid,

@@ -3,6 +3,8 @@ package cn.worth.sys.service;
 import cn.worth.sys.domain.Role;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IRoleService extends IService<Role> {
 
+    List<Long> getRoleIdsByUserId(Long userId);
 }
