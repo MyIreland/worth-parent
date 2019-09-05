@@ -15,7 +15,7 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private String realName;
     private String email;
-    private Long tenantId;
+    private Long orgId;
     private String avatar;
     private Integer status;
     private Set<String> roleCodes;
@@ -27,7 +27,7 @@ public class UserDetailsImpl implements UserDetails {
         this.realName = authUser.getRealName();
         this.password = authUser.getPassword();
         this.email = authUser.getEmail();
-        this.tenantId = authUser.getTenantId();
+        this.orgId = authUser.getOrgId();
         this.status = authUser.getStatus();
         this.avatar = authUser.getAvatar();
         this.permissions = authUser.getPerms();
@@ -52,12 +52,12 @@ public class UserDetailsImpl implements UserDetails {
         this.realName = realName;
     }
 
-    public Long getTenantId() {
-        return tenantId;
+    public Long getOrgId() {
+        return orgId;
     }
 
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public String getAvatar() {

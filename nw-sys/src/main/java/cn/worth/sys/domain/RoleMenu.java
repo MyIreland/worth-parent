@@ -34,6 +34,16 @@ public class RoleMenu extends Model<RoleMenu> {
     @TableField("menu_id")
     private Long menuId;
 
+    @TableField("org_id")
+    private Long orgId;
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
 
     public Long getId() {
         return id;

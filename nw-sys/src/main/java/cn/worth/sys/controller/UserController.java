@@ -46,7 +46,7 @@ public class UserController extends BaseController<IUserService, User> {
     private EntityWrapper<User> getUserEntityWrapper(User user, @CurrentUser LoginUser loginUser) {
         EntityWrapper<User> entityWrapper = new EntityWrapper<>();
         entityWrapper.orderBy("username");
-        entityWrapper.eq("tenant_id", loginUser.getTenantId());
+        entityWrapper.eq("org_id", loginUser.getOrgId());
         entityWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         String realName = user.getRealName();
         String username = user.getUsername();
@@ -94,6 +94,11 @@ public class UserController extends BaseController<IUserService, User> {
     @DeleteMapping("{userId}")
     public R del(@PathVariable Long userId) {
         return userService.del(userId);
+    }
+
+    @PostMapping("batchDel")
+    public R batchDel(@RequestBody List<Long> ids) {
+        return userService.batchDel(ids);
     }
 
     @PostMapping("lockUser")

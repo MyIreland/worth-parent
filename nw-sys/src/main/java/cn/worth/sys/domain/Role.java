@@ -37,8 +37,8 @@ public class Role extends Model<Role> {
     /**
      * 租户id
      */
-    @TableField("tenant_id")
-    private Long tenantId;
+    @TableField("org_id")
+    private Long orgId;
     @TableField("gmt_create")
     private Date gmtCreate;
     @TableField("gmt_update")
@@ -97,12 +97,12 @@ public class Role extends Model<Role> {
         this.roleType = roleType;
     }
 
-    public Long getTenantId() {
-        return tenantId;
+    public Long getOrgId() {
+        return orgId;
     }
 
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public Date getGmtCreate() {
@@ -134,7 +134,7 @@ public class Role extends Model<Role> {
         ", roleCode=" + roleCode +
         ", roleDesc=" + roleDesc +
         ", roleType=" + roleType +
-        ", tenantId=" + tenantId +
+        ", orgId=" + orgId +
         ", gmtCreate=" + gmtCreate +
         ", gmtUpdate=" + gmtUpdate +
         ", delFlag=" + delFlag +

@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IRoleMenuService extends IService<RoleMenu> {
 
-    R findMenuIdsByRoleId(Long roleId);
+    R findMenuIdsByRoleId(Long roleId, Long orgId);
 
-    R bindRoleMenu(BindRoleMenuParam param);
+    R bindRoleMenu(BindRoleMenuParam param, Long orgId);
 }

@@ -16,5 +16,5 @@ import java.util.Set;
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
-    Set<Long> findMenuIdsByRoleId(@Param("roleId") Long roleId);
+    Set<Long> findMenuIdsByRoleId(@Param("roleId") Long roleId,@Param("orgId") Long orgId);
 }

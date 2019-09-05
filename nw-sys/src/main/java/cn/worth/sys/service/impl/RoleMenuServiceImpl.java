@@ -12,7 +12,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -29,17 +28,17 @@ import java.util.Set;
 public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> implements IRoleMenuService {
 
     @Override
-    public R<Set<Long>> findMenuIdsByRoleId(Long roleId) {
-        Set<Long> menuIdsByRoleId = baseMapper.findMenuIdsByRoleId(roleId);
+    public R<Set<Long>> findMenuIdsByRoleId(Long roleId, Long orgId) {
+        Set<Long> menuIdsByRoleId = baseMapper.findMenuIdsByRoleId(roleId, orgId);
         return new R<>(menuIdsByRoleId);
     }
 
     @Override
     @Transactional
-    public R bindRoleMenu(BindRoleMenuParam param) {
+    public R bindRoleMenu(BindRoleMenuParam param, Long orgId) {
         Long roleId = param.getRoleId();
 
-        List<RoleMenu> roleMenus = getRoleMenus(param, roleId);
+        List<RoleMenu> roleMenus = getRoleMenus(param, roleId, orgId);
 
         deleteByRoleId(roleId);
 
@@ -49,13 +48,14 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
         return new R(RCodeEnum.SUCCESS);
     }
 
-    private List<RoleMenu> getRoleMenus(BindRoleMenuParam param, Long roleId) {
+    private List<RoleMenu> getRoleMenus(BindRoleMenuParam param, Long roleId, Long orgId) {
         List<Long> menuIds = param.getMenuIds();
         List<RoleMenu> roleMenus = new ArrayList<>();
         for (Long menuId : menuIds) {
             RoleMenu roleMenu = new RoleMenu();
             roleMenu.setRoleId(roleId);
             roleMenu.setMenuId(menuId);
+            roleMenu.setOrgId(orgId);
             roleMenus.add(roleMenu);
         }
         return roleMenus;

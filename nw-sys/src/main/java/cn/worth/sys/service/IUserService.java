@@ -6,6 +6,8 @@ import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.pojo.UserPojo;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -23,4 +25,6 @@ public interface IUserService extends IService<User> {
     R lockUser(Long userId);
 
     R unLockUser(Long userId);
+
+    R batchDel(List<Long> ids);
 }

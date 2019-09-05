@@ -94,6 +94,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return new R(RCodeEnum.SUCCESS);
     }
 
+    @Override
+    public R batchDel(List<Long> ids) {
+        List<User> users = new ArrayList<>();
+        ids.forEach(id -> {
+            User user = new User();
+            user.setId(id);
+            user.setDelFlag(CommonConstant.STATUS_DEL);
+            users.add(user);
+        });
+        return R.success(updateBatchById(users));
+    }
+
     private void verifyParams(Long userId) {
         if(null == userId){
             throw new BusinessException("userId is null");
@@ -125,7 +137,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (null == userId) {
             user.setGmtUpdate(currentDate);
             user.setGmtUpdate(currentDate);
-            user.setTenantId(userVO.getTenantId());
+            user.setOrgId(userVO.getOrgId());
             baseMapper.insert(user);
         } else {
             user.setGmtUpdate(currentDate);

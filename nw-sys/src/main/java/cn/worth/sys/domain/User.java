@@ -62,8 +62,8 @@ public class User extends Model<User> {
     /**
      * 机构ID
      */
-    @TableField("tenant_id")
-    private Long tenantId;
+    @TableField("org_id")
+    private Long orgId;
     /**
      * 部门ID
      */
@@ -173,14 +173,6 @@ public class User extends Model<User> {
         this.avatar = avatar;
     }
 
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
-    }
-
     public Long getDeptId() {
         return deptId;
     }
@@ -191,6 +183,14 @@ public class User extends Model<User> {
 
     public Integer getStatus() {
         return status;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public void setStatus(Integer status) {
@@ -239,7 +239,7 @@ public class User extends Model<User> {
         ", realName=" + realName +
         ", mobile=" + mobile +
         ", avatar=" + avatar +
-        ", tenantId=" + tenantId +
+        ", orgId=" + orgId +
         ", deptId=" + deptId +
         ", status=" + status +
         ", email=" + email +
