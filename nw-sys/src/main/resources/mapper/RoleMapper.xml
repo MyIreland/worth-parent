@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.worth.sys.mapper.RoleMapper">
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, role_name AS roleName, role_sign AS roleSign, remark, create_time AS createTime, update_time AS updateTime
-    </sql>
     <select id="getRoleIdsByUserId" resultType="java.lang.Long">
         SELECT
             r.id

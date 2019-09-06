@@ -1,6 +1,6 @@
 package cn.worth.sys.service;
 
-import cn.worth.sys.domain.Tenant;
+import cn.worth.sys.domain.Organization;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author chenxiaoqing
  * @since 2019-03-22
  */
-public interface ITenantService extends IService<Tenant> {
+public interface IOrganizationService extends IService<Organization> {
 
 }
