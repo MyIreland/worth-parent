@@ -46,11 +46,12 @@ public class OrganizationController extends BaseController<IOrganizationService,
         String name = org.getName();
         String phone = org.getPhone();
         Integer type = org.getType();
+        entityWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         if(StringUtils.isNotBlank(briefName)){
-            entityWrapper.eq("brief_name", briefName);
+            entityWrapper.like("brief_name", briefName);
         }
         if(StringUtils.isNotBlank(name)){
-            entityWrapper.eq("name", name);
+            entityWrapper.like("name", name);
         }
         if(null != status){
             entityWrapper.eq("status", status);

@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -32,7 +31,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "sys_dict");
+        generateByTables(serviceNameStartWithI, "sys_task");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {

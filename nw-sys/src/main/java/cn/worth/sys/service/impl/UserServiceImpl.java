@@ -5,7 +5,6 @@ import cn.worth.common.enums.RCodeEnum;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
-import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.enums.EntityTypeEnum;
@@ -15,14 +14,11 @@ import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IUserRoleService;
 import cn.worth.sys.service.IUserService;
 import cn.worth.sys.utils.VerifyUtils;
-import cn.worth.tools.storage.service.StorageService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +35,6 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Autowired
     private PasswordEncoder encoder;
-    @Autowired
-    private StorageService storageService;
     @Autowired
     private IUserRoleService userRoleService;
 

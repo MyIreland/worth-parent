@@ -14,7 +14,7 @@
         <module>nw-starter</module>
         <module>nw-sys</module>
         <module>nw-oauth2</module>
-        <module>nw-tools</module>
+        <module>nw-thirdparty</module>
     </modules>
 
     <parent>
@@ -32,7 +32,7 @@
         <lombok.version>1.16.20</lombok.version>
         <shiro.spring.version>1.4.0</shiro.spring.version>
         <velocity.version>1.7</velocity.version>
-        <fastjson.version>1.2.31</fastjson.version>
+        <fastjson.version>1.2.60</fastjson.version>
         <commons-io.version>2.5</commons-io.version>
         <commons-httpclient.version>3.0.1</commons-httpclient.version>
         <commons.codec.version>1.10</commons.codec.version>
