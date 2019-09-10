@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/task")
-public class TaskController extends BaseController {
+public class TaskController extends BaseController<ITaskService, Task>  {
 
     @Autowired
     private ITaskService taskService;

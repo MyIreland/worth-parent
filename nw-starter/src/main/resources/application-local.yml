@@ -36,3 +36,4 @@ logging:
     org.springframework.web: error
     org.springframework.security: DEBUG
     cn.worth: DEBUG
+    org.quartz: DEBUG
