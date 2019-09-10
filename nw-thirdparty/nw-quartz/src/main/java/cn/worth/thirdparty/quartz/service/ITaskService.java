@@ -2,6 +2,7 @@ package cn.worth.thirdparty.quartz.service;
 
 import cn.worth.thirdparty.quartz.domain.Task;
 import com.baomidou.mybatisplus.service.IService;
+import org.quartz.SchedulerException;
 
 /**
  * <p>
@@ -13,4 +14,13 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ITaskService extends IService<Task> {
 
+    Boolean remove(Long id, Long userId);
+
+    Boolean batchRemove(Long[] ids, Long userId);
+
+    Boolean initSchedule() throws SchedulerException;
+
+    Boolean changeStatus(Long jobId, String status, Long userId) throws SchedulerException;
+
+    Boolean updateCron(Long jobId, String cron, Long userId) throws SchedulerException;
 }

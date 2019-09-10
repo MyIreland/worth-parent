@@ -1,6 +1,5 @@
 package cn.worth.common.controller;
 
-import cn.worth.common.vo.LoginUser;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
@@ -23,17 +22,5 @@ public class BaseController<E extends IService<T>, T> {
         }
         Page<T> pageList = service.selectPage(page, entityWrapper);
         return pageList;
-    }
-
-    public LoginUser getUser() {
-        return null;
-    }
-
-    public Long getUserId() {
-        return null;
-    }
-
-    public String getUsername() {
-        return null;
     }
 }

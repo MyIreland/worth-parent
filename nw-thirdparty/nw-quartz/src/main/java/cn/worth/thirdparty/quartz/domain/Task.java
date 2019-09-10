@@ -58,6 +58,16 @@ public class Task extends Model<Task> {
      */
     private String description;
     /**
+     * 任务状态
+     */
+    @TableField("job_status")
+    private String jobStatus;
+    /**
+     * 任务分组
+     */
+    @TableField("job_group")
+    private String jobGroup;
+    /**
      * 创建时间
      */
     @TableField("gmt_create")
@@ -78,17 +88,18 @@ public class Task extends Model<Task> {
     @TableField("gmt_update")
     private Date gmtUpdate;
     /**
-     * 任务状态
+     * 删除标记
      */
-    private Integer status;
-    /**
-     * 任务分组
-     */
-    private String group;
-    /**
-     * 任务分组
-     */
+    @TableField("del_flag")
     private Integer delFlag;
+
+    public String getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
+    }
 
     public Integer getDelFlag() {
         return delFlag;
@@ -194,44 +205,16 @@ public class Task extends Model<Task> {
         this.gmtUpdate = gmtUpdate;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getJobGroup() {
+        return jobGroup;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
+    public void setJobGroup(String jobGroup) {
+        this.jobGroup = jobGroup;
     }
 
     @Override
     protected Serializable pkVal() {
         return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-        ", id=" + id +
-        ", jobName=" + jobName +
-        ", methodName=" + methodName +
-        ", cronExpression=" + cronExpression +
-        ", beanClass=" + beanClass +
-        ", springBean=" + springBean +
-        ", isConcurrent=" + isConcurrent +
-        ", description=" + description +
-        ", gmtCreate=" + gmtCreate +
-        ", createUser=" + createUser +
-        ", updateUser=" + updateUser +
-        ", gmtUpdate=" + gmtUpdate +
-        ", status=" + status +
-        ", group=" + group +
-        "}";
     }
 }
