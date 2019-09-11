@@ -1,11 +1,14 @@
 package cn.worth.thirdparty.quartz.controller;
 
 import cn.worth.common.annotation.CurrentUser;
+import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
+import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
 import cn.worth.thirdparty.quartz.domain.Task;
 import cn.worth.thirdparty.quartz.service.ITaskService;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +49,23 @@ public class TaskController extends BaseController<ITaskService, Task>  {
      */
     @RequestMapping("/page")
     public R page(Page<Task> entityPage, Task entity) {
-        Page<Task> page = selectPage(entityPage, null);
+        EntityWrapper<Task> wrapper = new EntityWrapper<>();
+        wrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
+        String jobName = entity.getJobName();
+        if(StringUtils.isNotBlank(jobName)){
+            wrapper.like("job_name", jobName);
+        }
+        String jobGroup = entity.getJobGroup();
+        if(StringUtils.isNotBlank(jobGroup)){
+            wrapper.eq("job_group", jobGroup);
+        }
+        String jobStatus = entity.getJobStatus();
+        if(StringUtils.isNotBlank(jobStatus)){
+            wrapper.eq("job_status", jobStatus);
+        }
+        wrapper.orderBy("id");
+
+        Page<Task> page = selectPage(entityPage, wrapper);
         return R.success(page);
     }
 
@@ -79,14 +98,12 @@ public class TaskController extends BaseController<ITaskService, Task>  {
      * @return success/false
      */
     @PutMapping
-    public R<Boolean> edit(@RequestBody Task task, @CurrentUser LoginUser loginUser) {
-        task.setGmtUpdate(new Date());
-        task.setUpdateUser(loginUser.getId());
-        return new R<>(taskService.updateById(task));
+    public R<Boolean> edit(@RequestBody Task task, @CurrentUser LoginUser loginUser) throws SchedulerException {
+        return new R<>(taskService.updateTask(task, loginUser.getId()));
     }
 
     @PostMapping("batchRemove")
-    public R<Boolean> batchRemove(Long[] ids, @CurrentUser LoginUser loginUser) throws SchedulerException {
+    public R<Boolean> batchRemove(@RequestBody Long[] ids, @CurrentUser LoginUser loginUser) throws SchedulerException {
         return new R<>(taskService.batchRemove(ids, loginUser.getId()));
     }
     @PostMapping("changeStatus")

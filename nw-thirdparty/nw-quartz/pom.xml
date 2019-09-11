@@ -17,6 +17,12 @@
             <artifactId>nw-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
     </dependencies>
 
 

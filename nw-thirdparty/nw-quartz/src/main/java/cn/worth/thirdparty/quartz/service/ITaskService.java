@@ -23,4 +23,6 @@ public interface ITaskService extends IService<Task> {
     Boolean changeStatus(Long jobId, String status, Long userId) throws SchedulerException;
 
     Boolean updateCron(Long jobId, String cron, Long userId) throws SchedulerException;
+
+    Boolean updateTask(Task task, Long userId) throws SchedulerException;
 }

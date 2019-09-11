@@ -1,6 +1,8 @@
 package cn.worth.thirdparty.quartz.service.impl;
 
 import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.exception.BusinessException;
+import cn.worth.common.utils.StringUtils;
 import cn.worth.thirdparty.quartz.component.QuartzService;
 import cn.worth.thirdparty.quartz.domain.Task;
 import cn.worth.thirdparty.quartz.enums.JobStatusEnum;
@@ -80,6 +82,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements IT
 
     @Override
     public Boolean changeStatus(Long jobId, String status, Long userId) throws SchedulerException {
+        verifyParam(jobId, status);
         Task task = selectById(jobId);
         if (task == null) {
             return true;
@@ -91,11 +94,20 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements IT
         } else if(runningCode.equals(status)) {
             quartzService.addJob(task);
         }
-        task.setJobStatus(notRunningCode);
+        task.setJobStatus(status);
         task.setUpdateUser(userId);
         task.setGmtUpdate(new Date());
         updateById(task);
         return true;
+    }
+
+    private void verifyParam(Long jobId, String status) {
+        if(null == jobId){
+            throw new BusinessException("jobId is null");
+        }
+        if(StringUtils.isBlank(status)){
+            throw new BusinessException("status is null");
+        }
     }
 
     @Override
@@ -110,5 +122,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements IT
         }
         updateById(task);
         return true;
+    }
+
+    @Override
+    public Boolean updateTask(Task task, Long userId) throws SchedulerException {
+        task.setUpdateUser(userId);
+        task.setGmtUpdate(new Date());
+        String jobStatus = task.getJobStatus();
+        if(JobStatusEnum.RUNNING.getCode().equals(jobStatus)){
+            quartzService.updateJobCron(task);
+        }
+        return updateById(task);
     }
 }
