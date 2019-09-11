@@ -24,7 +24,7 @@ import $!{superControllerClassPackage};
  */
 @RestController
 @RequestMapping("/$!{table.entityPath}")
-public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entity}Service}, {entity}> {
+public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entity}Service, $!{entity}> {
 
     @Autowired
     private I$!{entity}Service $!{table.entityPath}Service;

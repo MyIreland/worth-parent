@@ -37,3 +37,6 @@ logging:
     org.springframework.security: DEBUG
     cn.worth: DEBUG
 #    org.quartz: DEBUG
+
+worth:
+  uploadPath: /Users/myireland/

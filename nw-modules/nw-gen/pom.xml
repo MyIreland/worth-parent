@@ -12,6 +12,11 @@
     <artifactId>nw-gen</artifactId>
 
     <dependencies>
+        <!--mysql-connector-java-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <!-- velocity , 默认 -->
         <dependency>
             <groupId>org.apache.velocity</groupId>

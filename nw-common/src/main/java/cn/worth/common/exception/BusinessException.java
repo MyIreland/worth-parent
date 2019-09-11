@@ -23,7 +23,7 @@ public class BusinessException extends RuntimeException {
         this.msg = msg;
     }
 
-    public BusinessException(String msg, int code) {
+    public BusinessException(int code, String msg) {
         super(msg);
         this.msg = msg;
         this.code = code;
@@ -31,12 +31,12 @@ public class BusinessException extends RuntimeException {
 
     public BusinessException(String message, Throwable cause) {
         super(message, cause);
-        this.msg = msg;
+        this.msg = message;
     }
 
-    public BusinessException(String message, int code, Throwable cause) {
+    public BusinessException(int code, String message, Throwable cause) {
         super(message, cause);
-        this.msg = msg;
+        this.msg = message;
         this.code = code;
     }
 
