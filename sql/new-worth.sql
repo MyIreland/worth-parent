@@ -491,7 +491,7 @@ CREATE TABLE `sys_file` (
   `name` varchar(200) DEFAULT NULL COMMENT '文件名',
   `type` int(11) DEFAULT NULL COMMENT '文件类型',
   `url` varchar(200) DEFAULT NULL COMMENT 'URL地址',
-  `bizType` tinyint(4) DEFAULT NULL COMMENT '业务类型',
+  `biz_type` varchar(20) DEFAULT NULL COMMENT '业务类型',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件上传';

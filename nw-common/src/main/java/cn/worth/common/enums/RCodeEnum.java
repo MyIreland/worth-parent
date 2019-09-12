@@ -6,7 +6,7 @@ package cn.worth.common.enums;
  * @Date: 2019/3/22
  */
 public enum RCodeEnum {
-    SUCCESS(200, "成功"),
+    SUCCESS(200, "操作成功"),
 
     BIZ_EXCEPTION(500, "业务异常"),
 

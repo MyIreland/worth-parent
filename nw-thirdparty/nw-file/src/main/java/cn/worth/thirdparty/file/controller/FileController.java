@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2019-09-11
  */
 @RestController
-@RequestMapping("/file")
+@RequestMapping("file")
 public class FileController extends BaseController<IFileService, File> {
 
     @Autowired
@@ -55,7 +55,7 @@ public class FileController extends BaseController<IFileService, File> {
      *
      * @return 分页对象
      */
-    @RequestMapping("/page")
+    @PostMapping("page")
     public R page(Page<File> entityPage, File file) {
         EntityWrapper<File> wrapper = new EntityWrapper<>();
         String bizType = file.getBizType();
