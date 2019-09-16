@@ -15,6 +15,7 @@
         <module>nw-sys</module>
         <module>nw-oauth2</module>
         <module>nw-thirdparty</module>
+        <module>nw-tools</module>
     </modules>
 
     <parent>

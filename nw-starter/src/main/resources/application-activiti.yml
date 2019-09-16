@@ -1,0 +1,10 @@
+#nw-activiti 使用
+spring:
+  activiti:
+    database-schema-update: false # 自动建表
+    check-process-definitions: false #在目录processes/寻找流程文件,这个只要配置一下check-process-definitions即好
+    #none：不保存任何的历史数据，因此，在流程执行过程中，这是最高效的。
+    #activity：级别高于none，保存流程实例与流程行为，其他数据不保存。
+    #audit：除activity级别会保存的数据外，还会保存全部的流程任务及其属性。audit为history的默认值。
+    #full：保存历史数据的最高级别，除了
+    history-level: full

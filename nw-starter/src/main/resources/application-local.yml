@@ -39,4 +39,4 @@ logging:
 #    org.quartz: DEBUG
 
 worth:
-  uploadPath: /Users/myireland/
+  uploadPath: /Users/myireland/ # nw-file 使用

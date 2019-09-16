@@ -1,6 +1,7 @@
 package cn.worth;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
+import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @Description:
  * @Modified by:
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)//activiti启动报错解决方式 exclude = SecurityAutoConfiguration.class
 @EnableScheduling
 @MapperScan({"cn.worth.**.mapper"})
 //@EnableSwagger2Doc
