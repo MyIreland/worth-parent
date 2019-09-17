@@ -26,9 +26,6 @@ import $!{superControllerClassPackage};
 @RequestMapping("/$!{table.entityPath}")
 public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entity}Service, $!{entity}> {
 
-    @Autowired
-    private I$!{entity}Service $!{table.entityPath}Service;
-
     /**
     * 通过ID查询
     *
@@ -37,7 +34,7 @@ public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entit
     */
     @GetMapping("/{id}")
     public R<$!{entity}> get(@PathVariable Long id){
-        return new R<>($!{table.entityPath}Service.selectById(id));
+        return new R<>(baseService.selectById(id));
     }
 
 
@@ -59,7 +56,7 @@ public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entit
     */
     @PostMapping
     public R<Boolean> add(@RequestBody $!{entity} $!{table.entityPath}){
-        return new R<>($!{table.entityPath}Service.insert($!{table.entityPath}));
+        return new R<>(baseService.insert($!{table.entityPath}));
     }
 
     /**
@@ -73,7 +70,7 @@ public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entit
         $!{table.entityPath}.setId(id);
         $!{table.entityPath}.setDelFlag(CommonConstant.STATUS_DEL);
         $!{table.entityPath}.setGmtUpdate(new Date());
-        return new R<>($!{table.entityPath}Service.updateById($!{table.entityPath}));
+        return new R<>(baseService.updateById($!{table.entityPath}));
     }
 
     /**
@@ -84,6 +81,6 @@ public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entit
     @PutMapping
     public R<Boolean> edit(@RequestBody $!{entity} $!{table.entityPath}){
         $!{table.entityPath}.setGmtUpdate(new Date());
-        return new R<>($!{table.entityPath}Service.updateById($!{table.entityPath}));
+        return new R<>(baseService.updateById($!{table.entityPath}));
     }
 }

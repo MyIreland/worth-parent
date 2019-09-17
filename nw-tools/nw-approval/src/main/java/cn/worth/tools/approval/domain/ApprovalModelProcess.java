@@ -1,0 +1,124 @@
+package cn.worth.tools.approval.domain;
+
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
+
+/**
+ * <p>
+ * 审批节点
+ * </p>
+ *
+ * @author chenxiaoqing
+ * @since 2019-09-17
+ */
+@TableName("approval_model_process")
+public class ApprovalModelProcess extends Model<ApprovalModelProcess> {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
+    /**
+     * 节点名称
+     */
+    private String name;
+    /**
+     * 节点排序
+     */
+    private Integer sort;
+    /**
+     * 节点审批人
+     */
+    @TableField("user_id")
+    private Long userId;
+    /**
+     * 模型id
+     */
+    @TableField("model_id")
+    private Long modelId;
+    /**
+     * 描述
+     */
+    private String description;
+    @TableField("tenant_id")
+    private Long tenantId;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(Long modelId) {
+        this.modelId = modelId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "ApprovalModelProcess{" +
+        ", id=" + id +
+        ", name=" + name +
+        ", sort=" + sort +
+        ", userId=" + userId +
+        ", modelId=" + modelId +
+        ", description=" + description +
+        ", tenantId=" + tenantId +
+        "}";
+    }
+}

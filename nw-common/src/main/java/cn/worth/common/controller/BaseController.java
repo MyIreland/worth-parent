@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BaseController<E extends IService<T>, T> {
 
     @Autowired
-    private E service;
+    protected E baseService;
 
     protected Page<T> selectPage(Page<T> page, EntityWrapper<T> entityWrapper) {
         if(null == entityWrapper){
             entityWrapper = new EntityWrapper<>();
             entityWrapper.orderBy("id");
         }
-        Page<T> pageList = service.selectPage(page, entityWrapper);
+        Page<T> pageList = baseService.selectPage(page, entityWrapper);
         return pageList;
     }
 }

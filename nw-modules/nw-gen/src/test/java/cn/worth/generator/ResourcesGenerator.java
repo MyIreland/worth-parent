@@ -31,7 +31,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "sys_file");
+        generateByTables(serviceNameStartWithI, "approval_model", "approval_model_process", "approval_task", "approval_task_log", "approval_task_process");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
