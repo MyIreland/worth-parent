@@ -3,6 +3,7 @@ package cn.worth.tools.approval.service.impl;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.utils.AssertUtils;
 import cn.worth.common.utils.CollectionUtils;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalModel;
 import cn.worth.tools.approval.domain.ApprovalModelProcess;
 import cn.worth.tools.approval.enums.ModelStatusEnum;
@@ -58,8 +59,10 @@ public class ApprovalModelServiceImpl extends ServiceImpl<ApprovalModelMapper, A
 
     @Override
     @Transactional
-    public Boolean add(ApprovalModelVO modelVO) {
+    public Boolean add(ApprovalModelVO modelVO, LoginUser loginUser) {
         List<ApprovalModelProcess> processes = modelVO.getProcesses();
+        modelVO.setUserCreate(loginUser.getId());
+        modelVO.setTenantId(loginUser.getOrgId());
         boolean result = insert(modelVO);
         if(result && CollectionUtils.isNotEmpty(processes)){
             Long modelId = modelVO.getId();

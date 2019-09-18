@@ -4,13 +4,13 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.worth.tools.approval.domain.ApprovalTask">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="type" property="type" />
-        <result column="status" property="status" />
-        <result column="total_process" property="totalProcess" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="user_create" property="userCreate" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="status" property="status"/>
+        <result column="total_process" property="totalProcess"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="user_create" property="userCreate"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -18,17 +18,34 @@
         id, name, type, status, total_process AS totalProcess, gmt_create AS gmtCreate, user_create AS userCreate
     </sql>
     <select id="getVO" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from approval_task
         where id = #{id}
     </select>
     <select id="pageVO" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from approval_task
         <where>
             <if test="null != type">and `type` = #{type}</if>
             <if test="null != status">and `status` = #{status}</if>
         </where>
+    </select>
+    <select id="listByUser" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
+        select
+        <include refid="Base_Column_List"/>
+        from approval_task where user_create = #{userId}
+        <if test="null != type">and `type` = #{type}</if>
+        <if test="null != status">and `status` = #{status}</if>
+    </select>
+    <select id="getByIds" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
+        select
+        <include refid="Base_Column_List"/>
+        from approval_task where id in
+        <foreach collection="taskIds" item="each" separator="," open="(" close=")">
+            #{each}
+        </foreach>
     </select>
 
 </mapper>

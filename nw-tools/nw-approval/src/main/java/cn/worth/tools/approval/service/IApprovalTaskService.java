@@ -5,6 +5,8 @@ import cn.worth.tools.approval.vo.ApprovalTaskVO;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 审批任务 服务类
@@ -19,5 +21,9 @@ public interface IApprovalTaskService extends IService<ApprovalTask> {
 
     Page<ApprovalTaskVO> pageVO(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo);
 
-    Boolean add(Long modelId, ApprovalTask task);
+    ApprovalTask add(Long modelId, ApprovalTask task);
+
+    List<ApprovalTaskVO> listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long id);
+
+    Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, Long id);
 }

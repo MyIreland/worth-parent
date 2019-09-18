@@ -61,6 +61,16 @@ public class ApprovalModel extends Model<ApprovalModel> {
     @TableField("del_flag")
     private Integer delFlag;
 
+    @TableField("tenant_id")
+    private Long tenantId;
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
 
     public Long getId() {
         return id;

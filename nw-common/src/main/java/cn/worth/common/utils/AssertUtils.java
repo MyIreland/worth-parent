@@ -19,4 +19,10 @@ public class AssertUtils {
             throw new BusinessException(msg);
         }
     }
+
+    public static void verifyEquals(Object arg1, Object arg2, String msg) {
+        if(arg1.equals(arg2)){
+            throw new BusinessException(msg);
+        }
+    }
 }

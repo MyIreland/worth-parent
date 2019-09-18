@@ -1,8 +1,10 @@
 package cn.worth.tools.approval.controller;
 
+import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalModel;
 import cn.worth.tools.approval.service.IApprovalModelService;
 import cn.worth.tools.approval.vo.ApprovalModelVO;
@@ -53,8 +55,8 @@ public class ApprovalModelController extends BaseController<IApprovalModelServic
      * @return success/false
      */
     @PostMapping
-    public R<Boolean> add(@RequestBody ApprovalModelVO modelVO) {
-        return new R<>(baseService.add(modelVO));
+    public R<Boolean> add(@RequestBody ApprovalModelVO modelVO, @CurrentUser LoginUser loginUser) {
+        return new R<>(baseService.add(modelVO, loginUser));
     }
 
     /**

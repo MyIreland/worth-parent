@@ -51,7 +51,16 @@ public class ApprovalTask extends Model<ApprovalTask> {
     @TableField("user_create")
     private Long userCreate;
 
+    @TableField("tenant_id")
+    private Long tenantId;
 
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
     public Long getId() {
         return id;
     }

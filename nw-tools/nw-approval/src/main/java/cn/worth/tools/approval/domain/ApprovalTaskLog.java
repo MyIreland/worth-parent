@@ -38,6 +38,11 @@ public class ApprovalTaskLog extends Model<ApprovalTaskLog> {
     @TableField("action_user")
     private Long actionUser;
     /**
+     * 操作人姓名
+     */
+    @TableField("action_user_name")
+    private String actionUserName;
+    /**
      * 操作后状态
      */
     @TableField("action_status")
@@ -48,6 +53,13 @@ public class ApprovalTaskLog extends Model<ApprovalTaskLog> {
     @TableField("action_time")
     private Date actionTime;
 
+    public String getActionUserName() {
+        return actionUserName;
+    }
+
+    public void setActionUserName(String actionUserName) {
+        this.actionUserName = actionUserName;
+    }
 
     public Long getId() {
         return id;

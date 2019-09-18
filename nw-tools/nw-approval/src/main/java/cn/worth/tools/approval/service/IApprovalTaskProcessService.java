@@ -16,4 +16,8 @@ import java.util.List;
 public interface IApprovalTaskProcessService extends IService<ApprovalTaskProcess> {
 
     List<ApprovalTaskProcess> getByTaskId(Long id);
+
+    Boolean updateStatus(Long taskProcessId, Integer status, Long id);
+
+    List<Long> getMyApproveTaskIds(Integer status, Long userId);
 }

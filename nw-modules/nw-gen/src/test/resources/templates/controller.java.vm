@@ -43,7 +43,7 @@ public class $!{table.controllerName} extends $!{superControllerClass}<I$!{entit
     *
     * @return 分页对象
     */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public R page(Page<$!{entity}> entityPage, $!{entity} entity){
         Page<$!{entity}> page=selectPage(entityPage, entity);
         return R.success(page);

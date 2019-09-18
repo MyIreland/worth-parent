@@ -36,6 +36,11 @@ public class ApprovalModelProcess extends Model<ApprovalModelProcess> {
     @TableField("user_id")
     private Long userId;
     /**
+     * 节点审批人
+     */
+    @TableField("user_name")
+    private String userName;
+    /**
      * 模型id
      */
     @TableField("model_id")
@@ -44,9 +49,14 @@ public class ApprovalModelProcess extends Model<ApprovalModelProcess> {
      * 描述
      */
     private String description;
-    @TableField("tenant_id")
-    private Long tenantId;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Long getId() {
         return id;
@@ -96,13 +106,6 @@ public class ApprovalModelProcess extends Model<ApprovalModelProcess> {
         this.description = description;
     }
 
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
-    }
 
     @Override
     protected Serializable pkVal() {
@@ -118,7 +121,6 @@ public class ApprovalModelProcess extends Model<ApprovalModelProcess> {
         ", userId=" + userId +
         ", modelId=" + modelId +
         ", description=" + description +
-        ", tenantId=" + tenantId +
         "}";
     }
 }

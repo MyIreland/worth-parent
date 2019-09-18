@@ -1,5 +1,6 @@
 package cn.worth.tools.approval.service;
 
+import cn.worth.common.vo.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalModel;
 import cn.worth.tools.approval.vo.ApprovalModelVO;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -19,7 +20,7 @@ public interface IApprovalModelService extends IService<ApprovalModel> {
 
     ApprovalModelVO get(Long id);
 
-    Boolean add(ApprovalModelVO modelVO);
+    Boolean add(ApprovalModelVO modelVO, LoginUser loginUser);
 
     Boolean update(ApprovalModelVO modelVO);
 

@@ -1,18 +1,15 @@
 package cn.worth.tools.approval.controller;
 
-import java.util.Map;
-import java.util.Date;
-
+import cn.worth.common.annotation.CurrentUser;
+import cn.worth.common.controller.BaseController;
+import cn.worth.common.pojo.R;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalTask;
 import cn.worth.tools.approval.service.IApprovalTaskService;
 import cn.worth.tools.approval.vo.ApprovalTaskVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import cn.worth.common.constant.CommonConstant;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import cn.worth.common.pojo.R;
-import cn.worth.common.controller.BaseController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 /**
  * <p>
@@ -27,6 +24,18 @@ import cn.worth.common.controller.BaseController;
 public class ApprovalTaskController extends BaseController<IApprovalTaskService, ApprovalTask> {
 
     /**
+     * 获取我审批的任务
+     * @param entityPage
+     * @param status
+     * @param loginUser
+     * @return
+     */
+    @PostMapping("/pageMyApprove")
+    public R pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, @CurrentUser LoginUser loginUser) {
+        Page<ApprovalTaskVO> page = baseService.pageMyApprove(entityPage, status, loginUser.getId());
+        return R.success(page);
+    }
+    /**
      * 通过ID查询
      *
      * @param id ID
@@ -37,15 +46,25 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
         return new R<>(baseService.getVO(id));
     }
 
-
     /**
      * 分页查询信息
      *
      * @return 分页对象
      */
-    @RequestMapping("/page")
+    @PostMapping("/page")
     public R page(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo) {
         Page<ApprovalTaskVO> page = baseService.pageVO(entityPage, vo);
+        return R.success(page);
+    }
+
+    /**
+     * 查询当前用户的审批任务
+     *
+     * @return 分页对象
+     */
+    @PostMapping("/listByUser")
+    public R listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, @CurrentUser LoginUser loginUser) {
+        List<ApprovalTaskVO> page = baseService.listByUser(entityPage, vo, loginUser.getId());
         return R.success(page);
     }
 
@@ -56,7 +75,7 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
      * @return success/false
      */
     @PostMapping("add")
-    public R<Boolean> add(Long modelId, ApprovalTask task) {
+    public R<ApprovalTask> add(Long modelId, ApprovalTask task) {
         return new R<>(baseService.add(modelId, task));
     }
 
@@ -68,9 +87,7 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
      */
     @DeleteMapping("/{id}")
     public R<Boolean> delete(@PathVariable Long id) {
-        ApprovalTask approvalTask = new ApprovalTask();
-        approvalTask.setId(id);
-        return new R<>(baseService.updateById(approvalTask));
+        return new R<>(baseService.deleteById(id));
     }
 
     /**
@@ -81,6 +98,11 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
      */
     @PutMapping
     public R<Boolean> edit(@RequestBody ApprovalTask approvalTask) {
-        return new R<>(baseService.updateById(approvalTask));
+
+        ApprovalTask updateTask = new ApprovalTask();
+        updateTask.setId(approvalTask.getId());
+        updateTask.setName(approvalTask.getName());
+        updateTask.setStatus(approvalTask.getStatus());
+        return new R<>(baseService.updateById(updateTask));
     }
 }

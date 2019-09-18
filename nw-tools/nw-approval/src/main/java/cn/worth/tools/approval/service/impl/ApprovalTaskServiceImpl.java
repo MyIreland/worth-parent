@@ -62,7 +62,7 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
 
     @Override
     @Transactional
-    public Boolean add(Long modelId, ApprovalTask taskVO) {
+    public ApprovalTask add(Long modelId, ApprovalTask taskVO) {
         ApprovalModelVO approvalModelVO = modelService.get(modelId);
         List<ApprovalModelProcess> modelProcesses = approvalModelVO.getProcesses();
         ApprovalTask task = genApprovalTask(approvalModelVO, taskVO);
@@ -83,7 +83,30 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
             }
             taskProcessService.insertBatch(taskProcesses);
         }
-        return true;
+        return task;
+    }
+
+    @Override
+    public List<ApprovalTaskVO> listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long userId) {
+        List<ApprovalTaskVO> taskVOS = baseMapper.listByUser(entityPage, vo, userId);
+        for (ApprovalTaskVO taskVO : taskVOS) {
+            Long id = taskVO.getId();
+            List<ApprovalTaskProcess> modelProcesses = taskProcessService.getByTaskId(id);
+            taskVO.setProcesses(modelProcesses);
+        }
+        return taskVOS;
+    }
+
+    @Override
+    public Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, Long userId) {
+
+        List<Long> taskIds = taskProcessService.getMyApproveTaskIds(status, userId);
+        List<ApprovalTaskVO> taskVOS = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(taskIds)){
+            taskVOS = baseMapper.getByIds(entityPage, taskIds);
+        }
+        entityPage.setRecords(taskVOS);
+        return entityPage;
     }
 
     private ApprovalTask genApprovalTask(ApprovalModelVO approvalModelVO, ApprovalTask taskVO) {
@@ -95,6 +118,8 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
         }
         task.setName(taskName);
         task.setType(taskVO.getType());
+        task.setUserCreate(taskVO.getUserCreate());
+        task.setTenantId(taskVO.getTenantId());
         task.setTotalProcess(processes.size());
         task.setGmtCreate(new Date());
         task.setStatus(TaskStatusEnum.RUNNING.getCode());
