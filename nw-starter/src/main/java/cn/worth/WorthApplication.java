@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @Modified by:
  */
 @SpringBootApplication//(exclude = SecurityAutoConfiguration.class)//activiti启动报错解决方式 exclude = SecurityAutoConfiguration.class
-@EnableScheduling
+//@EnableScheduling
 @MapperScan({"cn.worth.**.mapper"})
 //@EnableSwagger2Doc
 public class WorthApplication {

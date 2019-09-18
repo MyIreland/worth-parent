@@ -24,11 +24,11 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <artifactId>nw-quartz</artifactId>
-            <groupId>cn.worth</groupId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <artifactId>nw-quartz</artifactId>-->
+<!--            <groupId>cn.worth</groupId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <artifactId>nw-file</artifactId>
@@ -36,11 +36,11 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <artifactId>nw-activiti</artifactId>-->
-<!--            <groupId>cn.worth</groupId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <artifactId>nw-approval</artifactId>
+            <groupId>cn.worth</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
