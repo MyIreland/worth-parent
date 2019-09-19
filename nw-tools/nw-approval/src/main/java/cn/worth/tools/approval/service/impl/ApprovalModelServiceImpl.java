@@ -66,15 +66,19 @@ public class ApprovalModelServiceImpl extends ServiceImpl<ApprovalModelMapper, A
         boolean result = insert(modelVO);
         if(result && CollectionUtils.isNotEmpty(processes)){
             Long modelId = modelVO.getId();
-            int sort = 1;
-            for (ApprovalModelProcess process : processes) {
-                process.setModelId(modelId);
-                process.setSort(sort);
-                sort++;
-            }
-            modelProcessService.insertBatch(processes);
+            insertModelProcessBatch(modelId, processes);
         }
         return true;
+    }
+
+    private void insertModelProcessBatch(Long modelId, List<ApprovalModelProcess> processes) {
+        int sort = 1;
+        for (ApprovalModelProcess process : processes) {
+            process.setModelId(modelId);
+            process.setSort(sort);
+            sort++;
+        }
+        modelProcessService.insertBatch(processes);
     }
 
     @Override
@@ -88,10 +92,7 @@ public class ApprovalModelServiceImpl extends ServiceImpl<ApprovalModelMapper, A
         Boolean delResult = modelProcessService.deleteByModelId(modelId);
         List<ApprovalModelProcess> processes = modelVO.getProcesses();
         if(updateResult && delResult && CollectionUtils.isNotEmpty(processes)){
-            for (ApprovalModelProcess process : processes) {
-                process.setModelId(modelId);
-            }
-            modelProcessService.insertBatch(processes);
+            insertModelProcessBatch(modelId, processes);
         }
         return true;
     }
