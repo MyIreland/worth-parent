@@ -66,8 +66,11 @@ public class ApprovalModelServiceImpl extends ServiceImpl<ApprovalModelMapper, A
         boolean result = insert(modelVO);
         if(result && CollectionUtils.isNotEmpty(processes)){
             Long modelId = modelVO.getId();
+            int sort = 1;
             for (ApprovalModelProcess process : processes) {
                 process.setModelId(modelId);
+                process.setSort(sort);
+                sort++;
             }
             modelProcessService.insertBatch(processes);
         }

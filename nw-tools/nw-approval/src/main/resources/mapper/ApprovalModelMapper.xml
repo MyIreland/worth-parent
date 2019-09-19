@@ -27,6 +27,7 @@
         select <include refid="Base_Column_List"/>
         from approval_model
         <where>
+            del_flag = 0
             <if test="null != type">and `type` = #{type}</if>
             <if test="null != status">and `status` = #{status}</if>
         </where>
