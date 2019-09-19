@@ -40,6 +40,11 @@ public class ApprovalTaskProcess extends Model<ApprovalTaskProcess> {
     @TableField("user_id")
     private Long userId;
     /**
+     * 任务节点审批人名称
+     */
+    @TableField("user_name")
+    private String userName;
+    /**
      * 任务id
      */
     @TableField("task_id")
@@ -49,6 +54,13 @@ public class ApprovalTaskProcess extends Model<ApprovalTaskProcess> {
      */
     private String description;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Long getId() {
         return id;

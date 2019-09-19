@@ -78,6 +78,7 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
                 taskProcess.setDescription(modelProcess.getDescription());
                 taskProcess.setSort(modelProcess.getSort());
                 taskProcess.setUserId(modelProcess.getUserId());
+                taskProcess.setUserName(modelProcess.getUserName());
                 taskProcess.setStatus(TaskProcessStatusEnum.WAIT.getCode());
                 taskProcesses.add(taskProcess);
             }
@@ -117,9 +118,9 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
             taskName = approvalModelVO.getName();
         }
         task.setName(taskName);
-        task.setType(taskVO.getType());
-        task.setUserCreate(taskVO.getUserCreate());
-        task.setTenantId(taskVO.getTenantId());
+        task.setType(approvalModelVO.getType());
+        task.setUserCreate(approvalModelVO.getUserCreate());
+        task.setTenantId(approvalModelVO.getTenantId());
         task.setTotalProcess(processes.size());
         task.setGmtCreate(new Date());
         task.setStatus(TaskStatusEnum.RUNNING.getCode());
