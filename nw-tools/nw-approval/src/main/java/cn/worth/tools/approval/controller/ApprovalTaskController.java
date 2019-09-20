@@ -9,7 +9,6 @@ import cn.worth.tools.approval.service.IApprovalTaskService;
 import cn.worth.tools.approval.vo.ApprovalTaskVO;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 /**
  * <p>
@@ -58,13 +57,13 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
     }
 
     /**
-     * 查询当前用户的审批任务
+     * 查询当前用户创建的审批
      *
      * @return 分页对象
      */
-    @PostMapping("/listByUser")
-    public R listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, @CurrentUser LoginUser loginUser) {
-        List<ApprovalTaskVO> page = baseService.listByUser(entityPage, vo, loginUser.getId());
+    @PostMapping("/pageByUser")
+    public R pageByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, @CurrentUser LoginUser loginUser) {
+        Page<ApprovalTaskVO> page = baseService.pageByUser(entityPage, vo, loginUser.getId());
         return R.success(page);
     }
 

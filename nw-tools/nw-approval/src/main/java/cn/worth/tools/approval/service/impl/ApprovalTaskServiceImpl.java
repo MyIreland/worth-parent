@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -88,20 +89,21 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
     }
 
     @Override
-    public List<ApprovalTaskVO> listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long userId) {
-        List<ApprovalTaskVO> taskVOS = baseMapper.listByUser(entityPage, vo, userId);
+    public Page<ApprovalTaskVO> pageByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long userId) {
+        List<ApprovalTaskVO> taskVOS = baseMapper.pageByUser(entityPage, vo, userId);
         for (ApprovalTaskVO taskVO : taskVOS) {
             Long id = taskVO.getId();
             List<ApprovalTaskProcess> modelProcesses = taskProcessService.getByTaskId(id);
             taskVO.setProcesses(modelProcesses);
         }
-        return taskVOS;
+        entityPage.setRecords(taskVOS);
+        return entityPage;
     }
 
     @Override
     public Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, Long userId) {
 
-        List<Long> taskIds = taskProcessService.getMyApproveTaskIds(status, userId);
+        Set<Long> taskIds = taskProcessService.getMyApproveTaskIds(status, userId);
         List<ApprovalTaskVO> taskVOS = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(taskIds)){
             taskVOS = baseMapper.getByIds(entityPage, taskIds);

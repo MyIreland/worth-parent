@@ -4,6 +4,7 @@ import cn.worth.tools.approval.domain.ApprovalTaskProcess;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -19,5 +20,5 @@ public interface IApprovalTaskProcessService extends IService<ApprovalTaskProces
 
     Boolean updateStatus(Long taskProcessId, Integer status, Long id);
 
-    List<Long> getMyApproveTaskIds(Integer status, Long userId);
+    Set<Long> getMyApproveTaskIds(Integer status, Long userId);
 }

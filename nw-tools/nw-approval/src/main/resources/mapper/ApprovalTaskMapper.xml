@@ -32,12 +32,12 @@
             <if test="null != status">and `status` = #{status}</if>
         </where>
     </select>
-    <select id="listByUser" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
+    <select id="pageByUser" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
         select
         <include refid="Base_Column_List"/>
         from approval_task where user_create = #{userId}
-        <if test="null != type">and `type` = #{type}</if>
-        <if test="null != status">and `status` = #{status}</if>
+        <if test="null != param.type">and `type` = #{param.type}</if>
+        <if test="null != param.status">and `status` = #{param.status}</if>
     </select>
     <select id="getByIds" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
         select

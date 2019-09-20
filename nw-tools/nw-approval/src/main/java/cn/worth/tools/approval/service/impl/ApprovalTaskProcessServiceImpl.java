@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -77,7 +78,7 @@ public class ApprovalTaskProcessServiceImpl extends ServiceImpl<ApprovalTaskProc
     }
 
     @Override
-    public List<Long> getMyApproveTaskIds(Integer status, Long userId) {
+    public Set<Long> getMyApproveTaskIds(Integer status, Long userId) {
         return baseMapper.getMyApproveTaskIds(status, userId);
     }
 

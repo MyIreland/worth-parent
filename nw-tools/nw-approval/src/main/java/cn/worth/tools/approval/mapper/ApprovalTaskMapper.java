@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -22,7 +23,7 @@ public interface ApprovalTaskMapper extends BaseMapper<ApprovalTask> {
 
     List<ApprovalTaskVO> pageVO(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo);
 
-    List<ApprovalTaskVO> listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, @Param("userId") Long userId);
+    List<ApprovalTaskVO> pageByUser(Page<ApprovalTaskVO> entityPage, @Param("param") ApprovalTaskVO vo, @Param("userId") Long userId);
 
-    List<ApprovalTaskVO> getByIds(Page<ApprovalTaskVO> entityPage, @Param("taskIds") List<Long> taskIds);
+    List<ApprovalTaskVO> getByIds(Page<ApprovalTaskVO> entityPage, @Param("taskIds") Set<Long> taskIds);
 }

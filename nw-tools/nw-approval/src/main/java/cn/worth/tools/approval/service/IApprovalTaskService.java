@@ -23,7 +23,7 @@ public interface IApprovalTaskService extends IService<ApprovalTask> {
 
     ApprovalTask add(Long modelId, ApprovalTask task);
 
-    List<ApprovalTaskVO> listByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long id);
+    Page<ApprovalTaskVO> pageByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long id);
 
     Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, Long id);
 }
