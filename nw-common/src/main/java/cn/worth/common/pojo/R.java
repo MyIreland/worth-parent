@@ -13,7 +13,7 @@ public class R<T> implements Serializable {
     /**
      * 附带信息
      */
-    private String message = RCodeEnum.SUCCESS.getMsg();
+    private String message = "";
 
     /**
      * 状态码

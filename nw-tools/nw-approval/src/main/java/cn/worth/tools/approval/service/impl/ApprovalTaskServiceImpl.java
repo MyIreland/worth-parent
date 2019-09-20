@@ -1,10 +1,12 @@
 package cn.worth.tools.approval.service.impl;
 
+import cn.worth.common.exception.BusinessException;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
 import cn.worth.tools.approval.domain.ApprovalModelProcess;
 import cn.worth.tools.approval.domain.ApprovalTask;
 import cn.worth.tools.approval.domain.ApprovalTaskProcess;
+import cn.worth.tools.approval.enums.ApprovalErrorEnum;
 import cn.worth.tools.approval.enums.TaskProcessStatusEnum;
 import cn.worth.tools.approval.enums.TaskStatusEnum;
 import cn.worth.tools.approval.mapper.ApprovalTaskMapper;
@@ -107,9 +109,38 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
         List<ApprovalTaskVO> taskVOS = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(taskIds)){
             taskVOS = baseMapper.getByIds(entityPage, taskIds);
+            for (ApprovalTaskVO taskVO : taskVOS) {
+                Long id = taskVO.getId();
+                List<ApprovalTaskProcess> modelProcesses = taskProcessService.getByTaskId(id);
+                taskVO.setProcesses(modelProcesses);
+            }
         }
         entityPage.setRecords(taskVOS);
         return entityPage;
+    }
+
+    @Override
+    public Boolean recall(Long taskId, Long userId) {
+        ApprovalTask task = baseMapper.selectById(taskId);
+        if(null == task){
+            ApprovalErrorEnum error = ApprovalErrorEnum.TASK_NOT_FOUND;
+            throw new BusinessException(error.getCode(), error.getDesc());
+        }
+        Integer status = task.getStatus();
+        if(TaskStatusEnum.RUNNING.getCode() != status){
+            ApprovalErrorEnum error = ApprovalErrorEnum.TASK_STATUS_ERROR;
+            throw new BusinessException(error.getCode(), error.getDesc());
+        }
+        Long userCreate = task.getUserCreate();
+        if(!userCreate.equals(userId)){
+            ApprovalErrorEnum error = ApprovalErrorEnum.TASK_OPTION_USER_ERROR;
+            throw new BusinessException(error.getCode(), error.getDesc());
+        }
+
+        ApprovalTask taskForUpdate = new ApprovalTask();
+        taskForUpdate.setId(taskId);
+        taskForUpdate.setStatus(TaskStatusEnum.RECALL.getCode());
+        return updateById(taskForUpdate);
     }
 
     private ApprovalTask genApprovalTask(ApprovalModelVO approvalModelVO, ApprovalTask taskVO) {

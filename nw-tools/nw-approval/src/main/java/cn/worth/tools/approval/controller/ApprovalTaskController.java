@@ -34,6 +34,18 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
         Page<ApprovalTaskVO> page = baseService.pageMyApprove(entityPage, status, loginUser.getId());
         return R.success(page);
     }
+
+    /**
+     * 撤回审批
+     * @param taskId
+     * @param loginUser
+     * @return
+     */
+    @PostMapping("recall")
+    public R recall(Long taskId, @CurrentUser LoginUser loginUser) {
+        return R.success(baseService.recall(taskId, loginUser.getId()));
+    }
+
     /**
      * 通过ID查询
      *

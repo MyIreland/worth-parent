@@ -7,7 +7,7 @@ package cn.worth.tools.approval.enums;
  * @description
  **/
 public enum TaskStatusEnum {
-    RUNNING(0, "进行中"),PASS(1, "通过"),REFUSE(2, "拒绝"),CANCEL(3, "取消");
+    RUNNING(0, "进行中"),PASS(1, "通过"),REFUSE(2, "拒绝"),CANCEL(3, "取消"),RECALL(4, "撤回");
 
     private String desc;
     private int code;
