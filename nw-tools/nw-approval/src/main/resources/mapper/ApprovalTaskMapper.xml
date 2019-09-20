@@ -8,14 +8,14 @@
         <result column="name" property="name"/>
         <result column="type" property="type"/>
         <result column="status" property="status"/>
-        <result column="total_process" property="totalProcess"/>
+        <result column="current_process" property="currentProcess"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="user_create" property="userCreate"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, type, status, total_process AS totalProcess, gmt_create AS gmtCreate, user_create AS userCreate
+        id, name, type, status, current_process, gmt_create AS gmtCreate, user_create AS userCreate
     </sql>
     <select id="getVO" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
         select
@@ -54,7 +54,6 @@
             t.type,
             t.STATUS,
             t.current_process,
-            t.total_process,
             t.gmt_create,
             t.user_create
         FROM
