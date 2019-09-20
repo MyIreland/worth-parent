@@ -47,5 +47,23 @@
             #{each}
         </foreach>
     </select>
+    <select id="pageMyApprove" resultType="cn.worth.tools.approval.vo.ApprovalTaskVO">
+        SELECT
+            t.id,
+            t.NAME,
+            t.type,
+            t.STATUS,
+            t.current_process,
+            t.total_process,
+            t.gmt_create,
+            t.user_create
+        FROM
+            approval_task t
+            LEFT JOIN approval_task_process p ON t.current_process = p.id
+        WHERE
+            p.user_id = #{userId}
+            AND p.`status` = 0
+            AND t.`status` = 0
+    </select>
 
 </mapper>

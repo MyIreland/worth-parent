@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -53,6 +54,17 @@ public class ApprovalTaskProcess extends Model<ApprovalTaskProcess> {
      * 描述
      */
     private String description;
+
+    @TableField("gmt_create")
+    private Date gmtCreate;
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
 
     public String getUserName() {
         return userName;

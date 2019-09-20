@@ -23,7 +23,16 @@ public interface IApprovalTaskService extends IService<ApprovalTask> {
 
     Page<ApprovalTaskVO> pageByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long id);
 
-    Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, Long id);
+    Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Long id);
 
     Boolean recall(Long taskId, Long userId);
+
+    /**
+     * 审批任务当前节点
+     * @param taskId
+     * @param status
+     * @param id
+     * @return
+     */
+    Boolean updateCurrentProcessStatus(Long taskId, Integer status, Long id);
 }

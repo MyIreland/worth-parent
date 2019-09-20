@@ -26,4 +26,6 @@ public interface ApprovalTaskMapper extends BaseMapper<ApprovalTask> {
     List<ApprovalTaskVO> pageByUser(Page<ApprovalTaskVO> entityPage, @Param("param") ApprovalTaskVO vo, @Param("userId") Long userId);
 
     List<ApprovalTaskVO> getByIds(Page<ApprovalTaskVO> entityPage, @Param("taskIds") Set<Long> taskIds);
+
+    List<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, @Param("userId") Long userId);
 }

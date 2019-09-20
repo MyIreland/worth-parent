@@ -45,7 +45,7 @@ public class ApprovalTaskProcessServiceImpl extends ServiceImpl<ApprovalTaskProc
         AssertUtils.isNull(status, "status is null");
         ApprovalTaskProcess currentTaskProcess = selectById(taskProcessId);
         AssertUtils.isNull(currentTaskProcess, "currentTaskProcess is not exist");
-        AssertUtils.verifyEquals(currentTaskProcess.getUserId(), userId, "you can not update this task");
+        AssertUtils.verifyNotEquals(currentTaskProcess.getUserId(), userId, "you can not update this task");
 
         ApprovalTaskProcess taskProcessForUpdate = new ApprovalTaskProcess();
         taskProcessForUpdate.setId(taskProcessId);
@@ -59,18 +59,21 @@ public class ApprovalTaskProcessServiceImpl extends ServiceImpl<ApprovalTaskProc
             switch (status) {
                 case 1://同意
                     Integer sort = currentTaskProcess.getSort();
-                    if(task.getTotalProcess().equals(sort)){//最后一层过程审批完成
-                        ApprovalTask taskForUpdate = new ApprovalTask();
-                        taskForUpdate.setId(task.getId());
-                        taskForUpdate.setStatus(TaskStatusEnum.PASS.getCode());
-                        taskService.updateById(taskForUpdate);
-                    }
-                    break;
-                case 2://拒绝
+                    ApprovalTaskProcess taskProcess = baseMapper.nextProcess(taskId, sort);
                     ApprovalTask taskForUpdate = new ApprovalTask();
                     taskForUpdate.setId(task.getId());
-                    taskForUpdate.setStatus(TaskStatusEnum.REFUSE.getCode());
+                    if(null == taskProcess){//最后一层过程审批完成
+                        taskForUpdate.setStatus(TaskStatusEnum.PASS.getCode());
+                    } else {
+                        taskForUpdate.setCurrentProcess(taskProcess.getId());
+                    }
                     taskService.updateById(taskForUpdate);
+                    break;
+                case 2://拒绝
+                    ApprovalTask task1ForUpdate = new ApprovalTask();
+                    task1ForUpdate.setId(task.getId());
+                    task1ForUpdate.setStatus(TaskStatusEnum.REFUSE.getCode());
+                    taskService.updateById(task1ForUpdate);
                     break;
             }
         }

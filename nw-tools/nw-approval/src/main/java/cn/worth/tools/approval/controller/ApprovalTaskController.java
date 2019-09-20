@@ -25,14 +25,25 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
     /**
      * 获取我审批的任务
      * @param entityPage
-     * @param status
      * @param loginUser
      * @return
      */
     @PostMapping("/pageMyApprove")
-    public R pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, @CurrentUser LoginUser loginUser) {
-        Page<ApprovalTaskVO> page = baseService.pageMyApprove(entityPage, status, loginUser.getId());
+    public R pageMyApprove(Page<ApprovalTaskVO> entityPage, @CurrentUser LoginUser loginUser) {
+        Page<ApprovalTaskVO> page = baseService.pageMyApprove(entityPage, loginUser.getId());
         return R.success(page);
+    }
+
+    /**
+     * 审核任务修改状态
+     * @param taskId
+     * @param status
+     * @param loginUser
+     * @return
+     */
+    @PostMapping("/updateCurrentProcessStatus")
+    public R updateCurrentProcessStatus(Long taskId, Integer status, @CurrentUser LoginUser loginUser) {
+        return R.success(baseService.updateCurrentProcessStatus(taskId, status, loginUser.getId()));
     }
 
     /**

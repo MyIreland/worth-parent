@@ -74,6 +74,7 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
         if(insertResult && CollectionUtils.isNotEmpty(modelProcesses)){
             List<ApprovalTaskProcess> taskProcesses = new ArrayList<>();
             Long taskId = task.getId();
+            Date currentDate = new Date();
             for (ApprovalModelProcess modelProcess : modelProcesses) {
                 ApprovalTaskProcess taskProcess = new ApprovalTaskProcess();
                 taskProcess.setName(modelProcess.getName());
@@ -83,9 +84,17 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
                 taskProcess.setUserId(modelProcess.getUserId());
                 taskProcess.setUserName(modelProcess.getUserName());
                 taskProcess.setStatus(TaskProcessStatusEnum.WAIT.getCode());
+                taskProcess.setGmtCreate(currentDate);
                 taskProcesses.add(taskProcess);
             }
             taskProcessService.insertBatch(taskProcesses);
+            Long firstProcess = taskProcesses.get(0).getId();
+            if(null != firstProcess){
+                ApprovalTask taskForUpdate = new ApprovalTask();
+                taskForUpdate.setId(taskId);
+                taskForUpdate.setCurrentProcess(firstProcess);
+                updateById(taskForUpdate);
+            }
         }
         return task;
     }
@@ -103,12 +112,10 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
     }
 
     @Override
-    public Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Integer status, Long userId) {
+    public Page<ApprovalTaskVO> pageMyApprove(Page<ApprovalTaskVO> entityPage, Long userId) {
 
-        Set<Long> taskIds = taskProcessService.getMyApproveTaskIds(status, userId);
-        List<ApprovalTaskVO> taskVOS = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(taskIds)){
-            taskVOS = baseMapper.getByIds(entityPage, taskIds);
+        List<ApprovalTaskVO> taskVOS = baseMapper.pageMyApprove(entityPage, userId);
+        if(CollectionUtils.isNotEmpty(taskVOS)){
             for (ApprovalTaskVO taskVO : taskVOS) {
                 Long id = taskVO.getId();
                 List<ApprovalTaskProcess> modelProcesses = taskProcessService.getByTaskId(id);
@@ -143,6 +150,17 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
         return updateById(taskForUpdate);
     }
 
+    @Override
+    public Boolean updateCurrentProcessStatus(Long taskId, Integer status, Long userId) {
+        ApprovalTask task = baseMapper.selectById(taskId);
+        if(null == task){
+            ApprovalErrorEnum error = ApprovalErrorEnum.TASK_NOT_FOUND;
+            throw new BusinessException(error.getCode(), error.getDesc());
+        }
+        Long currentProcessId = task.getCurrentProcess();
+        return taskProcessService.updateStatus(currentProcessId, status, userId);
+    }
+
     private ApprovalTask genApprovalTask(ApprovalModelVO approvalModelVO, ApprovalTask taskVO) {
         ApprovalTask task = new ApprovalTask();
         List<ApprovalModelProcess> processes = approvalModelVO.getProcesses();
@@ -154,7 +172,6 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
         task.setType(approvalModelVO.getType());
         task.setUserCreate(approvalModelVO.getUserCreate());
         task.setTenantId(approvalModelVO.getTenantId());
-        task.setTotalProcess(processes.size());
         task.setGmtCreate(new Date());
         task.setStatus(TaskStatusEnum.RUNNING.getCode());
         return task;

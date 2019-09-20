@@ -16,4 +16,12 @@ import java.util.Set;
 public interface ApprovalTaskProcessMapper extends BaseMapper<ApprovalTaskProcess> {
 
     Set<Long> getMyApproveTaskIds(@Param("status")Integer status, @Param("userId") Long userId);
+
+    /**
+     * 获取task 下一个流程节点
+     * @param taskId
+     * @param sort
+     * @return
+     */
+    ApprovalTaskProcess nextProcess(@Param("taskId")Long taskId, @Param("sort") Integer sort);
 }

@@ -22,4 +22,14 @@
         <if test="null != status">status = #{status}</if>
     </select>
 
+    <select id="nextProcess" resultType="cn.worth.tools.approval.domain.ApprovalTaskProcess">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            approval_task_process
+        WHERE
+            task_id = #{taskId}
+            AND sort = #{sort} + 1
+    </select>
+
 </mapper>

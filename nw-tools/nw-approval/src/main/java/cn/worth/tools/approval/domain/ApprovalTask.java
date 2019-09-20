@@ -36,10 +36,10 @@ public class ApprovalTask extends Model<ApprovalTask> {
      */
     private Integer status;
     /**
-     * 总审批节点数
+     * 当前任务节点
      */
-    @TableField("total_process")
-    private Integer totalProcess;
+    @TableField("current_process")
+    private Long currentProcess;
     /**
      * 创建时间
      */
@@ -53,6 +53,14 @@ public class ApprovalTask extends Model<ApprovalTask> {
 
     @TableField("tenant_id")
     private Long tenantId;
+
+    public Long getCurrentProcess() {
+        return currentProcess;
+    }
+
+    public void setCurrentProcess(Long currentProcess) {
+        this.currentProcess = currentProcess;
+    }
 
     public Long getTenantId() {
         return tenantId;
@@ -93,14 +101,6 @@ public class ApprovalTask extends Model<ApprovalTask> {
         this.status = status;
     }
 
-    public Integer getTotalProcess() {
-        return totalProcess;
-    }
-
-    public void setTotalProcess(Integer totalProcess) {
-        this.totalProcess = totalProcess;
-    }
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -129,7 +129,6 @@ public class ApprovalTask extends Model<ApprovalTask> {
         ", name=" + name +
         ", type=" + type +
         ", status=" + status +
-        ", totalProcess=" + totalProcess +
         ", gmtCreate=" + gmtCreate +
         ", userCreate=" + userCreate +
         "}";
