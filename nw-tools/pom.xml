@@ -15,5 +15,6 @@
     <modules>
         <module>nw-file</module>
         <module>nw-approval</module>
+        <module>generator-spring-boot-starter</module>
     </modules>
 </project>
