@@ -11,29 +11,149 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 11/09/2019 13:48:21
+ Date: 29/09/2019 16:24:34
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for approval_model
+-- ----------------------------
+DROP TABLE IF EXISTS `approval_model`;
+CREATE TABLE `approval_model` (
+                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                  `name` varchar(150) DEFAULT NULL COMMENT '审批模型名称',
+                                  `type` tinyint(4) DEFAULT NULL COMMENT '审批模型类型  字典值 approval_type',
+                                  `status` tinyint(4) DEFAULT '0' COMMENT '审批模型状态 0-禁用 1-启用',
+                                  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                                  `user_create` bigint(20) DEFAULT NULL COMMENT '创建人',
+                                  `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
+                                  `user_update` bigint(20) DEFAULT NULL COMMENT '更新人',
+                                  `del_flag` tinyint(4) DEFAULT '0' COMMENT '是否删除 0-否 1-是',
+                                  `tenant_id` bigint(20) DEFAULT NULL,
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COMMENT='审批模型';
+
+-- ----------------------------
+-- Records of approval_model
+-- ----------------------------
+BEGIN;
+INSERT INTO `approval_model` VALUES (103, 'test2', 10, 1, NULL, 1, NULL, NULL, 0, 183);
+INSERT INTO `approval_model` VALUES (104, 'test', 10, 0, NULL, 1, NULL, NULL, 0, 183);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for approval_model_process
+-- ----------------------------
+DROP TABLE IF EXISTS `approval_model_process`;
+CREATE TABLE `approval_model_process` (
+                                          `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                          `name` varchar(100) DEFAULT NULL COMMENT '节点名称',
+                                          `sort` tinyint(4) DEFAULT NULL COMMENT '节点排序',
+                                          `user_name` varchar(50) DEFAULT NULL COMMENT '名字',
+                                          `user_id` bigint(20) DEFAULT NULL COMMENT '节点审批人',
+                                          `model_id` bigint(20) DEFAULT NULL COMMENT '模型id',
+                                          `description` varchar(100) DEFAULT NULL COMMENT '描述',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='审批节点';
+
+-- ----------------------------
+-- Records of approval_model_process
+-- ----------------------------
+BEGIN;
+INSERT INTO `approval_model_process` VALUES (12, '节点1', 1, 'admin1', 1300003, 104, NULL);
+INSERT INTO `approval_model_process` VALUES (13, '节点2', 2, 'admin1', 1300003, 104, NULL);
+INSERT INTO `approval_model_process` VALUES (14, '节点3', 3, 'admin', 1, 104, NULL);
+INSERT INTO `approval_model_process` VALUES (15, '节点1', 1, 'admin', 1, 103, NULL);
+INSERT INTO `approval_model_process` VALUES (16, '节点2', 2, 'admin1', 1300003, 103, NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for approval_task
+-- ----------------------------
+DROP TABLE IF EXISTS `approval_task`;
+CREATE TABLE `approval_task` (
+                                 `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                 `name` varchar(150) DEFAULT NULL COMMENT '审批任务名称',
+                                 `type` tinyint(4) DEFAULT NULL COMMENT '审批任务类型  字典值 approval_type',
+                                 `status` tinyint(4) DEFAULT '0' COMMENT '审批任务状态 0-进行中 1-审批通过 2-审批拒绝 3-审批取消',
+                                 `current_process` bigint(20) DEFAULT NULL COMMENT '当前任务节点',
+                                 `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                                 `user_create` bigint(20) DEFAULT NULL COMMENT '创建人',
+                                 `tenant_id` bigint(20) DEFAULT NULL,
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='审批任务';
+
+-- ----------------------------
+-- Records of approval_task
+-- ----------------------------
+BEGIN;
+INSERT INTO `approval_task` VALUES (3, 'ceshi', 10, 0, 5, '2019-09-19 17:13:23', 1, 183);
+INSERT INTO `approval_task` VALUES (4, 's', 10, 2, 7, '2019-09-19 17:21:15', 1, 183);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for approval_task_log
+-- ----------------------------
+DROP TABLE IF EXISTS `approval_task_log`;
+CREATE TABLE `approval_task_log` (
+                                     `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                     `type` tinyint(4) DEFAULT '1' COMMENT '操作类型 1-数据更新',
+                                     `action_task_id` bigint(20) DEFAULT NULL COMMENT '操作任务id',
+                                     `action_user_name` varchar(50) DEFAULT NULL COMMENT '操作人姓名',
+                                     `action_user` bigint(20) DEFAULT NULL COMMENT '操作人',
+                                     `action_status` tinyint(4) DEFAULT NULL COMMENT '操作后状态',
+                                     `action_time` datetime DEFAULT NULL COMMENT '操作时间',
+                                     PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='审批任务操作记录表';
+
+-- ----------------------------
+-- Table structure for approval_task_process
+-- ----------------------------
+DROP TABLE IF EXISTS `approval_task_process`;
+CREATE TABLE `approval_task_process` (
+                                         `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                         `name` varchar(100) DEFAULT NULL COMMENT '任务节点名称',
+                                         `status` tinyint(4) DEFAULT NULL COMMENT '任务节点状态 0-待审核 1-通过 2-驳回',
+                                         `sort` tinyint(4) DEFAULT NULL COMMENT '排序',
+                                         `user_name` varchar(50) DEFAULT NULL COMMENT '用户名称',
+                                         `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+                                         `task_id` bigint(20) DEFAULT NULL COMMENT '任务id',
+                                         `description` varchar(100) DEFAULT NULL COMMENT '描述',
+                                         `gmt_create` datetime DEFAULT NULL,
+                                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of approval_task_process
+-- ----------------------------
+BEGIN;
+INSERT INTO `approval_task_process` VALUES (3, '节点1', 0, 1, NULL, 1, 2, NULL, '2019-09-20 16:57:49');
+INSERT INTO `approval_task_process` VALUES (4, '节点2', 0, 2, NULL, 1300003, 2, NULL, '2019-09-20 16:57:49');
+INSERT INTO `approval_task_process` VALUES (5, '节点1', 1, 1, 'admin', 1, 3, NULL, '2019-09-20 16:57:49');
+INSERT INTO `approval_task_process` VALUES (6, '节点2', 0, 2, 'admin1', 1300003, 3, NULL, '2019-09-20 16:57:49');
+INSERT INTO `approval_task_process` VALUES (7, '节点1', 2, 1, 'admin', 1, 4, NULL, '2019-09-20 16:57:49');
+INSERT INTO `approval_task_process` VALUES (8, '节点2', 0, 2, 'admin1', 1300003, 4, NULL, '2019-09-20 16:57:49');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for oauth_client_details
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details` (
-  `client_id` varchar(40) NOT NULL,
-  `resource_ids` varchar(256) DEFAULT NULL,
-  `client_secret` varchar(256) DEFAULT NULL,
-  `scope` varchar(256) DEFAULT NULL,
-  `authorized_grant_types` varchar(256) DEFAULT NULL,
-  `web_server_redirect_uri` varchar(256) DEFAULT NULL,
-  `authorities` varchar(256) DEFAULT NULL,
-  `access_token_validity` int(11) DEFAULT NULL,
-  `refresh_token_validity` int(11) DEFAULT NULL,
-  `additional_information` varchar(4096) DEFAULT NULL,
-  `autoapprove` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`client_id`) USING BTREE
+                                        `client_id` varchar(40) NOT NULL,
+                                        `resource_ids` varchar(256) DEFAULT NULL,
+                                        `client_secret` varchar(256) DEFAULT NULL,
+                                        `scope` varchar(256) DEFAULT NULL,
+                                        `authorized_grant_types` varchar(256) DEFAULT NULL,
+                                        `web_server_redirect_uri` varchar(256) DEFAULT NULL,
+                                        `authorities` varchar(256) DEFAULT NULL,
+                                        `access_token_validity` int(11) DEFAULT NULL,
+                                        `refresh_token_validity` int(11) DEFAULT NULL,
+                                        `additional_information` varchar(4096) DEFAULT NULL,
+                                        `autoapprove` varchar(256) DEFAULT NULL,
+                                        PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -48,14 +168,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `dept_id` varchar(20) NOT NULL,
-  `name` varchar(50) DEFAULT NULL COMMENT '部门名称',
-  `order_num` int(11) DEFAULT NULL COMMENT '排序',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `parent_id` varchar(20) DEFAULT NULL,
-  `del_flag` char(1) DEFAULT '0' COMMENT '是否删除  -1：已删除  0：正常',
-  PRIMARY KEY (`dept_id`) USING BTREE
+                            `dept_id` varchar(20) NOT NULL,
+                            `name` varchar(50) DEFAULT NULL COMMENT '部门名称',
+                            `order_num` int(11) DEFAULT NULL COMMENT '排序',
+                            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                            `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+                            `parent_id` varchar(20) DEFAULT NULL,
+                            `del_flag` char(1) DEFAULT '0' COMMENT '是否删除  -1：已删除  0：正常',
+                            PRIMARY KEY (`dept_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门管理';
 
 -- ----------------------------
@@ -70,12 +190,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept_relation`;
 CREATE TABLE `sys_dept_relation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ancestor` varchar(20) NOT NULL COMMENT '祖先节点',
-  `descendant` varchar(20) NOT NULL COMMENT '后代节点',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx1` (`ancestor`) USING BTREE,
-  KEY `idx2` (`descendant`) USING BTREE
+                                     `id` int(11) NOT NULL AUTO_INCREMENT,
+                                     `ancestor` varchar(20) NOT NULL COMMENT '祖先节点',
+                                     `descendant` varchar(20) NOT NULL COMMENT '后代节点',
+                                     PRIMARY KEY (`id`) USING BTREE,
+                                     KEY `idx1` (`ancestor`) USING BTREE,
+                                     KEY `idx2` (`descendant`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -83,27 +203,50 @@ CREATE TABLE `sys_dept_relation` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `value` varchar(20) NOT NULL COMMENT '数据值',
-  `label` varchar(100) NOT NULL COMMENT '标签名',
-  `type` varchar(100) NOT NULL COMMENT '类型',
-  `description` varchar(100) NOT NULL COMMENT '描述',
-  `sort` int(11) NOT NULL COMMENT '排序（升序）',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
-  `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
-  `del_flag` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `sys_dict_value` (`value`) USING BTREE,
-  KEY `sys_dict_label` (`label`) USING BTREE,
-  KEY `sys_dict_del_flag` (`del_flag`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='字典表';
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+                            `value` varchar(20) NOT NULL COMMENT '数据值',
+                            `label` varchar(100) NOT NULL COMMENT '标签名',
+                            `type` varchar(100) NOT NULL COMMENT '类型',
+                            `description` varchar(100) NOT NULL COMMENT '描述',
+                            `sort` int(11) NOT NULL COMMENT '排序（升序）',
+                            `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                            `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
+                            `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
+                            `del_flag` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除标记',
+                            PRIMARY KEY (`id`) USING BTREE,
+                            KEY `sys_dict_value` (`value`) USING BTREE,
+                            KEY `sys_dict_label` (`label`) USING BTREE,
+                            KEY `sys_dict_del_flag` (`del_flag`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
 -- Records of sys_dict
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dict` VALUES (172, '22', '一年级', 'Test', '描述', 4, NULL, '2019-08-31 22:32:28', '11', 1);
+INSERT INTO `sys_dict` VALUES (172, '22', '一年级', 'Test', '描述', 4, '2019-09-18 10:41:26', '2019-08-31 22:32:28', '11', 1);
+INSERT INTO `sys_dict` VALUES (173, '10', '财务审批', 'approval_type', '财务审批模板', 1, '2019-09-17 15:46:54', '2019-09-17 15:46:57', NULL, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file`;
+CREATE TABLE `sys_file` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `name` varchar(200) DEFAULT NULL COMMENT '文件名',
+                            `type` int(11) DEFAULT NULL COMMENT '文件类型',
+                            `url` varchar(200) DEFAULT NULL COMMENT 'URL地址',
+                            `biz_type` varchar(20) DEFAULT NULL COMMENT '业务类型',
+                            `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COMMENT='文件上传';
+
+-- ----------------------------
+-- Records of sys_file
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_file` VALUES (1, '裙子', 0, 'https://img.alicdn.com/imgextra/i1/122400877/O1CN01foKboR1ILhu05pOYk_!!0-saturn_solar.jpg_220x220.jpg_.webp', '0', '2019-09-12 22:10:43');
+INSERT INTO `sys_file` VALUES (2, '头像', 0, 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '0', '2019-09-12 22:27:07');
 COMMIT;
 
 -- ----------------------------
@@ -111,26 +254,26 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
-  `id` bigint(64) NOT NULL COMMENT '编号',
-  `type` char(1) DEFAULT '1' COMMENT '日志类型',
-  `title` varchar(255) DEFAULT '' COMMENT '日志标题',
-  `service_id` varchar(32) DEFAULT NULL COMMENT '服务ID',
-  `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remote_addr` varchar(255) DEFAULT NULL COMMENT '操作IP地址',
-  `user_agent` varchar(1000) DEFAULT NULL COMMENT '用户代理',
-  `request_uri` varchar(255) DEFAULT NULL COMMENT '请求URI',
-  `method` varchar(10) DEFAULT NULL COMMENT '操作方式',
-  `params` text COMMENT '操作提交的数据',
-  `time` mediumtext COMMENT '执行时间',
-  `del_flag` char(1) DEFAULT '0' COMMENT '删除标记',
-  `exception` text COMMENT '异常信息',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `sys_log_create_by` (`create_by`) USING BTREE,
-  KEY `sys_log_request_uri` (`request_uri`) USING BTREE,
-  KEY `sys_log_type` (`type`) USING BTREE,
-  KEY `sys_log_create_date` (`create_time`) USING BTREE
+                           `id` bigint(64) NOT NULL COMMENT '编号',
+                           `type` char(1) DEFAULT '1' COMMENT '日志类型',
+                           `title` varchar(255) DEFAULT '' COMMENT '日志标题',
+                           `service_id` varchar(32) DEFAULT NULL COMMENT '服务ID',
+                           `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
+                           `create_time` datetime NOT NULL COMMENT '创建时间',
+                           `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                           `remote_addr` varchar(255) DEFAULT NULL COMMENT '操作IP地址',
+                           `user_agent` varchar(1000) DEFAULT NULL COMMENT '用户代理',
+                           `request_uri` varchar(255) DEFAULT NULL COMMENT '请求URI',
+                           `method` varchar(10) DEFAULT NULL COMMENT '操作方式',
+                           `params` text COMMENT '操作提交的数据',
+                           `time` mediumtext COMMENT '执行时间',
+                           `del_flag` char(1) DEFAULT '0' COMMENT '删除标记',
+                           `exception` text COMMENT '异常信息',
+                           PRIMARY KEY (`id`) USING BTREE,
+                           KEY `sys_log_create_by` (`create_by`) USING BTREE,
+                           KEY `sys_log_request_uri` (`request_uri`) USING BTREE,
+                           KEY `sys_log_type` (`type`) USING BTREE,
+                           KEY `sys_log_create_date` (`create_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='日志表';
 
 -- ----------------------------
@@ -138,19 +281,19 @@ CREATE TABLE `sys_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `name` varchar(32) NOT NULL COMMENT '菜单名称',
-  `permission` varchar(100) DEFAULT NULL COMMENT '菜单权限标识',
-  `url` varchar(128) DEFAULT NULL COMMENT '请求链接',
-  `method` varchar(32) DEFAULT NULL COMMENT '请求方法',
-  `parent_id` bigint(20) DEFAULT NULL COMMENT '父菜单ID',
-  `icon` varchar(32) DEFAULT NULL COMMENT '图标',
-  `sort` int(11) DEFAULT '1' COMMENT '排序值',
-  `type` char(1) DEFAULT NULL COMMENT '菜单类型 （0菜单 1按钮 2链接）',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
-  `del_flag` tinyint(4) DEFAULT '0' COMMENT '0--正常 1--删除',
-  PRIMARY KEY (`id`) USING BTREE
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+                            `name` varchar(32) NOT NULL COMMENT '菜单名称',
+                            `permission` varchar(100) DEFAULT NULL COMMENT '菜单权限标识',
+                            `url` varchar(128) DEFAULT NULL COMMENT '请求链接',
+                            `method` varchar(32) DEFAULT NULL COMMENT '请求方法',
+                            `parent_id` bigint(20) DEFAULT NULL COMMENT '父菜单ID',
+                            `icon` varchar(32) DEFAULT NULL COMMENT '图标',
+                            `sort` int(11) DEFAULT '1' COMMENT '排序值',
+                            `type` char(1) DEFAULT NULL COMMENT '菜单类型 （0菜单 1按钮 2链接）',
+                            `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                            `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
+                            `del_flag` tinyint(4) DEFAULT '0' COMMENT '0--正常 1--删除',
+                            PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=121010 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
 
 -- ----------------------------
@@ -219,20 +362,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_org`;
 CREATE TABLE `sys_org` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '客户id',
-  `pid` bigint(20) DEFAULT '0' COMMENT '客户父id',
-  `name` varchar(50) DEFAULT NULL COMMENT '客户全称',
-  `type` tinyint(1) DEFAULT '0' COMMENT '客户类型 1.公有云，2.私有云',
-  `brief_name` varchar(100) DEFAULT NULL COMMENT '客户简称',
-  `phone` varchar(100) DEFAULT NULL COMMENT '客户电话',
-  `email` varchar(100) DEFAULT NULL COMMENT '客户邮箱',
-  `address` varchar(200) DEFAULT NULL COMMENT '地址',
-  `remark` varchar(500) DEFAULT NULL COMMENT '备注',
-  `status` tinyint(1) DEFAULT '0' COMMENT '状态：0.未开通，1.已开通',
-  `del_flag` tinyint(1) DEFAULT '0' COMMENT '是否删除（0：否，1：是）',
-  `gmt_create` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
+                           `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '客户id',
+                           `pid` bigint(20) DEFAULT '0' COMMENT '客户父id',
+                           `name` varchar(50) DEFAULT NULL COMMENT '客户全称',
+                           `type` tinyint(1) DEFAULT '0' COMMENT '客户类型 1.公有云，2.私有云',
+                           `brief_name` varchar(100) DEFAULT NULL COMMENT '客户简称',
+                           `phone` varchar(100) DEFAULT NULL COMMENT '客户电话',
+                           `email` varchar(100) DEFAULT NULL COMMENT '客户邮箱',
+                           `address` varchar(200) DEFAULT NULL COMMENT '地址',
+                           `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+                           `status` tinyint(1) DEFAULT '0' COMMENT '状态：0.未开通，1.已开通',
+                           `del_flag` tinyint(1) DEFAULT '0' COMMENT '是否删除（0：否，1：是）',
+                           `gmt_create` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                           `gmt_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+                           PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='客户表';
 
 -- ----------------------------
@@ -249,16 +392,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_position`;
 CREATE TABLE `sys_position` (
-  `id` varchar(18) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `pid` varchar(18) DEFAULT NULL,
-  `org_id` varchar(20) DEFAULT NULL,
-  `descr_short` varchar(255) DEFAULT NULL,
-  `dept_id` varchar(20) DEFAULT NULL,
-  `is_del` varchar(2) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+                                `id` varchar(18) NOT NULL,
+                                `name` varchar(255) DEFAULT NULL,
+                                `pid` varchar(18) DEFAULT NULL,
+                                `org_id` varchar(20) DEFAULT NULL,
+                                `descr_short` varchar(255) DEFAULT NULL,
+                                `dept_id` varchar(20) DEFAULT NULL,
+                                `is_del` varchar(2) DEFAULT NULL,
+                                `create_time` datetime DEFAULT NULL,
+                                `update_time` datetime DEFAULT NULL,
+                                PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='岗位表';
 
 -- ----------------------------
@@ -273,17 +416,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `role_code` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `role_desc` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
-  `role_type` tinyint(4) DEFAULT NULL COMMENT '角色类型 0-正常角色 1-管理员角色',
-  `org_id` bigint(20) DEFAULT NULL COMMENT '租户id',
-  `gmt_create` datetime DEFAULT NULL,
-  `gmt_update` datetime DEFAULT NULL,
-  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '删除标识（0-正常,1-删除）',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `role_idx1_role_code` (`role_code`) USING BTREE
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `role_name` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+                            `role_code` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+                            `role_desc` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
+                            `role_type` tinyint(4) DEFAULT NULL COMMENT '角色类型 0-正常角色 1-管理员角色',
+                            `org_id` bigint(20) DEFAULT NULL COMMENT '租户id',
+                            `gmt_create` datetime DEFAULT NULL,
+                            `gmt_update` datetime DEFAULT NULL,
+                            `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '删除标识（0-正常,1-删除）',
+                            PRIMARY KEY (`id`) USING BTREE,
+                            UNIQUE KEY `role_idx1_role_code` (`role_code`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -301,10 +444,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
-  `dept_id` varchar(20) DEFAULT NULL COMMENT '部门ID',
-  PRIMARY KEY (`id`) USING BTREE
+                                 `id` int(11) NOT NULL AUTO_INCREMENT,
+                                 `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
+                                 `dept_id` varchar(20) DEFAULT NULL COMMENT '部门ID',
+                                 PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系';
 
 -- ----------------------------
@@ -319,10 +462,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` bigint(11) NOT NULL COMMENT '角色ID',
-  `menu_id` bigint(11) NOT NULL COMMENT '菜单ID',
-  `org_id` bigint(20) DEFAULT NULL COMMENT '公司id',
-  PRIMARY KEY (`role_id`,`menu_id`) USING BTREE
+                                 `role_id` bigint(11) NOT NULL COMMENT '角色ID',
+                                 `menu_id` bigint(11) NOT NULL COMMENT '菜单ID',
+                                 `org_id` bigint(20) DEFAULT NULL COMMENT '公司id',
+                                 PRIMARY KEY (`role_id`,`menu_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色菜单表';
 
 -- ----------------------------
@@ -379,23 +522,23 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_task`;
 CREATE TABLE `sys_task` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `job_name` varchar(100) DEFAULT NULL COMMENT '任务名',
-  `method_name` varchar(255) DEFAULT NULL COMMENT '任务调用的方法名',
-  `cron_expression` varchar(255) DEFAULT NULL COMMENT 'cron表达式',
-  `bean_class` varchar(255) DEFAULT NULL COMMENT '任务执行时调用哪个类的方法 包名+类名',
-  `spring_bean` varchar(200) DEFAULT NULL COMMENT 'Spring bean',
-  `is_concurrent` varchar(3) DEFAULT NULL COMMENT '任务是否有状态',
-  `description` varchar(255) DEFAULT NULL COMMENT '任务描述',
-  `job_group` varchar(255) NOT NULL COMMENT '任务分组',
-  `job_status` varchar(255) NOT NULL COMMENT '任务状态',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `create_user` bigint(20) DEFAULT NULL COMMENT '创建者',
-  `update_user` bigint(20) DEFAULT NULL COMMENT '更新者',
-  `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
-  `del_flag` tinyint(4) DEFAULT '0' COMMENT '是否删除',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `job_name` varchar(100) DEFAULT NULL COMMENT '任务名',
+                            `method_name` varchar(255) DEFAULT NULL COMMENT '任务调用的方法名',
+                            `cron_expression` varchar(255) DEFAULT NULL COMMENT 'cron表达式',
+                            `bean_class` varchar(255) DEFAULT NULL COMMENT '任务执行时调用哪个类的方法 包名+类名',
+                            `spring_bean` varchar(200) DEFAULT NULL COMMENT 'Spring bean',
+                            `is_concurrent` varchar(3) DEFAULT NULL COMMENT '任务是否有状态',
+                            `description` varchar(255) DEFAULT NULL COMMENT '任务描述',
+                            `job_group` varchar(255) NOT NULL COMMENT '任务分组',
+                            `job_status` varchar(255) NOT NULL COMMENT '任务状态',
+                            `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                            `create_user` bigint(20) DEFAULT NULL COMMENT '创建者',
+                            `update_user` bigint(20) DEFAULT NULL COMMENT '更新者',
+                            `gmt_update` datetime DEFAULT NULL COMMENT '更新时间',
+                            `del_flag` tinyint(4) DEFAULT '0' COMMENT '是否删除',
+                            PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='定时任务实体';
 
 -- ----------------------------
 -- Records of sys_task
@@ -411,17 +554,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_task_log`;
 CREATE TABLE `sys_task_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '任务日志id',
-  `job_id` int(11) NOT NULL COMMENT '任务id',
-  `bean_name` varchar(200) NOT NULL COMMENT 'spring bean名称',
-  `method_name` varchar(100) NOT NULL COMMENT '方法名',
-  `params` varchar(2000) DEFAULT NULL COMMENT '参数',
-  `status` int(11) NOT NULL COMMENT '任务状态  0：成功  1：失败',
-  `error` varchar(2000) DEFAULT NULL COMMENT '失败信息',
-  `times` int(11) NOT NULL COMMENT '耗时(单位：毫秒)',
-  `gmt_create` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `job_id` (`job_id`) USING BTREE
+                                `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '任务日志id',
+                                `job_id` int(11) NOT NULL COMMENT '任务id',
+                                `bean_name` varchar(200) NOT NULL COMMENT 'spring bean名称',
+                                `method_name` varchar(100) NOT NULL COMMENT '方法名',
+                                `params` varchar(2000) DEFAULT NULL COMMENT '参数',
+                                `status` int(11) NOT NULL COMMENT '任务状态  0：成功  1：失败',
+                                `error` varchar(2000) DEFAULT NULL COMMENT '失败信息',
+                                `times` int(11) NOT NULL COMMENT '耗时(单位：毫秒)',
+                                `gmt_create` datetime DEFAULT NULL,
+                                PRIMARY KEY (`id`),
+                                KEY `job_id` (`job_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时任务日志表';
 
 -- ----------------------------
@@ -429,25 +572,25 @@ CREATE TABLE `sys_task_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `username` varchar(64) CHARACTER SET utf8mb4 NOT NULL COMMENT '用户名',
-  `password` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '密码',
-  `sex` tinyint(4) DEFAULT NULL COMMENT '性别 1-男 2-女',
-  `type` tinyint(1) DEFAULT '0' COMMENT '0-普通 1-管理员 2-微信用户',
-  `salt` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '随机盐',
-  `real_name` varchar(64) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '姓名',
-  `mobile` varchar(11) CHARACTER SET utf8 NOT NULL COMMENT '手机',
-  `avatar` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '头像',
-  `org_id` bigint(20) DEFAULT NULL COMMENT '公司id',
-  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态 0-正常 1-锁住 2- 过期',
-  `email` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮箱',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_update` datetime DEFAULT NULL COMMENT '修改时间',
-  `del_flag` tinyint(4) DEFAULT '0' COMMENT '0-正常，1-删除',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `user_idx1_username` (`username`) USING BTREE,
-  UNIQUE KEY `user_idx2_phone` (`mobile`) USING BTREE
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                            `username` varchar(64) CHARACTER SET utf8mb4 NOT NULL COMMENT '用户名',
+                            `password` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '密码',
+                            `sex` tinyint(4) DEFAULT NULL COMMENT '性别 1-男 2-女',
+                            `type` tinyint(1) DEFAULT '0' COMMENT '0-普通 1-管理员 2-微信用户',
+                            `salt` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '随机盐',
+                            `real_name` varchar(64) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '姓名',
+                            `mobile` varchar(11) CHARACTER SET utf8 NOT NULL COMMENT '手机',
+                            `avatar` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '头像',
+                            `org_id` bigint(20) DEFAULT NULL COMMENT '公司id',
+                            `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
+                            `status` tinyint(4) DEFAULT NULL COMMENT '状态 0-正常 1-锁住 2- 过期',
+                            `email` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮箱',
+                            `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+                            `gmt_update` datetime DEFAULT NULL COMMENT '修改时间',
+                            `del_flag` tinyint(4) DEFAULT '0' COMMENT '0-正常，1-删除',
+                            PRIMARY KEY (`id`) USING BTREE,
+                            UNIQUE KEY `user_idx1_username` (`username`) USING BTREE,
+                            UNIQUE KEY `user_idx2_phone` (`mobile`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1300004 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
 -- ----------------------------
@@ -455,7 +598,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$CZf4oF94ezwYLbSi8IHLKuZzKyQd2vITrAi4DT0AsdfGPfLfjXOpm', 1, 0, NULL, 'admin', '13000000000', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 183, 1, 0, 'admin@test.cn', '2018-10-19 16:50:50', '2019-09-01 13:42:30', 0);
-INSERT INTO `sys_user` VALUES (1300003, 'admin1', '$2a$10$CZf4oF94ezwYLbSi8IHLKuZzKyQd2vITrAi4DT0AsdfGPfLfjXOpm', 1, 0, NULL, 'admin', '13000000001', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 183, 1, 0, 'admin@test.cn', '2018-10-19 16:50:50', '2019-09-01 13:42:30', 0);
+INSERT INTO `sys_user` VALUES (1300003, 'admin1', '$2a$10$CZf4oF94ezwYLbSi8IHLKuZzKyQd2vITrAi4DT0AsdfGPfLfjXOpm', 1, 0, NULL, 'admin1', '13000000001', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', 183, 1, 0, 'admin@test.cn', '2018-10-19 16:50:50', '2019-09-01 13:42:30', 0);
 COMMIT;
 
 -- ----------------------------
@@ -463,10 +606,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `org_id` bigint(20) DEFAULT NULL COMMENT '公司id',
-  PRIMARY KEY (`user_id`,`role_id`) USING BTREE
+                                 `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+                                 `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+                                 `org_id` bigint(20) DEFAULT NULL COMMENT '公司id',
+                                 PRIMARY KEY (`user_id`,`role_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户角色表';
 
 -- ----------------------------
@@ -482,18 +625,5 @@ INSERT INTO `sys_user_role` VALUES (1300000, 1, 183);
 INSERT INTO `sys_user_role` VALUES (1300000, 2, 183);
 INSERT INTO `sys_user_role` VALUES (1300001, 1, 183);
 COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-DROP TABLE IF EXISTS `sys_file`;
-CREATE TABLE `sys_file` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) DEFAULT NULL COMMENT '文件名',
-  `type` int(11) DEFAULT NULL COMMENT '文件类型',
-  `url` varchar(200) DEFAULT NULL COMMENT 'URL地址',
-  `biz_type` varchar(20) DEFAULT NULL COMMENT '业务类型',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件上传';
 
 SET FOREIGN_KEY_CHECKS = 1;
