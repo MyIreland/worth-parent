@@ -29,6 +29,7 @@ ignore:
     - /swagger/api-docs
     - /webjars/**
     - /file/download
+    - /druid/**
 
 logging:
   #  path: C:/logs
