@@ -27,4 +27,11 @@ public interface IUserService extends IService<User> {
     R unLockUser(Long userId);
 
     R batchDel(List<Long> ids);
+
+    /**
+     * 更新自己基本信息
+     * @param user
+     * @return
+     */
+    R editSelfInfo(User user);
 }

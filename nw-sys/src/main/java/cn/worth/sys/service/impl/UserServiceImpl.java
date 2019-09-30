@@ -5,6 +5,7 @@ import cn.worth.common.enums.RCodeEnum;
 import cn.worth.common.enums.UserStateEnum;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
+import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.enums.EntityTypeEnum;
@@ -19,6 +20,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IUserRoleService userRoleService;
 
     @Override
+    @Transactional
     public R addOrUpdate(UserPojo userPojo, LoginUser userVO) {
 
         User user = addOrUpdateUser(userPojo, userVO);
@@ -98,6 +102,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             users.add(user);
         });
         return R.success(updateBatchById(users));
+    }
+
+    @Override
+    public R editSelfInfo(User user) {
+        Long id = user.getId();
+        String realName = user.getRealName();
+        String mobile = user.getMobile();
+        String avatar = user.getAvatar();
+        if(null == id){
+            return R.fail("id is null");
+        }
+        if(StringUtils.isBlank(realName) || StringUtils.isBlank(mobile) || StringUtils.isBlank(avatar)){
+            return R.fail("信息不全");
+        }
+        updateById(user);
+        return R.success("");
     }
 
     private void verifyParams(Long userId) {

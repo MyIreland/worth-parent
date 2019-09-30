@@ -43,6 +43,11 @@ public class UserController extends BaseController<IUserService, User> {
         return R.success(page);
     }
 
+    @PostMapping("editSelfInfo")
+    public R editSelfInfo(@RequestBody User user, @CurrentUser LoginUser loginUser) {
+        return userService.editSelfInfo(user);
+    }
+
     private EntityWrapper<User> getUserEntityWrapper(User user, @CurrentUser LoginUser loginUser) {
         EntityWrapper<User> entityWrapper = new EntityWrapper<>();
         entityWrapper.orderBy("username");
