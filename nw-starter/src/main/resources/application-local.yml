@@ -28,6 +28,7 @@ ignore:
     - /v2/api-docs
     - /swagger/api-docs
     - /webjars/**
+    - /file/download
 
 logging:
   #  path: C:/logs
@@ -39,4 +40,4 @@ logging:
 #    org.quartz: DEBUG
 
 worth:
-  uploadPath: /Users/myireland/ # nw-file 使用
+  uploadPath: /Users/myireland # nw-file 使用

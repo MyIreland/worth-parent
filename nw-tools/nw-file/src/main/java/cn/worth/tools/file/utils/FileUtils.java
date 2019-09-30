@@ -21,11 +21,11 @@ import java.util.UUID;
  **/
 public class FileUtils {
     public static void uploadFile(byte[] file, String uploadPath, String fileDir, String fileName) throws Exception {
-        File targetFile = new File(uploadPath + "/" + fileDir);
+        File targetFile = new File(uploadPath + fileDir);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
-        FileOutputStream out = new FileOutputStream(uploadPath + "/" + fileDir + "/" + fileName);
+        FileOutputStream out = new FileOutputStream(uploadPath + fileDir + "/" + fileName);
         out.write(file);
         out.flush();
         out.close();
@@ -53,7 +53,7 @@ public class FileUtils {
 
     public static String generatorFileDir(String module, String bizType) {
         StringBuilder sb = new StringBuilder();
-        sb.append("files/");
+        sb.append("/files/");
         if (StringUtils.isNotBlank(module)) {
             sb.append(module).append("/");
         }
@@ -61,7 +61,7 @@ public class FileUtils {
             sb.append(bizType).append("/");
         }
         String dateDir = DateUtils.formatDate(new Date());//日期文件夹
-        sb.append(dateDir).append("/");
+        sb.append(dateDir);
         return sb.toString();
     }
 
