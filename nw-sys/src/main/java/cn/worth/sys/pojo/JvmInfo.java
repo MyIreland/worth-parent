@@ -33,10 +33,10 @@ public class JvmInfo {
      */
     private String version;
 
-    /**
-     * JDK路径
-     */
-    private String home;
+//    /**
+//     * JDK路径
+//     */
+//    private String home;
 
     public double getTotal()
     {
@@ -95,16 +95,16 @@ public class JvmInfo {
     {
         this.version = version;
     }
-
-    public String getHome()
-    {
-        return home;
-    }
-
-    public void setHome(String home)
-    {
-        this.home = home;
-    }
+//
+//    public String getHome()
+//    {
+//        return home;
+//    }
+//
+//    public void setHome(String home)
+//    {
+//        this.home = home;
+//    }
 
     /**
      * JDK启动时间

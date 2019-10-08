@@ -41,7 +41,7 @@ public class ServerInfo {
     /**
      * 服务器相关信息
      */
-    private SysInfo sysInfo = new SysInfo();
+//    private SysInfo sysInfo = new SysInfo();
 
     /**
      * 磁盘相关信息
@@ -109,17 +109,17 @@ public class ServerInfo {
         jvmInfo.setMax(Runtime.getRuntime().maxMemory());
         jvmInfo.setFree(Runtime.getRuntime().freeMemory());
         jvmInfo.setVersion(props.getProperty("java.version"));
-        jvmInfo.setHome(props.getProperty("java.home"));
+//        jvmInfo.setHome(props.getProperty("java.home"));
 
     }
 
     private void setSysInfo() {
-        Properties props = System.getProperties();
-        sysInfo.setComputerName(IPUtils.getHostName());
-        sysInfo.setComputerIp(IPUtils.getHostIp());
-        sysInfo.setOsName(props.getProperty("os.name"));
-        sysInfo.setOsArch(props.getProperty("os.arch"));
-        sysInfo.setUserDir(props.getProperty("user.dir"));
+//        Properties props = System.getProperties();
+//        sysInfo.setComputerName(IPUtils.getHostName());
+//        sysInfo.setComputerIp(IPUtils.getHostIp());
+//        sysInfo.setOsName(props.getProperty("os.name"));
+//        sysInfo.setOsArch(props.getProperty("os.arch"));
+//        sysInfo.setUserDir(props.getProperty("user.dir"));
     }
 
     private void setMemInfo(GlobalMemory memory) {
