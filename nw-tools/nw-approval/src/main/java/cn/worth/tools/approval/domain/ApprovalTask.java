@@ -50,9 +50,22 @@ public class ApprovalTask extends Model<ApprovalTask> {
      */
     @TableField("user_create")
     private Long userCreate;
+    /**
+     * 创建人
+     */
+    @TableField("user_create_name")
+    private String userCreateName;
 
     @TableField("tenant_id")
     private Long tenantId;
+
+    public String getUserCreateName() {
+        return userCreateName;
+    }
+
+    public void setUserCreateName(String userCreateName) {
+        this.userCreateName = userCreateName;
+    }
 
     public Long getCurrentProcess() {
         return currentProcess;

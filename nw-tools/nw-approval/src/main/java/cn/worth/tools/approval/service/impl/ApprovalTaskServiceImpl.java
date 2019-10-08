@@ -3,6 +3,7 @@ package cn.worth.tools.approval.service.impl;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
+import cn.worth.common.vo.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalModelProcess;
 import cn.worth.tools.approval.domain.ApprovalTask;
 import cn.worth.tools.approval.domain.ApprovalTaskProcess;
@@ -65,10 +66,10 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
 
     @Override
     @Transactional
-    public ApprovalTask add(Long modelId, ApprovalTask taskVO) {
+    public ApprovalTask add(Long modelId, ApprovalTask taskVO, LoginUser loginUser) {
         ApprovalModelVO approvalModelVO = modelService.get(modelId);
         List<ApprovalModelProcess> modelProcesses = approvalModelVO.getProcesses();
-        ApprovalTask task = genApprovalTask(approvalModelVO, taskVO);
+        ApprovalTask task = genApprovalTask(approvalModelVO, taskVO, loginUser);
 
         boolean insertResult = insert(task);
         if(insertResult && CollectionUtils.isNotEmpty(modelProcesses)){
@@ -161,16 +162,16 @@ public class ApprovalTaskServiceImpl extends ServiceImpl<ApprovalTaskMapper, App
         return taskProcessService.updateStatus(currentProcessId, status, userId);
     }
 
-    private ApprovalTask genApprovalTask(ApprovalModelVO approvalModelVO, ApprovalTask taskVO) {
+    private ApprovalTask genApprovalTask(ApprovalModelVO approvalModelVO, ApprovalTask taskVO, LoginUser loginUser) {
         ApprovalTask task = new ApprovalTask();
-        List<ApprovalModelProcess> processes = approvalModelVO.getProcesses();
         String taskName = taskVO.getName();
         if(StringUtils.isBlank(taskName)){
             taskName = approvalModelVO.getName();
         }
         task.setName(taskName);
         task.setType(approvalModelVO.getType());
-        task.setUserCreate(approvalModelVO.getUserCreate());
+        task.setUserCreate(loginUser.getId());
+        task.setUserCreateName(loginUser.getRealName());
         task.setTenantId(approvalModelVO.getTenantId());
         task.setGmtCreate(new Date());
         task.setStatus(TaskStatusEnum.RUNNING.getCode());

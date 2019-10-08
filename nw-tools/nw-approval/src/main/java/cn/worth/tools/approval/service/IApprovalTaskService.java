@@ -1,5 +1,6 @@
 package cn.worth.tools.approval.service;
 
+import cn.worth.common.vo.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalTask;
 import cn.worth.tools.approval.vo.ApprovalTaskVO;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -19,7 +20,7 @@ public interface IApprovalTaskService extends IService<ApprovalTask> {
 
     Page<ApprovalTaskVO> pageVO(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo);
 
-    ApprovalTask add(Long modelId, ApprovalTask task);
+    ApprovalTask add(Long modelId, ApprovalTask task, LoginUser loginUser);
 
     Page<ApprovalTaskVO> pageByUser(Page<ApprovalTaskVO> entityPage, ApprovalTaskVO vo, Long id);
 

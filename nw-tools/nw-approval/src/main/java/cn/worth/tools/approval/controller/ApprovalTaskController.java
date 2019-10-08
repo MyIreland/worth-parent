@@ -97,8 +97,8 @@ public class ApprovalTaskController extends BaseController<IApprovalTaskService,
      * @return success/false
      */
     @PostMapping("add")
-    public R<ApprovalTask> add(Long modelId, ApprovalTask task) {
-        return new R<>(baseService.add(modelId, task));
+    public R<ApprovalTask> add(Long modelId, ApprovalTask task, @CurrentUser LoginUser loginUser) {
+        return new R<>(baseService.add(modelId, task, loginUser));
     }
 
     /**
