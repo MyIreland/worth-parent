@@ -53,7 +53,7 @@ public class LoginUser implements Serializable {
     /**
      * 租户ID
      */
-    private Long orgId;
+    private Long customId;
     /**
      * 部门ID
      */

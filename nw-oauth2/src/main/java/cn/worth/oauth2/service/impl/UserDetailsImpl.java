@@ -15,7 +15,7 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private String realName;
     private String email;
-    private Long orgId;
+    private Long customId;
     private String avatar;
     private Integer status;
     private Set<String> roleCodes;
@@ -27,7 +27,7 @@ public class UserDetailsImpl implements UserDetails {
         this.realName = authUser.getRealName();
         this.password = authUser.getPassword();
         this.email = authUser.getEmail();
-        this.orgId = authUser.getOrgId();
+        this.customId = authUser.getCustomId();
         this.status = authUser.getStatus();
         this.avatar = authUser.getAvatar();
         this.permissions = authUser.getPerms();
@@ -44,20 +44,20 @@ public class UserDetailsImpl implements UserDetails {
         return collection;
     }
 
+    public Long getCustomId() {
+        return customId;
+    }
+
+    public void setCustomId(Long customId) {
+        this.customId = customId;
+    }
+
     public String getRealName() {
         return realName;
     }
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
     }
 
     public String getAvatar() {

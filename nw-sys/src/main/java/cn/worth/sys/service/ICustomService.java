@@ -1,6 +1,6 @@
 package cn.worth.sys.service;
 
-import cn.worth.sys.domain.Organization;
+import cn.worth.sys.domain.Custom;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author chenxiaoqing
  * @since 2019-03-22
  */
-public interface IOrganizationService extends IService<Organization> {
+public interface ICustomService extends IService<Custom> {
 
 }

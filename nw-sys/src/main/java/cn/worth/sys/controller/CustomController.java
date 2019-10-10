@@ -4,8 +4,8 @@ import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
-import cn.worth.sys.domain.Organization;
-import cn.worth.sys.service.IOrganizationService;
+import cn.worth.sys.domain.Custom;
+import cn.worth.sys.service.ICustomService;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -24,22 +24,22 @@ import java.util.Date;
  * @since 2019-03-22
  */
 @RestController
-@RequestMapping("/org")
-public class OrganizationController extends BaseController<IOrganizationService, Organization> {
+@RequestMapping("/custom")
+public class CustomController extends BaseController<ICustomService, Custom> {
 
     @Autowired
-    private IOrganizationService tenantService;
+    private ICustomService tenantService;
 
     @PostMapping("page")
-    public R page(Page<Organization> orgPage, Organization org, @CurrentUser LoginUser loginUser){
+    public R page(Page<Custom> orgPage, Custom org, @CurrentUser LoginUser loginUser){
 
         EntityWrapper entityWrapper = getEntityWrapper(org);
 
-        Page<Organization> page = selectPage(orgPage, entityWrapper);
+        Page<Custom> page = selectPage(orgPage, entityWrapper);
         return R.success(page);
     }
 
-    private EntityWrapper getEntityWrapper(Organization org) {
+    private EntityWrapper getEntityWrapper(Custom org) {
         EntityWrapper entityWrapper = new EntityWrapper();
         String briefName = org.getBriefName();
         Integer status = org.getStatus();
@@ -72,7 +72,7 @@ public class OrganizationController extends BaseController<IOrganizationService,
      * @return tenant
      */
     @GetMapping("/{id}")
-    public R<Organization> get(@PathVariable Long id) {
+    public R<Custom> get(@PathVariable Long id) {
         return new R<>(tenantService.selectById(id));
     }
 
@@ -84,7 +84,7 @@ public class OrganizationController extends BaseController<IOrganizationService,
      * @return success/false
      */
     @PostMapping
-    public R<Boolean> add(@RequestBody Organization tenant) {
+    public R<Boolean> add(@RequestBody Custom tenant) {
         return new R<>(tenantService.insert(tenant));
     }
 
@@ -96,7 +96,7 @@ public class OrganizationController extends BaseController<IOrganizationService,
      */
     @DeleteMapping("/{id}")
     public R<Boolean> delete(@PathVariable Long id) {
-        Organization tenant = new Organization();
+        Custom tenant = new Custom();
         tenant.setId(id);
         tenant.setGmtUpdate(new Date());
         tenant.setDelFlag(CommonConstant.STATUS_DEL);
@@ -110,7 +110,7 @@ public class OrganizationController extends BaseController<IOrganizationService,
      * @return success/false
      */
     @PutMapping
-    public R<Boolean> edit(@RequestBody Organization tenant) {
+    public R<Boolean> edit(@RequestBody Custom tenant) {
         tenant.setGmtUpdate(new Date());
         return new R<>(tenantService.updateById(tenant));
     }

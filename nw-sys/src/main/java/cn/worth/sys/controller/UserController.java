@@ -51,7 +51,7 @@ public class UserController extends BaseController<IUserService, User> {
     private EntityWrapper<User> getUserEntityWrapper(User user, @CurrentUser LoginUser loginUser) {
         EntityWrapper<User> entityWrapper = new EntityWrapper<>();
         entityWrapper.orderBy("username");
-        entityWrapper.eq("org_id", loginUser.getOrgId());
+        entityWrapper.eq("custom_id", loginUser.getCustomId());
         entityWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         String realName = user.getRealName();
         String username = user.getUsername();

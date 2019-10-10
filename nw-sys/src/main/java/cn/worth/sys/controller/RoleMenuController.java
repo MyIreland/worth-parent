@@ -24,11 +24,11 @@ public class RoleMenuController {
 
     @GetMapping("{roleId}")
     public R getIdsByRoleId(@PathVariable Long roleId, @CurrentUser LoginUser loginUser) {
-        return roleMenuService.findMenuIdsByRoleId(roleId, loginUser.getOrgId());
+        return roleMenuService.findMenuIdsByRoleId(roleId, loginUser.getCustomId());
     }
 
     @PostMapping("bindRoleMenu")
     public R bindRoleMenu(@RequestBody BindRoleMenuParam param, @CurrentUser LoginUser loginUser){
-        return roleMenuService.bindRoleMenu(param, loginUser.getOrgId());
+        return roleMenuService.bindRoleMenu(param, loginUser.getCustomId());
     }
 }

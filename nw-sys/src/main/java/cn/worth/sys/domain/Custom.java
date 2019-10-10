@@ -11,14 +11,14 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ *  客户表
  * </p>
  *
  * @author chenxiaoqing
  * @since 2019-03-22
  */
-@TableName("sys_org")
-public class Organization extends Model<Organization> {
+@TableName("sys_custom")
+public class Custom extends Model<Custom> {
 
     private static final long serialVersionUID = 1L;
 

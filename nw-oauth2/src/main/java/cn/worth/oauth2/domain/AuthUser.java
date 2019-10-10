@@ -58,8 +58,8 @@ public class AuthUser extends Model<AuthUser> {
     /**
      * 机构ID
      */
-    @TableField("org_id")
-    private Long orgId;
+    @TableField("custom_id")
+    private Long customId;
     /**
      * 部门ID
      */
