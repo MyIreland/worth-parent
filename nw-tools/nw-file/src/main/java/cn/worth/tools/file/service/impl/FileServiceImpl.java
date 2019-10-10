@@ -50,6 +50,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
             String fileName = FileUtils.renameToUUID(originalFilename);
             File file = generatorFile(fileDir, fileName, bizType);
             file.setName(originalFilename);
+            file.setSize(each.getSize());
             file.setType(FileType.fileType(originalFilename));
             try {
                 FileUtils.uploadFile(each.getBytes(), uploadPath, fileDir, fileName);

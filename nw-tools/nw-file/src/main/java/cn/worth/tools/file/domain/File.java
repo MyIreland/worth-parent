@@ -34,6 +34,10 @@ public class File extends Model<File> {
      */
     private String url;
     /**
+     * 文件大小
+     */
+    private Long size;
+    /**
      * URL地址
      */
     @TableField("biz_type")
@@ -43,6 +47,14 @@ public class File extends Model<File> {
      */
     @TableField("gmt_create")
     private Date gmtCreate;
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
+    }
 
     public String getName() {
         return name;
