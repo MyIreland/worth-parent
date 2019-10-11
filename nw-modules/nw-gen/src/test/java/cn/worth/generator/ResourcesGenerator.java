@@ -31,7 +31,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "sys_import", "sys_import_error");
+        generateByTables(serviceNameStartWithI, "biz_member_level");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
@@ -41,7 +41,7 @@ public class ResourcesGenerator {
          * 全局配置
          */
         GlobalConfig globalConfig = new GlobalConfig();
-        globalConfig.setOutputDir("src\\main\\java");
+        globalConfig.setOutputDir("src/main/java");
         globalConfig.setFileOverride(true);
         globalConfig.setActiveRecord(true);
         // XML 二级缓存
@@ -77,7 +77,7 @@ public class ResourcesGenerator {
         strategyConfig.setTablePrefix(NamingStrategy.removePrefix("sys_"));
 
         strategyConfig.setCapitalMode(true);
-        strategyConfig.setEntityLombokModel(false);
+        strategyConfig.setEntityLombokModel(true);
         strategyConfig.setInclude(tableNames);
         strategyConfig.setRestControllerStyle(true);
         autoGenerator.setStrategy(strategyConfig);
