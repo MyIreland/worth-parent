@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 会员表
+ * 会员表-小程序用户
  * </p>
  *
  * @author chenxiaoqing
