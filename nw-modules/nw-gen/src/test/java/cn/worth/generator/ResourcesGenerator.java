@@ -31,7 +31,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "saas_tenant_config_audit", "saas_tenant_config_audit_item");
+        generateByTables(serviceNameStartWithI, "sys_import", "sys_import_error");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
