@@ -177,12 +177,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * 将字符串list转化为字符串，默认以","分隔<BR>
      *
-     * @param list 字符串list
-     * @param separator   分隔符，默认为","
+     * @param list      字符串list
+     * @param separator 分隔符，默认为","
      * @return 组装后的字符串对象
      */
     public static String listToString(List list, char separator) {
-        if (CollectionUtils.isNotEmpty(list)){
+        if (CollectionUtils.isNotEmpty(list)) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i)).append(separator);

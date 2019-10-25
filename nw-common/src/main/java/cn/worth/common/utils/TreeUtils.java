@@ -14,6 +14,7 @@ import java.util.List;
 public class TreeUtils {
     /**
      * 返回树状结构数据
+     *
      * @param treeNodes
      * @param pid
      * @param <T>
@@ -24,7 +25,7 @@ public class TreeUtils {
         for (T node : treeNodes) {
             Long parentId = node.getParentId();
             Long id = node.getId();
-            if (parentId.longValue() == ((Long)pid).longValue()) {
+            if (parentId.longValue() == ((Long) pid).longValue()) {
                 List<T> ts = buildTree(treeNodes, id);
                 node.setChildren(ts);
                 vos.add(node);

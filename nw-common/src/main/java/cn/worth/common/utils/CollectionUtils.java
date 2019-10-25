@@ -1,6 +1,7 @@
 package cn.worth.common.utils;
 
 import java.util.*;
+
 /**
  * @Author: chenxiaoqing9
  * @Date: Created in 2019/3/19
@@ -9,11 +10,11 @@ import java.util.*;
  */
 public class CollectionUtils extends org.springframework.util.CollectionUtils {
 
-    public static boolean isNotEmpty(Collection<?> collection){
+    public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
     }
 
-    public static boolean isNotEmpty(Map<?, ?> map){
+    public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
     }
 
@@ -24,7 +25,7 @@ public class CollectionUtils extends org.springframework.util.CollectionUtils {
      * @param propertyGetter 接口（通过J类型获取K类型的集合）
      * @param <J>            Map中key的类型
      * @param <K>            Map中，value 集合存储的类型
-     * @return HashMap<J   ,       List   <   K>>
+     * @return HashMap<J, List < K>>
      */
     public static <J, K> HashMap<J, List<K>> list2MapList(Collection<K> list, PropertyGetter<K, J> propertyGetter) {
         LinkedHashMap<J, List<K>> hm = new LinkedHashMap<>();

@@ -12,7 +12,7 @@ import java.util.Base64;
 public class AuthUtils {
     private static final String BASIC_ = "Basic ";
 
-    public static String getBearerToken(HttpServletRequest request){
+    public static String getBearerToken(HttpServletRequest request) {
         return request.getHeader(CommonConstant.AUTH_HEADER).split(CommonConstant.TOKEN_SPLIT)[1];
     }
 
@@ -21,7 +21,7 @@ public class AuthUtils {
      *
      * @param header header中的参数
      * @throws BusinessException if the Basic header is not present or is not valid
-     *                          Base64
+     *                           Base64
      */
     public static String[] extractAndDecodeHeader(String header)
             throws IOException {

@@ -9,25 +9,25 @@ import cn.worth.common.exception.BusinessException;
  * @description
  **/
 public class AssertUtils {
-    public static void isNull(Object object, String msg){
-        if(object instanceof String){
-            if(StringUtils.isBlank(String.valueOf(object))){
+    public static void isNull(Object object, String msg) {
+        if (object instanceof String) {
+            if (StringUtils.isBlank(String.valueOf(object))) {
                 throw new BusinessException(msg);
             }
         }
-        if(null == object){
+        if (null == object) {
             throw new BusinessException(msg);
         }
     }
 
     public static void verifyEquals(Object arg1, Object arg2, String msg) {
-        if(arg1.equals(arg2)){
+        if (arg1.equals(arg2)) {
             throw new BusinessException(msg);
         }
     }
 
     public static void verifyNotEquals(Object arg1, Object arg2, String msg) {
-        if(!arg1.equals(arg2)){
+        if (!arg1.equals(arg2)) {
             throw new BusinessException(msg);
         }
     }

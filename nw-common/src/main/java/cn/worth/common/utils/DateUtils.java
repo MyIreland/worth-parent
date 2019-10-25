@@ -316,7 +316,6 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
 
-
     /**
      * 日期比较
      * 返回值>0,前大于后
@@ -367,20 +366,21 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return dateList;
     }
 
-    public static String getWorkingMonthStrat(){
+    public static String getWorkingMonthStrat() {
         Calendar calendar = Calendar.getInstance();
-        if(calendar.get(Calendar.DAY_OF_MONTH)<26){
-            calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
+        if (calendar.get(Calendar.DAY_OF_MONTH) < 26) {
+            calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
         }
         calendar.set(Calendar.DAY_OF_MONTH, 26);
-        return formatDate(calendar.getTime(),"yyyy-MM-dd");
+        return formatDate(calendar.getTime(), "yyyy-MM-dd");
     }
-    public static String getWorkingMonthEnd(){
+
+    public static String getWorkingMonthEnd() {
         Calendar calendar = Calendar.getInstance();
-        if(calendar.get(Calendar.DAY_OF_MONTH)>25){
-            calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)+1);
+        if (calendar.get(Calendar.DAY_OF_MONTH) > 25) {
+            calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + 1);
         }
         calendar.set(Calendar.DAY_OF_MONTH, 25);
-        return formatDate(calendar.getTime(),"yyyy-MM-dd");
+        return formatDate(calendar.getTime(), "yyyy-MM-dd");
     }
 }

@@ -50,8 +50,7 @@ public class IPUtils {
     public static String getHostIp() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
-        }
-        catch (UnknownHostException e) {
+        } catch (UnknownHostException e) {
         }
         return "127.0.0.1";
     }
@@ -59,8 +58,7 @@ public class IPUtils {
     public static String getHostName() {
         try {
             return InetAddress.getLocalHost().getHostName();
-        }
-        catch (UnknownHostException e) {
+        } catch (UnknownHostException e) {
         }
         return "未知";
     }
