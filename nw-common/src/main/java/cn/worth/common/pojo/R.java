@@ -95,6 +95,13 @@ public class R<T> implements Serializable {
         return r;
     }
 
+    public static R fail(RCodeEnum codeEnum) {
+        R r = new R();
+        r.setCode(codeEnum.getCode());
+        r.setMessage(codeEnum.getMsg());
+        return r;
+    }
+
     public static R fail(int code, String message) {
         R r = new R();
         r.setCode(code);

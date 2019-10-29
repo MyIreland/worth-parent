@@ -6,7 +6,7 @@ package cn.worth.tools.file.utils;
  * @date 2019-09-11
  * @description
  **/
-public class FileType {
+public class FileTypeUtils {
     public static int fileType(String fileName) {
         if (fileName == null) {
             fileName = "文件名为空！";

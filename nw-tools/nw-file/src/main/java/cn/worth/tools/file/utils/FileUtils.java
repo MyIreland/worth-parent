@@ -1,5 +1,7 @@
 package cn.worth.tools.file.utils;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.URLUtil;
 import cn.worth.common.utils.DateUtils;
 import cn.worth.common.utils.StringUtils;
 import org.apache.commons.io.IOUtils;
@@ -20,6 +22,22 @@ import java.util.UUID;
  * @description
  **/
 public class FileUtils {
+
+    /**
+     *  输出到客户端
+     * @param response
+     * @param fileName
+     * @param data
+     * @throws IOException
+     */
+    public static void write(HttpServletResponse response, String fileName, byte[] data) throws IOException {
+        response.reset();
+        response.setContentType("application/octet-stream; charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment; filename="+ URLUtil.encode(fileName));
+        IoUtil.write(response.getOutputStream(), Boolean.TRUE, data);
+    }
+
+
     public static void uploadFile(byte[] file, String uploadPath, String fileDir, String fileName) throws Exception {
         File targetFile = new File(uploadPath + fileDir);
         if (!targetFile.exists()) {

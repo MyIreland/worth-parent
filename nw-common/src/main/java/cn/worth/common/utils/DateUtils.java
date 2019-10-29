@@ -8,6 +8,10 @@ import org.joda.time.Days;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -20,10 +24,28 @@ import java.util.List;
  */
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
+    public static final DateTimeFormatter SHORT_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyMMdd");
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmmss");
+    public static final DateTimeFormatter SHORT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyMMddHHmmss");
+
     private static String[] parsePatterns = {
             "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM",
             "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM",
             "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
+
+    /**
+     * HHmmss
+     */
+    public static String getCurrentTimeStr() {
+        return LocalTime.now().format(TIME_FORMATTER);
+    }
+
+    /**
+     * yyMMdd
+     */
+    public static String getCurrentShortDateStr() {
+        return LocalDate.now().format(SHORT_DATE_FORMATTER);
+    }
 
     /**
      * 返回指定时间的前几天Date
@@ -382,5 +404,12 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         }
         calendar.set(Calendar.DAY_OF_MONTH, 25);
         return formatDate(calendar.getTime(), "yyyy-MM-dd");
+    }
+
+    /**
+     * yyMMddHHmmss
+     */
+    public static String getCurrentShortDateTimeStr() {
+        return LocalDateTime.now().format(SHORT_DATETIME_FORMATTER);
     }
 }

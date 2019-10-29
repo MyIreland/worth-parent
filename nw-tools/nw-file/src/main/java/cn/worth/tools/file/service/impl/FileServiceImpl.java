@@ -7,7 +7,7 @@ import cn.worth.tools.file.domain.File;
 import cn.worth.tools.file.enums.FileErrorEnum;
 import cn.worth.tools.file.mapper.FileMapper;
 import cn.worth.tools.file.service.IFileService;
-import cn.worth.tools.file.utils.FileType;
+import cn.worth.tools.file.utils.FileTypeUtils;
 import cn.worth.tools.file.utils.FileUtils;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -51,7 +51,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
             File file = generatorFile(fileDir, fileName, bizType);
             file.setName(originalFilename);
             file.setSize(each.getSize());
-            file.setType(FileType.fileType(originalFilename));
+            file.setType(FileTypeUtils.fileType(originalFilename));
             try {
                 FileUtils.uploadFile(each.getBytes(), uploadPath, fileDir, fileName);
                 fileList.add(file);
@@ -95,7 +95,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
         String fileName = file.getName();
         AssertUtils.isNull(fileName, "文件名不能为空");
         file.setGmtCreate(new Date());
-        file.setType(FileType.fileType(fileName));
+        file.setType(FileTypeUtils.fileType(fileName));
         return insert(file);
     }
 
