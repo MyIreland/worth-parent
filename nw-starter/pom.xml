@@ -43,4 +43,83 @@
         </dependency>
     </dependencies>
 
+<!--    <build>-->
+<!--        <finalName>leopard-saas-admin</finalName>-->
+<!--        &lt;!&ndash; 指定使用filter &ndash;&gt;-->
+<!--        <filters>-->
+<!--            <filter>src/main/resources/profiles/${env}.properties</filter>-->
+<!--        </filters>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <includes>-->
+<!--                    <include>*.properties</include>-->
+<!--                    <include>*.yml</include>-->
+<!--                    <include>*.xml</include>-->
+<!--                </includes>-->
+<!--                <filtering>true</filtering>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <excludes>-->
+<!--                    <exclude>*.properties</exclude>-->
+<!--                    <exclude>*.yml</exclude>-->
+<!--                    <exclude>*.xml</exclude>-->
+<!--                </excludes>-->
+<!--                <filtering>false</filtering>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/webapp</directory>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <delimiters>-->
+<!--                        <delimiter>${*}</delimiter>-->
+<!--                        <delimiter>@</delimiter>-->
+<!--                    </delimiters>-->
+<!--                    <useDefaultDelimiters>false</useDefaultDelimiters>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <skip>true</skip>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+<!--    <profiles>-->
+<!--        &lt;!&ndash; 开发环境，默认激活 &ndash;&gt;-->
+<!--        <profile>-->
+<!--            <id>local</id>-->
+<!--            <properties>-->
+<!--                <env>local</env>-->
+<!--            </properties>-->
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+<!--        </profile>-->
+<!--        &lt;!&ndash; test环境，对应edas环境 &ndash;&gt;-->
+<!--        <profile>-->
+<!--            <id>test</id>-->
+<!--            <properties>-->
+<!--                <env>test</env>-->
+<!--            </properties>-->
+<!--        </profile>-->
+<!--        &lt;!&ndash; 正式环境 &ndash;&gt;-->
+<!--        <profile>-->
+<!--            <id>publish</id>-->
+<!--            <properties>-->
+<!--                <env>publish</env>-->
+<!--            </properties>-->
+<!--        </profile>-->
+<!--    </profiles>-->
+
 </project>
