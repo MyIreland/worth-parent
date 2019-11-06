@@ -15,7 +15,6 @@
         u.state,
         u.expired,
         u.mobile,
-        u.dept_id,
         u.gmt_create,
         u.gmt_modified,
         r.id rid,
