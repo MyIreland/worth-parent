@@ -49,9 +49,10 @@ public class UserController extends BaseController<IUserService, User> {
     }
 
     private EntityWrapper<User> getUserEntityWrapper(User user, @CurrentUser LoginUser loginUser) {
+
         EntityWrapper<User> entityWrapper = new EntityWrapper<>();
         entityWrapper.orderBy("username");
-        entityWrapper.eq("custom_id", loginUser.getCustomId());
+        entityWrapper.eq("tenant_id", loginUser.getTenantId());
         entityWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         String realName = user.getRealName();
         String username = user.getUsername();
@@ -83,7 +84,7 @@ public class UserController extends BaseController<IUserService, User> {
             return R.success(pojo);
         }
 
-        return R.success(data);
+        return R.fail("用户不存在");
     }
 
     @PostMapping

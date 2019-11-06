@@ -52,19 +52,10 @@ public class AuthUser extends Model<AuthUser> {
      */
     private String mobile;
     /**
-     * 头像
-     */
-    private String avatar;
-    /**
      * 机构ID
      */
-    @TableField("custom_id")
-    private Long customId;
-    /**
-     * 部门ID
-     */
-    @TableField("dept_id")
-    private Long deptId;
+    @TableField("tenant_id")
+    private Long tenantId;
     /**
      * 状态 0-正常 1-锁住 2- 过期
      */
@@ -93,19 +84,5 @@ public class AuthUser extends Model<AuthUser> {
     @Override
     protected Serializable pkVal() {
         return this.id;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-        ", id=" + id +
-        ", username=" + username +
-        ", password=" + password +
-        ", realName=" + realName +
-        ", sex=" + sex +
-        ", email=" + email +
-        ", mobile=" + mobile +
-        ", deptId=" + deptId +
-        "}";
     }
 }

@@ -1,19 +1,19 @@
-package cn.worth.common.component;
+package cn.worth.common.service.impl;
 
+import cn.worth.common.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
  * @author myireland
  * @version 1.0.0
- * @date 2019-11-05
+ * @date 2019-11-06
  * @description
  **/
 
 @Slf4j
 @Component("pms")
-public class PermissionService {
-
+public class PermissionServiceImpl implements PermissionService {
     public boolean hasPermission(String permission) {
         return true;
 //		if (StrUtil.isBlank(permission)) {

@@ -31,7 +31,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "biz_member_level");
+        generateByTables(serviceNameStartWithI, "sys_user");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
