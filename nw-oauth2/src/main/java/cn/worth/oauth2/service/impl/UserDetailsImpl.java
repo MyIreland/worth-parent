@@ -17,8 +17,22 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     private Long tenantId;
     private Integer status;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 角色码
+     */
     private Set<String> roleCodes;
-    private Set<String> permissions;
+    /**
+     * 按钮权限码
+     */
+    private Set<String> perms;
+    /**
+     * 菜单权限码
+     */
+    private Set<String> menus;
 
     public UserDetailsImpl(LoginUser authUser) {
         this.id = authUser.getId();
@@ -26,20 +40,45 @@ public class UserDetailsImpl implements UserDetails {
         this.realName = authUser.getRealName();
         this.password = authUser.getPassword();
         this.email = authUser.getEmail();
+        this.avatar = authUser.getAvatar();
         this.tenantId = authUser.getTenantId();
         this.status = authUser.getStatus();
-        this.permissions = authUser.getPerms();
+        this.roleCodes = authUser.getRoleCodes();
+        this.perms = authUser.getPerms();
+        this.menus = authUser.getMenus();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new HashSet<>();
         if (CollectionUtils.isNotEmpty(roleCodes)) {
-            roleCodes.forEach(role -> {
-                collection.add(new SimpleGrantedAuthority(role));
-            });
+            roleCodes.forEach(role -> collection.add(new SimpleGrantedAuthority(role)));
         }
         return collection;
+    }
+
+    public Set<String> getPerms() {
+        return perms;
+    }
+
+    public void setPerms(Set<String> perms) {
+        this.perms = perms;
+    }
+
+    public Set<String> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<String> menus) {
+        this.menus = menus;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Long getTenantId() {
@@ -128,11 +167,4 @@ public class UserDetailsImpl implements UserDetails {
         this.roleCodes = roleCodes;
     }
 
-    public Set<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<String> permissions) {
-        this.permissions = permissions;
-    }
 }

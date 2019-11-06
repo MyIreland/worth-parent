@@ -1,14 +1,10 @@
 package cn.worth.common.vo;
 
-import cn.worth.common.enums.MenuTypeEnum;
-import cn.worth.common.utils.CollectionUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -81,24 +77,17 @@ public class LoginUser implements Serializable {
     /**
      * 角色列表
      */
-    private Set<RoleVo> roles = new HashSet<>();
-
-    private Set<String> perms = new HashSet<>();
-
-    public Set<String> getPerms() {
-        if(CollectionUtils.isEmpty(perms)){
-            for (RoleVo role : roles) {
-                Set<MenuVO> permissions = role.getPermissions();
-                for (MenuVO permission : permissions) {
-                    String perms = permission.getPermission();
-                    Integer type = permission.getType();
-                    MenuTypeEnum menuTypeByCode = MenuTypeEnum.getMenuTypeByCode(type);
-                    if(MenuTypeEnum.BUTTON == menuTypeByCode && StringUtils.isNotBlank(perms)){
-                        this.perms.add(perms);
-                    }
-                }
-            }
-        }
-        return perms;
-    }
+    private List<RoleVo> roles = new ArrayList<>();
+    /**
+     * 角色码
+     */
+    private Set<String> roleCodes;
+    /**
+     * 按钮权限码
+     */
+    private Set<String> perms;
+    /**
+     * 菜单权限码
+     */
+    private Set<String> menus;
 }

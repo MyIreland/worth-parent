@@ -43,6 +43,10 @@ public class AuthUser extends Model<AuthUser> {
      */
     private String salt;
     /**
+     * 头像
+     */
+    private String avatar;
+    /**
      * 姓名
      */
     @TableField("real_name")

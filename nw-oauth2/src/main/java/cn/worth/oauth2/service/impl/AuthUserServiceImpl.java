@@ -1,11 +1,21 @@
 package cn.worth.oauth2.service.impl;
 
+import cn.worth.common.utils.CollectionUtils;
+import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
+import cn.worth.common.vo.MenuVO;
+import cn.worth.common.vo.RoleVo;
 import cn.worth.oauth2.domain.AuthUser;
 import cn.worth.oauth2.mapper.AuthUserMapper;
 import cn.worth.oauth2.service.AuthUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author myireland
@@ -20,6 +30,26 @@ public class AuthUserServiceImpl extends ServiceImpl<AuthUserMapper, AuthUser> i
     public LoginUser findUserByUsername(String username) {
         AuthUser query = new AuthUser();
         query.setUsername(username);
-        return baseMapper.loadUserByUsername(query);
+        LoginUser loginUser = baseMapper.loadUserByUsername(query);
+        List<RoleVo> roles = loginUser.getRoles();
+        Set<String> roleCodes = roles.stream().map(RoleVo::getRoleCode).collect(Collectors.toSet());
+        Set<String> allPerms = new HashSet<>();
+        roles.forEach(res -> {
+            Set<MenuVO> permissions = res.getPermissions();
+            if(CollectionUtils.isNotEmpty(permissions)){
+                Set<String> perms = permissions.stream().map(MenuVO::getPermission).filter(StringUtils::isNotBlank).collect(Collectors.toSet());
+                allPerms.addAll(perms);
+            }
+        });
+        Set<String> perms = new HashSet<>();
+        Set<String> menus = new HashSet<>();
+        if(CollectionUtils.isNotEmpty(allPerms)){
+            perms = allPerms.stream().filter(res -> res.contains(":")).collect(Collectors.toSet());
+            menus = allPerms.stream().filter(res -> !res.contains(":")).collect(Collectors.toSet());
+        }
+        loginUser.setPerms(perms);
+        loginUser.setMenus(menus);
+        loginUser.setRoleCodes(roleCodes);
+        return loginUser;
     }
 }
