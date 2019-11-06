@@ -25,7 +25,7 @@ public class ImportController extends BaseController<IImportService, Import> {
     @Autowired
     private IFileService fileService;
 
-    @PostMapping
+    @PostMapping("files")
     public R importFile(MultipartFile[] files) {
         return null;
     }
@@ -58,7 +58,7 @@ public class ImportController extends BaseController<IImportService, Import> {
      *
      * @return success/false
      */
-    @PostMapping
+    @PostMapping("add")
     public R<Boolean> add(@RequestBody Import importDO) {
         return new R<>(baseService.insert(importDO));
     }
@@ -81,7 +81,7 @@ public class ImportController extends BaseController<IImportService, Import> {
      *
      * @return success/false
      */
-    @PutMapping
+    @PutMapping("edit")
     public R<Boolean> edit(@RequestBody Import importDO) {
         return new R<>(baseService.updateById(importDO));
     }

@@ -42,8 +42,8 @@ public class Role extends Model<Role> {
     /**
      * 租户id
      */
-    @TableField("custom_id")
-    private Long customId;
+    @TableField("tenant_id")
+    private Long tenantId;
     @TableField("gmt_create")
     private Date gmtCreate;
     @TableField("gmt_update")

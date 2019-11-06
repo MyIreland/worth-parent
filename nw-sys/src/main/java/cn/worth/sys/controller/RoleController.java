@@ -54,7 +54,7 @@ public class RoleController extends BaseController<IRoleService, Role> {
         EntityWrapper<Role> wrapper = new EntityWrapper<>();
         wrapper.orderBy("id");
         wrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
-        wrapper.eq("custom_id", user.getCustomId());
+        wrapper.eq("tenant_id", user.getTenantId());
         String roleCode = role.getRoleCode();
         String roleName = role.getRoleName();
         Integer roleType = role.getRoleType();
@@ -91,7 +91,7 @@ public class RoleController extends BaseController<IRoleService, Role> {
     public R<Boolean> add(@RequestBody Role role, @CurrentUser LoginUser loginUser) {
         Date gmtCreate = new Date();
         role.setGmtCreate(gmtCreate);
-        role.setCustomId(loginUser.getCustomId());
+        role.setTenantId(loginUser.getTenantId());
         role.setGmtUpdate(gmtCreate);
         role.setDelFlag(CommonConstant.STATUS_NORMAL);
         return new R<>(roleService.insert(role));

@@ -49,7 +49,7 @@ public class UserPojo {
     /**
      * 机构ID
      */
-    private Long orgId;
+    private Long tenantId;
     /**
      * 部门ID
      */

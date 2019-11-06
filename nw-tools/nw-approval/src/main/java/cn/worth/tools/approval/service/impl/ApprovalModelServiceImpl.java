@@ -62,7 +62,7 @@ public class ApprovalModelServiceImpl extends ServiceImpl<ApprovalModelMapper, A
     public Boolean add(ApprovalModelVO modelVO, LoginUser loginUser) {
         List<ApprovalModelProcess> processes = modelVO.getProcesses();
         modelVO.setUserCreate(loginUser.getId());
-        modelVO.setTenantId(loginUser.getCustomId());
+        modelVO.setTenantId(loginUser.getTenantId());
         boolean result = insert(modelVO);
         if(result && CollectionUtils.isNotEmpty(processes)){
             Long modelId = modelVO.getId();
