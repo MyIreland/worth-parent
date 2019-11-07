@@ -4,8 +4,8 @@ import cn.worth.common.annotation.CurrentUser;
 import cn.worth.common.constant.CommonConstant;
 import cn.worth.common.utils.StringUtils;
 import cn.worth.common.vo.LoginUser;
-import cn.worth.sys.domain.Custom;
-import cn.worth.sys.service.ICustomService;
+import cn.worth.sys.domain.Tenant;
+import cn.worth.sys.service.ITenantService;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -24,28 +24,28 @@ import java.util.Date;
  * @since 2019-03-22
  */
 @RestController
-@RequestMapping("/custom")
-public class CustomController extends BaseController<ICustomService, Custom> {
+@RequestMapping("/tenant")
+public class TenantController extends BaseController<ITenantService, Tenant> {
 
     @Autowired
-    private ICustomService tenantService;
+    private ITenantService tenantService;
 
     @PostMapping("page")
-    public R page(Page<Custom> orgPage, Custom org, @CurrentUser LoginUser loginUser){
+    public R page(Page<Tenant> orgPage, Tenant org, @CurrentUser LoginUser loginUser){
 
         EntityWrapper entityWrapper = getEntityWrapper(org);
 
-        Page<Custom> page = selectPage(orgPage, entityWrapper);
+        Page<Tenant> page = selectPage(orgPage, entityWrapper);
         return R.success(page);
     }
 
-    private EntityWrapper getEntityWrapper(Custom org) {
+    private EntityWrapper getEntityWrapper(Tenant tenant) {
         EntityWrapper entityWrapper = new EntityWrapper();
-        String briefName = org.getBriefName();
-        Integer status = org.getStatus();
-        String name = org.getName();
-        String phone = org.getPhone();
-        Integer type = org.getType();
+        String briefName = tenant.getBriefName();
+        Integer status = tenant.getStatus();
+        String name = tenant.getName();
+        String phone = tenant.getPhone();
+        Integer type = tenant.getType();
         entityWrapper.eq("del_flag", CommonConstant.STATUS_NORMAL);
         if(StringUtils.isNotBlank(briefName)){
             entityWrapper.like("brief_name", briefName);
@@ -72,7 +72,7 @@ public class CustomController extends BaseController<ICustomService, Custom> {
      * @return tenant
      */
     @GetMapping("/{id}")
-    public R<Custom> get(@PathVariable Long id) {
+    public R<Tenant> get(@PathVariable Long id) {
         return new R<>(tenantService.selectById(id));
     }
 
@@ -84,7 +84,7 @@ public class CustomController extends BaseController<ICustomService, Custom> {
      * @return success/false
      */
     @PostMapping
-    public R<Boolean> add(@RequestBody Custom tenant) {
+    public R<Boolean> add(@RequestBody Tenant tenant) {
         return new R<>(tenantService.insert(tenant));
     }
 
@@ -96,7 +96,7 @@ public class CustomController extends BaseController<ICustomService, Custom> {
      */
     @DeleteMapping("/{id}")
     public R<Boolean> delete(@PathVariable Long id) {
-        Custom tenant = new Custom();
+        Tenant tenant = new Tenant();
         tenant.setId(id);
         tenant.setGmtUpdate(new Date());
         tenant.setDelFlag(CommonConstant.STATUS_DEL);
@@ -110,7 +110,7 @@ public class CustomController extends BaseController<ICustomService, Custom> {
      * @return success/false
      */
     @PutMapping
-    public R<Boolean> edit(@RequestBody Custom tenant) {
+    public R<Boolean> edit(@RequestBody Tenant tenant) {
         tenant.setGmtUpdate(new Date());
         return new R<>(tenantService.updateById(tenant));
     }

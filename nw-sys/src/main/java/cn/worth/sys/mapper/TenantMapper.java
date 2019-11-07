@@ -1,6 +1,6 @@
 package cn.worth.sys.mapper;
 
-import cn.worth.sys.domain.Custom;
+import cn.worth.sys.domain.Tenant;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author chenxiaoqing
  * @since 2019-03-22
  */
-public interface CustomMapper extends BaseMapper<Custom> {
+public interface TenantMapper extends BaseMapper<Tenant> {
 
 }

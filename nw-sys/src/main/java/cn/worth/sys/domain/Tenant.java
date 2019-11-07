@@ -17,8 +17,8 @@ import java.util.Date;
  * @author chenxiaoqing
  * @since 2019-03-22
  */
-@TableName("sys_custom")
-public class Custom extends Model<Custom> {
+@TableName("platform_tenant")
+public class Tenant extends Model<Tenant> {
 
     private static final long serialVersionUID = 1L;
 
