@@ -1,4 +1,4 @@
-package cn.worth.modules.applet.config;
+package cn.worth.applet.config;
 
 import lombok.Getter;
 import lombok.Setter;
