@@ -150,7 +150,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Date currentDate = new Date();
         if (null == userId) {
             user.setGmtUpdate(currentDate);
-            user.setGmtUpdate(currentDate);
             user.setTenantId(userVO.getTenantId());
             baseMapper.insert(user);
         } else {

@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -88,7 +89,7 @@ public class UserController extends BaseController<IUserService, User> {
     }
 
     @PostMapping
-    public R add(@RequestBody UserPojo userPojo, @CurrentUser LoginUser userVO) {
+    public R add(@Valid @RequestBody UserPojo userPojo, @CurrentUser LoginUser userVO) {
         return userService.addOrUpdate(userPojo, userVO);
     }
 
