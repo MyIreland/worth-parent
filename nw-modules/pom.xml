@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>nw-gen</module>
-        <module>nw-applet</module>
     </modules>
 
 
