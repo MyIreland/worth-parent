@@ -144,6 +144,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private User addOrUpdateUser(UserPojo userPojo, LoginUser userVO) {
         User user = new User();
         BeanUtils.copyProperties(userPojo, user);
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setStatus(UserStateEnum.ACTIVE.ordinal());
         user.setType(EntityTypeEnum.COMMON.ordinal());
         Long userId = user.getId();
