@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 @ConfigurationProperties(prefix = "wx")
-public class WxAppletProperties {
+public class AppletProperties {
 
     private String secret;
     private String appId;
@@ -24,6 +24,6 @@ public class WxAppletProperties {
     private String tradeType;
     private String uniformOrder;
     private String userMessage;
-    private String webAccessTokenHttps;
+    private String authorizationCodeUrl;
     private  String templateId ;
 }

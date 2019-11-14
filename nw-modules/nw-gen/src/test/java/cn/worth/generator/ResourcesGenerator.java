@@ -31,7 +31,7 @@ public class ResourcesGenerator {
     @Test
     public void generateCode() {
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(serviceNameStartWithI, "sys_user");
+        generateByTables(serviceNameStartWithI, "applet_user");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String... tableNames) {
@@ -74,7 +74,7 @@ public class ResourcesGenerator {
         // 表名生成策略
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         //去除表名前缀 update
-        strategyConfig.setTablePrefix(NamingStrategy.removePrefix("sys_"));
+//        strategyConfig.setTablePrefix(NamingStrategy.removePrefix("sys_"));
 
         strategyConfig.setCapitalMode(true);
         strategyConfig.setEntityLombokModel(true);

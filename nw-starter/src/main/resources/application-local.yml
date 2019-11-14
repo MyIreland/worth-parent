@@ -30,6 +30,7 @@ ignore:
     - /webjars/**
     - /file/download
     - /druid/**
+    - /applet/**
 
 logging:
   #  path: C:/logs

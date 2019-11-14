@@ -1,5 +1,6 @@
 package cn.worth.common.exception;
 
+import cn.worth.common.enums.ErrorEnum;
 import cn.worth.common.enums.RCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,11 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String msg) {
         super(msg);
         this.msg = msg;
+    }
+
+    public BusinessException(ErrorEnum errorEnum) {
+        this.msg = errorEnum.getDesc();
+        this.code = errorEnum.getCode();
     }
 
     public BusinessException(int code, String msg) {

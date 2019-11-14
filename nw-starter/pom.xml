@@ -17,6 +17,11 @@
             <groupId>cn.worth</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <artifactId>nw-applet</artifactId>
+            <groupId>cn.worth</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <artifactId>nw-sys</artifactId>

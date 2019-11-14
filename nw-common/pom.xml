@@ -176,6 +176,13 @@
             <version>${mybatisplus-spring-boot-starter.version}</version>
         </dependency>
         <!-- E=业务模块需要 -->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
     </dependencies>
 
 
