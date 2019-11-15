@@ -24,6 +24,6 @@ public class AppletProperties {
     private String tradeType;
     private String uniformOrder;
     private String userMessage;
-    private String authorizationCodeUrl;
+    private String jsCode2sessionUrl;
     private  String templateId ;
 }

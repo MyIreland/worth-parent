@@ -14,5 +14,5 @@ wx:
   tradeType: JSAPI
   uniformOrder: https://api.mch.weixin.qq.com/pay/unifiedorder
   userMessage: https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN
-  authorizationCodeUrl: https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
+  jsCode2sessionUrl: https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
   templateId: nAt_DYLLwYXkIhtDb5nyEm0ynrt98OK3Z3MmeUooPz4

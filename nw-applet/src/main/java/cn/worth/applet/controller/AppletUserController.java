@@ -1,7 +1,7 @@
 package cn.worth.applet.controller;
 
 import cn.worth.applet.domain.AppletUser;
-import cn.worth.applet.param.AppletUserParam;
+import cn.worth.applet.param.AppletApiParam;
 import cn.worth.applet.service.IAppletUserService;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
@@ -26,12 +26,12 @@ public class AppletUserController extends BaseController<IAppletUserService, App
      * @return openId
      */
     @PostMapping("login")
-    public R login(AppletUserParam param){
+    public R login(AppletApiParam param){
         return baseService.login(param);
     }
 
     @PostMapping("accessToken")
-    public R accessToken(AppletUserParam param){
+    public R accessToken(AppletApiParam param){
         return baseService.accessToken(param);
     }
 

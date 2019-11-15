@@ -11,6 +11,6 @@ import lombok.Setter;
  **/
 @Getter
 @Setter
-public class AppletUserParam {
+public class AppletApiParam {
     private String code;
 }

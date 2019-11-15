@@ -2,10 +2,11 @@ package cn.worth.applet.service.impl;
 
 import cn.worth.applet.config.AppletProperties;
 import cn.worth.applet.domain.AppletUser;
+import cn.worth.applet.helper.AppletApiHelper;
 import cn.worth.applet.mapper.AppletUserMapper;
-import cn.worth.applet.param.AppletUserParam;
+import cn.worth.applet.param.AppletApiParam;
 import cn.worth.applet.service.IAppletUserService;
-import cn.worth.common.enums.ErrorEnum;
+import cn.worth.applet.vos.AppletJsCode2sessionVO;
 import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.StringUtils;
@@ -35,42 +36,18 @@ import java.io.IOException;
 public class AppletUserServiceImpl extends ServiceImpl<AppletUserMapper, AppletUser> implements IAppletUserService {
 
     @Autowired
-    private AppletProperties appletProperties;
+    private AppletApiHelper appletApiHelper;
 
     @Override
-    public R login(AppletUserParam param) {
-        String code = param.getCode();
-        if (StringUtils.isNotBlank(code)) {
-            String authUrl = String.format(appletProperties.getAuthorizationCodeUrl(), appletProperties.getAppId(),
-                    appletProperties.getSecret(), code);
-
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-
-            HttpGet httpGet = new HttpGet(authUrl);
-            try {
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                    String result = EntityUtils.toString(httpResponse.getEntity());//获得返回的结果
-                    log.info("wechat login result", result);
-                    JSONObject json = (JSONObject) JSONObject.parse(result);
-                    if (json.get("session_key") != null) {
-                        String openid=json.get("openid").toString();
-                        return new R(openid);
-                    } else {
-                        throw new BusinessException("");
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
+    public R login(AppletApiParam param) {
+        AppletJsCode2sessionVO appletJsCode2sessionVO = appletApiHelper.jsCode2session(param.getCode());
+        return R.success(appletJsCode2sessionVO);
     }
 
     @Override
-    public R accessToken(AppletUserParam param) {
+    public R accessToken(AppletApiParam param) {
         String code = param.getCode();
-        if(StringUtils.isNotBlank(code)){
+        if (StringUtils.isNotBlank(code)) {
 
         }
 //        Map<String, Object> data = new HashMap();

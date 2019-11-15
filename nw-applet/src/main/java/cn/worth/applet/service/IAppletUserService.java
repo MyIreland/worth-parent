@@ -1,7 +1,7 @@
 package cn.worth.applet.service;
 
 import cn.worth.applet.domain.AppletUser;
-import cn.worth.applet.param.AppletUserParam;
+import cn.worth.applet.param.AppletApiParam;
 import cn.worth.common.pojo.R;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -20,7 +20,7 @@ public interface IAppletUserService extends IService<AppletUser> {
      * @param param
      * @return
      */
-    R login(AppletUserParam param);
+    R login(AppletApiParam param);
 
-    R accessToken(AppletUserParam param);
+    R accessToken(AppletApiParam param);
 }
