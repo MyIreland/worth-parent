@@ -12,5 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AppletJsCode2sessionVO extends AppletApiBaseVO{
+
     private String appid;
+
+    private String session_key;
 }
