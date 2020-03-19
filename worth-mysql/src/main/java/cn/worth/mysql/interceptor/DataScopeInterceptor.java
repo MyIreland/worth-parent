@@ -1,9 +1,9 @@
-package cn.worth.core.interceptor;
+package cn.worth.mysql.interceptor;
 
-import com.baomidou.mybatisplus.plugins.SqlParserHandler;
-import com.baomidou.mybatisplus.toolkit.PluginUtils;
+import com.baomidou.mybatisplus.core.parser.SqlParserHelper;
+import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.xiaoleilu.hutool.collection.CollectionUtil;
-import com.xiaoleilu.hutool.util.StrUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -27,13 +27,13 @@ import java.util.Properties;
  */
 @Slf4j
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
-public class DataScopeInterceptor extends SqlParserHandler implements Interceptor {
+public class DataScopeInterceptor extends SqlParserHelper implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = (StatementHandler) PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
-        this.sqlParser(metaObject);
+        getSqlParserInfo(metaObject);
         // 先判断是不是SELECT操作
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
         if (!SqlCommandType.SELECT.equals(mappedStatement.getSqlCommandType())) {
@@ -52,7 +52,7 @@ public class DataScopeInterceptor extends SqlParserHandler implements Intercepto
         } else {
             String scopeName = dataScope.getScopeName();
             List<String> deptIds = dataScope.getDeptIds();
-            if(StrUtil.isNotBlank(scopeName) && CollectionUtil.isNotEmpty(deptIds)){
+            if(StringUtils.isNotBlank(scopeName) && CollectionUtil.isNotEmpty(deptIds)){
                 String join = CollectionUtil.join(deptIds, ",");
                 originalSql = "select * from (" + originalSql + ") temp_data_scope where temp_data_scope." + scopeName + " in (" + join + ")";
                 metaObject.setValue("delegate.boundSql.sql", originalSql);
