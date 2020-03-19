@@ -1,9 +1,9 @@
 package cn.worth.tools.approval.service.impl;
 
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalModelProcess;
 import cn.worth.tools.approval.domain.ApprovalTask;
 import cn.worth.tools.approval.domain.ApprovalTaskProcess;
@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>

@@ -1,6 +1,6 @@
 package cn.worth.sys.pojo;
 
-import cn.worth.common.utils.Arith;
+import cn.worth.common.v2.utils.Arith;
 import cn.worth.common.utils.IPUtils;
 import lombok.Getter;
 import oshi.SystemInfo;

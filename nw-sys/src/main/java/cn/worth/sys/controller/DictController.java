@@ -1,11 +1,10 @@
 package cn.worth.sys.controller;
 
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
 import cn.worth.sys.domain.Dict;
 import cn.worth.sys.param.BatchDelDictParam;
 import cn.worth.sys.service.IDictService;

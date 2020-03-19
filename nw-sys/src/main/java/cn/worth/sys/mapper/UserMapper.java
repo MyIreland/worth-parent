@@ -1,7 +1,6 @@
 package cn.worth.sys.mapper;
 
 import cn.worth.sys.domain.User;
-import cn.worth.common.vo.LoginUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

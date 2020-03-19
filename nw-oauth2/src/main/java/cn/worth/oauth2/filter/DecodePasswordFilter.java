@@ -1,14 +1,12 @@
 package cn.worth.oauth2.filter;
 
-import cn.worth.common.constant.SecurityConstants;
-import cn.worth.common.wrapper.MutableHttpServletRequestWrapper;
+import cn.worth.common.v2.constant.SecurityConstants;
+import cn.worth.common.v2.wrapper.MutableHttpServletRequestWrapper;
 import com.xiaoleilu.hutool.codec.Base64;
 import com.xiaoleilu.hutool.util.CharsetUtil;
 import com.xiaoleilu.hutool.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

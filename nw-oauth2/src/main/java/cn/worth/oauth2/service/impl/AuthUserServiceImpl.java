@@ -2,9 +2,9 @@ package cn.worth.oauth2.service.impl;
 
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
-import cn.worth.common.vo.MenuVO;
-import cn.worth.common.vo.RoleVo;
+import cn.worth.common.v2.domain.LoginUser;
+import cn.worth.common.v2.domain.MenuVO;
+import cn.worth.common.v2.domain.RoleVo;
 import cn.worth.oauth2.domain.AuthUser;
 import cn.worth.oauth2.mapper.AuthUserMapper;
 import cn.worth.oauth2.service.AuthUserService;
@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author myireland

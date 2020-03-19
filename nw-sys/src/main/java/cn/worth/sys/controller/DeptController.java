@@ -2,7 +2,7 @@ package cn.worth.sys.controller;
 
 import cn.worth.sys.domain.Dept;
 import cn.worth.sys.service.IDeptService;
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import org.springframework.beans.factory.annotation.Autowired;

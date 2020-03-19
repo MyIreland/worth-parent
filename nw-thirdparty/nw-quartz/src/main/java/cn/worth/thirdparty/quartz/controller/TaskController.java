@@ -1,11 +1,11 @@
 package cn.worth.thirdparty.quartz.controller;
 
-import cn.worth.common.annotation.CurrentUser;
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.annotation.CurrentUser;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.thirdparty.quartz.domain.Task;
 import cn.worth.thirdparty.quartz.service.ITaskService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.Date;
 
 /**
  * <p>

@@ -1,9 +1,9 @@
 package cn.worth.tools.approval.service.impl;
 
-import cn.worth.common.exception.BusinessException;
-import cn.worth.common.utils.AssertUtils;
+import cn.worth.common.v2.exception.BusinessException;
+import cn.worth.common.v2.utils.AssertUtils;
 import cn.worth.common.utils.CollectionUtils;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalModel;
 import cn.worth.tools.approval.domain.ApprovalModelProcess;
 import cn.worth.tools.approval.enums.ModelStatusEnum;

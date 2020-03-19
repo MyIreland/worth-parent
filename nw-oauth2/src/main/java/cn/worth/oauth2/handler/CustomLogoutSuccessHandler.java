@@ -1,6 +1,6 @@
 package cn.worth.oauth2.handler;
 
-import cn.worth.common.utils.AuthUtils;
+import cn.worth.common.v2.utils.AuthUtils;
 import cn.worth.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

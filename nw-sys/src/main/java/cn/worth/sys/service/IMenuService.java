@@ -1,11 +1,10 @@
 package cn.worth.sys.service;
 
 import cn.worth.sys.domain.Menu;
-import cn.worth.common.vo.MenuVO;
+import cn.worth.common.v2.domain.MenuVO;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>

@@ -1,6 +1,6 @@
 package cn.worth.sys.utils;
 
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.sys.enums.EntityTypeEnum;
 
 /**

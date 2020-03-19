@@ -1,6 +1,6 @@
 package cn.worth.oauth2.mapper;
 
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

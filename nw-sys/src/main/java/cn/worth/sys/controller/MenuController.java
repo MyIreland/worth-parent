@@ -1,14 +1,13 @@
 package cn.worth.sys.controller;
 
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.TreeUtils;
-import cn.worth.common.vo.MenuTree;
+import cn.worth.common.v2.domain.MenuTree;
 import cn.worth.sys.domain.Menu;
 import cn.worth.sys.service.IMenuService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;

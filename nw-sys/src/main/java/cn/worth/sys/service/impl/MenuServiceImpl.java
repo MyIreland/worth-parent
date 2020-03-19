@@ -3,13 +3,12 @@ package cn.worth.sys.service.impl;
 import cn.worth.sys.domain.Menu;
 import cn.worth.sys.mapper.MenuMapper;
 import cn.worth.sys.service.IMenuService;
-import cn.worth.common.vo.MenuVO;
+import cn.worth.common.v2.domain.MenuVO;
 import cn.worth.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>

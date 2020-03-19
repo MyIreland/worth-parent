@@ -1,7 +1,7 @@
 package cn.worth.oauth2.service.impl;
 
 import cn.worth.common.utils.CollectionUtils;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

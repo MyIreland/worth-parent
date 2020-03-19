@@ -1,18 +1,16 @@
 package cn.worth.oauth2.filter;
 
-import cn.worth.common.constant.CommonConstant;
-import cn.worth.common.constant.SecurityConstants;
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.constant.CommonConstant;
+import cn.worth.common.v2.constant.SecurityConstants;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.common.pojo.R;
-import cn.worth.common.utils.AuthUtils;
+import cn.worth.common.v2.utils.AuthUtils;
 import cn.worth.oauth2.common.FilterIgnorePropertiesConfiguration;
 import com.xiaoleilu.hutool.collection.CollUtil;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import com.xiaoleilu.hutool.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -103,7 +101,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
      * 检查code
      *
      * @param httpServletRequest request
-     * @throws cn.worth.common.exception.BusinessException 验证码校验异常
+     * @throws BusinessException 验证码校验异常
      */
     private void checkCode(HttpServletRequest httpServletRequest) throws BusinessException {
         String code = httpServletRequest.getParameter("code");

@@ -1,12 +1,11 @@
 package cn.worth.oauth2.handler;
 
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.pojo.R;
 import cn.worth.oauth2.common.enums.AuthErrorEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;

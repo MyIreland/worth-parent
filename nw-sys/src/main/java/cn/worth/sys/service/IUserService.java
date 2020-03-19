@@ -2,7 +2,7 @@ package cn.worth.sys.service;
 
 import cn.worth.common.pojo.R;
 import cn.worth.sys.domain.User;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.sys.pojo.UserPojo;
 import com.baomidou.mybatisplus.service.IService;
 

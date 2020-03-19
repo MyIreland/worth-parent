@@ -1,7 +1,7 @@
 package cn.worth.oauth2.config;
 
-import cn.worth.common.constant.CommonConstant;
-import cn.worth.common.constant.SecurityConstants;
+import cn.worth.common.v2.constant.CommonConstant;
+import cn.worth.common.v2.constant.SecurityConstants;
 import cn.worth.oauth2.common.RandomAuthenticationKeyGenerator;
 import cn.worth.oauth2.common.RedisTokenStore;
 import cn.worth.oauth2.service.impl.UserDetailsImpl;

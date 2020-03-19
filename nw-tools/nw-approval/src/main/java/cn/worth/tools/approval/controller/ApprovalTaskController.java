@@ -1,9 +1,9 @@
 package cn.worth.tools.approval.controller;
 
-import cn.worth.common.annotation.CurrentUser;
+import cn.worth.common.v2.annotation.CurrentUser;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.tools.approval.domain.ApprovalTask;
 import cn.worth.tools.approval.service.IApprovalTaskService;
 import cn.worth.tools.approval.vo.ApprovalTaskVO;

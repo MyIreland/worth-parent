@@ -1,6 +1,6 @@
 package cn.worth.oauth2.service;
 
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import com.baomidou.mybatisplus.service.IService;
 
 public interface AuthUserService extends IService<cn.worth.oauth2.domain.AuthUser> {

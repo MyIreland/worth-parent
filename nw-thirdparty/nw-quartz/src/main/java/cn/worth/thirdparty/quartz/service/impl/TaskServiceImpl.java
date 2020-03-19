@@ -1,7 +1,7 @@
 package cn.worth.thirdparty.quartz.service.impl;
 
-import cn.worth.common.constant.CommonConstant;
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.constant.CommonConstant;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.common.utils.StringUtils;
 import cn.worth.thirdparty.quartz.component.QuartzService;
 import cn.worth.thirdparty.quartz.domain.Task;

@@ -1,12 +1,12 @@
 package cn.worth.sys.service.impl;
 
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.enums.RCodeEnum;
-import cn.worth.common.enums.UserStateEnum;
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.enums.UserStateEnum;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.enums.EntityTypeEnum;
 import cn.worth.sys.mapper.UserMapper;

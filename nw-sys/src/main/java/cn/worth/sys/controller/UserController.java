@@ -1,11 +1,11 @@
 package cn.worth.sys.controller;
 
-import cn.worth.common.annotation.CurrentUser;
-import cn.worth.common.constant.CommonConstant;
+import cn.worth.common.v2.annotation.CurrentUser;
+import cn.worth.common.v2.constant.CommonConstant;
 import cn.worth.common.controller.BaseController;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.sys.domain.User;
 import cn.worth.sys.pojo.UserPojo;
 import cn.worth.sys.service.IRoleService;

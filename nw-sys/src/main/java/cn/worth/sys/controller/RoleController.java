@@ -3,13 +3,12 @@ package cn.worth.sys.controller;
 import java.util.Date;
 import java.util.List;
 
-import cn.worth.common.annotation.CurrentUser;
-import cn.worth.common.constant.CommonConstant;
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.annotation.CurrentUser;
+import cn.worth.common.v2.constant.CommonConstant;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.StringUtils;
-import cn.worth.common.vo.LoginUser;
-import cn.worth.sys.enums.EntityTypeEnum;
+import cn.worth.common.v2.domain.LoginUser;
 import cn.worth.sys.service.IRoleService;
 import cn.worth.sys.utils.VerifyUtils;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;

@@ -1,7 +1,6 @@
 package cn.worth.sys.service.impl;
 
 import cn.worth.common.enums.RCodeEnum;
-import cn.worth.common.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.CollectionUtils;
 import cn.worth.sys.domain.UserRole;
@@ -13,7 +12,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

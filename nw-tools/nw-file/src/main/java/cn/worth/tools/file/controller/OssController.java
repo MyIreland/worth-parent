@@ -1,6 +1,6 @@
 package cn.worth.tools.file.controller;
 
-import cn.worth.common.exception.BusinessException;
+import cn.worth.common.v2.exception.BusinessException;
 import cn.worth.common.pojo.R;
 import cn.worth.common.utils.DateUtils;
 import cn.worth.tools.file.config.FileProps;
