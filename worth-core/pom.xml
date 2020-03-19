@@ -12,9 +12,6 @@
     <artifactId>worth-core</artifactId>
 
     <dependencies>
-
-
-
         <dependency>
             <groupId>cn.worth</groupId>
             <artifactId>worth-common</artifactId>

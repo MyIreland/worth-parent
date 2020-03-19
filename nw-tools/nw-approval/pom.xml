@@ -14,8 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.worth</groupId>
-            <artifactId>nw-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>worth-core</artifactId>
         </dependency>
     </dependencies>
 

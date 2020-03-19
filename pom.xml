@@ -44,6 +44,7 @@
         <nekohtml.version>1.9.22</nekohtml.version>
 
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
+        <worth-core.version>1.0-SNAPSHOT</worth-core.version>
 
     </properties>
 
@@ -55,7 +56,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
 
         <!-- spring-security-oauth2-autoconfigure -->
         <dependency>
@@ -130,6 +130,21 @@
     <dependencyManagement>
 
         <dependencies>
+
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-common</artifactId>
+                <version>${worth-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-core</artifactId>
+                <version>${worth-core.version}</version>
+            </dependency>
+
+
+
             <!--标签解析neko html 暂时没用-->
             <dependency>
                 <groupId>net.sourceforge.nekohtml</groupId>
@@ -178,12 +193,6 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.worth</groupId>
-                <artifactId>worth-common</artifactId>
-                <version>${worth-common.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
