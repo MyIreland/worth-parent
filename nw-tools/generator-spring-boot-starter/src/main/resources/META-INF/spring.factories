@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.worth.tools.generator.spring.boot.starter.GeneratorAutoConfigure

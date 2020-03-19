@@ -198,12 +198,6 @@
     </dependencyManagement>
 
     <modules>
-        <module>nw-modules</module>
-        <module>nw-starter</module>
-        <module>nw-sys</module>
-        <module>nw-oauth2</module>
-        <module>nw-thirdparty</module>
-        <module>nw-tools</module>
         <module>worth-common</module>
         <module>worth-core</module>
     </modules>
