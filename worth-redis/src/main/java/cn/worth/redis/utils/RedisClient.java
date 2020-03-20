@@ -36,7 +36,7 @@ public class RedisClient {
         this.setOps = redisTemplate.opsForSet();
         this.zsetOps = redisTemplate.opsForZSet();
 
-        this.keyPrefix = keyPrefix.endsWith("_") ? keyPrefix : keyPrefix + "_";
+        this.keyPrefix = keyPrefix.endsWith(":") ? keyPrefix : keyPrefix + ":";
     }
 
     private String genKey(String key) {
