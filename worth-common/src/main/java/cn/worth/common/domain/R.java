@@ -1,6 +1,9 @@
 package cn.worth.common.domain;
 
+import cn.worth.common.enums.BaseEnum;
 import cn.worth.common.enums.RCodeEnum;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +12,8 @@ import java.util.Date;
  * 统一响应响应信息主体
  * @param <T>
  */
+@Getter
+@Setter
 public class R<T> implements Serializable {
 
     /**
@@ -52,9 +57,9 @@ public class R<T> implements Serializable {
         this.data = data;
     }
 
-    public R(RCodeEnum rCodeEnum) {
-        this.code = rCodeEnum.getCode();
-        this.message = rCodeEnum.getMsg();
+    public R(BaseEnum<Integer> baseEnum) {
+        this.code = baseEnum.getCode();
+        this.message = baseEnum.getMsg();
     }
 
     public R(T data, String message) {
@@ -76,14 +81,15 @@ public class R<T> implements Serializable {
         return r;
     }
 
-    public static R success(String message, Object data) {
-        R r = new R();
+    public static<T> R success(String message, T data) {
+        R<T> r = new R<>();
         r.setMessage(message);
         r.setData(data);
         return r;
     }
-    public static R success(Object data) {
-        R r = new R();
+
+    public static<T> R success(T data) {
+        R<T> r = new R<>();
         r.setData(data);
         return r;
     }
@@ -107,47 +113,7 @@ public class R<T> implements Serializable {
         R r = new R();
         r.setCode(code);
         r.setMessage(message);
-
         return r;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

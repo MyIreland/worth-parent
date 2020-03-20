@@ -1,11 +1,16 @@
 package cn.worth.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @Author: MyIreland on.
  * @Description:
  * @Date: 2019/3/22
  */
-public enum RCodeEnum {
+@Getter
+@AllArgsConstructor
+public enum RCodeEnum implements BaseEnum<Integer>{
     SUCCESS(200, "操作成功"),
 
     BIZ_EXCEPTION(501, "业务异常"),
@@ -17,21 +22,4 @@ public enum RCodeEnum {
     private Integer code;
 
     private String msg;
-
-
-    RCodeEnum(Integer code, String msg) {
-
-        this.code = code;
-
-        this.msg = msg;
-
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }

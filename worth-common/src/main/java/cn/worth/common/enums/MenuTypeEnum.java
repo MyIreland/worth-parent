@@ -1,6 +1,8 @@
 package cn.worth.common.enums;
 
 import cn.worth.common.exception.BusinessException;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * @author myireland
@@ -8,14 +10,21 @@ import cn.worth.common.exception.BusinessException;
  * @date 2019-08-05
  * @description 0菜单 1按钮 2链接
  **/
-public enum MenuTypeEnum {
-   MENU, BUTTON, LINK;
+@Getter
+@AllArgsConstructor
+public enum MenuTypeEnum implements BaseEnum<Integer> {
+    MENU(0, "菜单"),
+    BUTTON(1, "按钮"),
+    LINK(2, "链接");
 
-    public static MenuTypeEnum getMenuTypeByCode(Integer type){
-        if(type != null){
+    private Integer code;
+    private String msg;
+
+    public static MenuTypeEnum getMenuTypeByCode(Integer type) {
+        if (type != null) {
             MenuTypeEnum[] values = MenuTypeEnum.values();
             for (MenuTypeEnum value : values) {
-                if(value.ordinal() == type){
+                if (value.ordinal() == type) {
                     return value;
                 }
             }

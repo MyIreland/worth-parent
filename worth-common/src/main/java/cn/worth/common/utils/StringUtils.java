@@ -1,8 +1,6 @@
 package cn.worth.common.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,9 +11,8 @@ import java.util.regex.Pattern;
  * @Description: 工具类
  * @Modified by:
  */
+@Slf4j
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(StringUtils.class);
 
     private static final String TAG = "StringUtils";
 
@@ -615,7 +612,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String getXmlValue(String xml, String tag) {
         if (xml == null || tag == null) {
-            LOGGER.error(TAG, "XML OR TAG is null!");
+            log.error(TAG, "XML OR TAG is null!");
             return null;
         }
 
@@ -629,7 +626,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
                     xml.indexOf('<', index));
         }
 
-        LOGGER.error(TAG, "No such tag : " + tag + " was found!");
+        log.error(TAG, "No such tag : " + tag + " was found!");
         return null;
     }
 
