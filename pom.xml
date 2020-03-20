@@ -71,12 +71,6 @@
         </dependency>
 
         <!-- S=业务模块需要 -->
-        <!--swagger-->
-        <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
-            <version>${swagger-spring-boot-starter.version}</version>
-        </dependency>
 
         <!--web -->
         <dependency>
@@ -197,5 +191,7 @@
         <module>worth-core</module>
         <module>worth-mysql</module>
         <module>worth-redis</module>
+        <module>worth-schedule</module>
+        <module>worth-swagger</module>
     </modules>
 </project>

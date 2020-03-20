@@ -8,7 +8,7 @@ package cn.worth.common.enums;
 public enum RCodeEnum {
     SUCCESS(200, "操作成功"),
 
-    BIZ_EXCEPTION(500, "业务异常"),
+    BIZ_EXCEPTION(501, "业务异常"),
 
     UNLOGIN(201, "未登录"),
 
