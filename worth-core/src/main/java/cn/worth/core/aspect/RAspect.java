@@ -1,7 +1,7 @@
 package cn.worth.core.aspect;
 
 import cn.worth.common.constant.SecurityConstants;
-import cn.worth.core.utils.UserUtils;
+//import cn.worth.core.utils.UserUtils;
 import com.xiaoleilu.hutool.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,7 +19,8 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class RAspect {
-    @Pointcut("execution(public cn.worth.common.pojo.R *(..))")
+
+    @Pointcut("execution(public cn.worth.common.domain.R *(..))")
     public void pointCutR() {
     }
 
@@ -35,9 +36,9 @@ public class RAspect {
     }
 
 
-    @Pointcut("execution(public com.baomidou.mybatisplus.plugins.Page *(..))")
-    public void pointCutPage() {
-    }
+//    @Pointcut("execution(public com.baomidou.mybatisplus.extension.plugins.pagination.Page *(..))")
+//    public void pointCutPage() {
+//    }
 
     /**
      * 拦截器具体实现
@@ -45,10 +46,10 @@ public class RAspect {
      * @param pjp 切点 所有返回对象Page
      * @return R  结果包装
      */
-    @Around("pointCutPage()")
-    public Object methodPageHandler(ProceedingJoinPoint pjp) throws Throwable {
-        return methodHandler(pjp);
-    }
+//    @Around("pointCutPage()")
+//    public Object methodPageHandler(ProceedingJoinPoint pjp) throws Throwable {
+//        return methodHandler(pjp);
+//    }
 
     private Object methodHandler(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();
@@ -59,7 +60,7 @@ public class RAspect {
         String username = request.getHeader(SecurityConstants.USER_HEADER);
         if (StrUtil.isNotBlank(username)) {
             log.info("Controller AOP get username:{}", username);
-            UserUtils.setUser(username);
+//            UserUtils.setUser(username);
         }
 
         log.info("URL : " + request.getRequestURL().toString());
@@ -74,7 +75,7 @@ public class RAspect {
         log.info(pjp.getSignature() + "use time:" + (System.currentTimeMillis() - startTime));
 
         if (StrUtil.isNotEmpty(username)) {
-            UserUtils.clearAllUserInfo();
+//            UserUtils.clearAllUserInfo();
         }
 
         return result;

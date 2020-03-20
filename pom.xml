@@ -16,17 +16,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-
     <properties>
+        <!--工具包-->
         <oshi.version>3.9.1</oshi.version>
-        <mybatis-plus-boot-starter.version>3.1.0</mybatis-plus-boot-starter.version>
-        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
-        <mybatis-plus.version>3.3.1</mybatis-plus.version>
-        <mybatis-plus-generator.version>3.0.7.1</mybatis-plus-generator.version>
-        <druid.version>1.1.20</druid.version>
-        <lombok.version>1.18.10</lombok.version>
-        <shiro.spring.version>1.4.0</shiro.spring.version>
         <velocity.version>1.7</velocity.version>
+        <lombok.version>1.18.10</lombok.version>
         <fastjson.version>1.2.60</fastjson.version>
         <commons-io.version>2.5</commons-io.version>
         <commons-httpclient.version>3.0.1</commons-httpclient.version>
@@ -34,45 +28,37 @@
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
-        <jwt.auth0.version>3.2.0</jwt.auth0.version>
-        <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
-        <spring-security-oauth2-autoconfigure.version>2.0.6.RELEASE</spring-security-oauth2-autoconfigure.version>
-        <swagger-spring-boot-starter.version>1.8.0.RELEASE</swagger-spring-boot-starter.version>
-
-
         <hutool-all.version>3.3.2</hutool-all.version>
         <nekohtml.version>1.9.22</nekohtml.version>
+        <!--模板工具-->
+        <velocity-engine-core.version>2.1</velocity-engine-core.version>
+        <freemarker.version>2.3.29</freemarker.version>
+        <!--安全模块-->
+        <jjwt.version>0.9.0</jjwt.version>
+        <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
+        <spring-security-oauth2-autoconfigure.version>2.0.6.RELEASE</spring-security-oauth2-autoconfigure.version>
+        <!--文档-->
+        <swagger-spring-boot-starter.version>1.8.0.RELEASE</swagger-spring-boot-starter.version>
+
+        <!--数据库版本-->
+        <mybatis-plus.version>3.3.1</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.3.1</mybatis-plus-generator.version>
+        <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
+        <druid.version>1.1.20</druid.version>
+        <!--缓存-->
         <jedis.version>2.9.3</jedis.version>
 
+        <!--基础模块-->
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
         <worth-core.version>1.0-SNAPSHOT</worth-core.version>
         <worth-mysql.version>1.0-SNAPSHOT</worth-mysql.version>
-
+        <worth-redis.version>1.0-SNAPSHOT</worth-redis.version>
+        <worth-schedule.version>1.0-SNAPSHOT</worth-schedule.version>
+        <worth-swagger.version>1.0-SNAPSHOT</worth-swagger.version>
     </properties>
 
     <dependencies>
-        <!-- spring-security-oauth2-autoconfigure -->
-        <dependency>
-            <groupId>org.springframework.security.oauth.boot</groupId>
-            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.0.6.RELEASE</version>
-        </dependency>
-
-        <!-- spring-security-jwt -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-            <version>${spring-security-jwt.version}</version>
-        </dependency>
-        <!--JWT-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
-        </dependency>
-
         <!-- S=业务模块需要 -->
-
         <!--web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -113,6 +99,44 @@
                 <version>${worth-mysql.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-redis</artifactId>
+                <version>${worth-redis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-schedule</artifactId>
+                <version>${worth-schedule.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-swagger</artifactId>
+                <version>${worth-swagger.version}</version>
+            </dependency>
+
+            <!-- spring-security-oauth2-autoconfigure -->
+            <dependency>
+                <groupId>org.springframework.security.oauth.boot</groupId>
+                <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+                <version>${spring-security-oauth2-autoconfigure.version}</version>
+            </dependency>
+
+            <!-- spring-security-jwt -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${spring-security-jwt.version}</version>
+            </dependency>
+            <!--JWT-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
             <!-- S=数据库模块 -->
             <!--mysql-connector-java-->
             <dependency>
@@ -128,16 +152,22 @@
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>${mybatisplus-spring-boot-starter.version}</version>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
             <!-- E=数据库模块 -->
 
+            <!--S=所有工具-->
             <!--标签解析neko html 暂时没用-->
             <dependency>
                 <groupId>net.sourceforge.nekohtml</groupId>
@@ -175,6 +205,21 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
+
+            <!--模板工具-->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity-engine-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+            <!--E=所有工具-->
+
+
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -211,5 +256,6 @@
         <module>worth-redis</module>
         <module>worth-schedule</module>
         <module>worth-swagger</module>
+        <module>worth-generator</module>
     </modules>
 </project>
