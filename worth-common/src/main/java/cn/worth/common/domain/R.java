@@ -3,6 +3,7 @@ package cn.worth.common.domain;
 import cn.worth.common.enums.BaseEnum;
 import cn.worth.common.enums.RCodeEnum;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class R<T> implements Serializable {
 
     /**
@@ -47,10 +49,6 @@ public class R<T> implements Serializable {
     }
 
     private T data;
-
-    R() {
-        super();
-    }
 
     public R(T data) {
         super();
@@ -113,6 +111,13 @@ public class R<T> implements Serializable {
         R r = new R();
         r.setCode(code);
         r.setMessage(message);
+        return r;
+    }
+
+    public static R fail(Throwable e) {
+        R r = new R();
+        r.setMessage(e.getMessage());
+        r.setCode(RCodeEnum.BIZ_EXCEPTION.getCode());
         return r;
     }
 
