@@ -18,8 +18,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- * @author zhangjinkun@xdf.cn
- * @date 2018/07/24
+ * @author chenxiaoqing
  */
 @Slf4j
 public class ResourcesGenerator {
