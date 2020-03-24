@@ -17,6 +17,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <!--系统参数-->
         <!--工具包-->
         <oshi.version>3.9.1</oshi.version>
         <velocity.version>1.7</velocity.version>
@@ -47,6 +48,7 @@
         <druid.version>1.1.20</druid.version>
         <!--缓存-->
         <jedis.version>2.9.3</jedis.version>
+        <spring-boot-devtools.version>2.2.1.RELEASE</spring-boot-devtools.version>
 
         <!--基础模块-->
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
@@ -80,6 +82,13 @@
     <dependencyManagement>
 
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring-boot-devtools.version}</version>
+                <scope>runtime</scope>
+            </dependency>
 
             <dependency>
                 <groupId>cn.worth</groupId>
@@ -240,10 +249,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>-Xlint:deprecation</arg>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
