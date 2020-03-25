@@ -2,16 +2,16 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/new-worth?useUnicode=true&characterEncoding=utf8&&useSSL=false
+    url: jdbc:mysql://118.31.55.134:3306/new-worth?useUnicode=true&characterEncoding=utf8&&useSSL=false
     username: root
     password: 1234
   cache:
     type: redis
   redis:
     database: 0 #Redis数据库索引（默认为0）
-    host: 127.0.0.1 #Redis服务器地址
+    host: 118.31.55.134 #Redis服务器地址
     port: 6379 #Redis服务器连接端口
-    #    password:
+    password:
     timeout: 3600 #连接超时时间（毫秒）
 #    lettuce:
 #      pool:
@@ -40,5 +40,5 @@ logging:
     cn.worth: DEBUG
 #    org.quartz: DEBUG
 
-worth:
-  uploadPath: /Users/myireland # nw-file 使用
+#worth:
+#  uploadPath: /Users/myireland # nw-file 使用
