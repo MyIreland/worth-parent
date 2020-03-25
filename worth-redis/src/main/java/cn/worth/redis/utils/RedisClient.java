@@ -4,14 +4,15 @@ import cn.worth.redis.exception.RedisException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.*;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
-
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
+@Component
 public class RedisClient {
 
     private StringRedisTemplate redisTemplate;
@@ -26,21 +27,17 @@ public class RedisClient {
 
     private ZSetOperations<String, String> zsetOps;
 
-    private String keyPrefix;
-
-    public RedisClient(String keyPrefix, StringRedisTemplate redisTemplate) {
+    public RedisClient(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.valueOps = redisTemplate.opsForValue();
         this.hashOps = redisTemplate.opsForHash();
         this.listOps = redisTemplate.opsForList();
         this.setOps = redisTemplate.opsForSet();
         this.zsetOps = redisTemplate.opsForZSet();
-
-        this.keyPrefix = keyPrefix.endsWith(":") ? keyPrefix : keyPrefix + ":";
     }
 
     private String genKey(String key) {
-        return keyPrefix + key;
+        return key;
     }
 
     public boolean exists(String key) {
