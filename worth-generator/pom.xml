@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>worth-generator</artifactId>
+    <version>${worth-generator.version}</version>
 
     <dependencies>
         <dependency>

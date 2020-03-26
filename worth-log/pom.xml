@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>worth-log</artifactId>
+    <version>${worth-log.version}</version>
 
     <dependencies>
         <dependency>

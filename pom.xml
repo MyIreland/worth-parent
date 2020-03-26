@@ -53,6 +53,8 @@
         <!--基础模块-->
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
         <worth-core.version>1.0-SNAPSHOT</worth-core.version>
+        <worth-log.version>1.0-SNAPSHOT</worth-log.version>
+        <worth-generator.version>1.0-SNAPSHOT</worth-generator.version>
         <worth-mysql.version>1.0-SNAPSHOT</worth-mysql.version>
         <worth-redis.version>1.0-SNAPSHOT</worth-redis.version>
         <worth-schedule.version>1.0-SNAPSHOT</worth-schedule.version>
