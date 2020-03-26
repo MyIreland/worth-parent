@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
-@Component
 public class RedisClient {
 
     private StringRedisTemplate redisTemplate;
@@ -26,18 +25,27 @@ public class RedisClient {
     private SetOperations<String, String> setOps;
 
     private ZSetOperations<String, String> zsetOps;
+    /**
+     * 前缀，一般为环境前缀
+     */
+    private String keyPrefix;
 
-    public RedisClient(StringRedisTemplate redisTemplate) {
+    public RedisClient(String keyPrefix, StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.valueOps = redisTemplate.opsForValue();
         this.hashOps = redisTemplate.opsForHash();
         this.listOps = redisTemplate.opsForList();
         this.setOps = redisTemplate.opsForSet();
         this.zsetOps = redisTemplate.opsForZSet();
+        this.keyPrefix = keyPrefix.endsWith(":") ? keyPrefix : keyPrefix + ":";
+
+        if(log.isDebugEnabled()){
+            log.debug("=======init RedisClient with keyPrefix:{}", this.keyPrefix);
+        }
     }
 
     private String genKey(String key) {
-        return key;
+        return keyPrefix + key;
     }
 
     public boolean exists(String key) {
@@ -209,7 +217,11 @@ public class RedisClient {
      */
     public String get(String key){
         try{
-            return valueOps.get(genKey(key));
+            key = genKey(key);
+            if(log.isDebugEnabled()){
+                log.debug("========RedisClient get:{}", key);
+            }
+            return valueOps.get(key);
         }catch (Throwable e){
             throw new RedisException(e);
         }
