@@ -1,2 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=
-cn.worth.springboot.starter.mysql.WorthMysqlAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.worth.springboot.starter.druid.DruidAutoConfiguration,\
+cn.worth.springboot.starter.druid.MybatisPlusAutoConfiguration

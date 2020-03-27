@@ -1,4 +1,4 @@
-package cn.worth.springboot.starter.mysql.controller;
+package cn.worth.springboot.starter.druid.controller;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;

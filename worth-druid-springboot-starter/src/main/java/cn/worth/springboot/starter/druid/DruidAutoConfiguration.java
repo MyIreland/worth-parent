@@ -1,4 +1,4 @@
-package cn.worth.springboot.starter.mysql.config;
+package cn.worth.springboot.starter.druid;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
@@ -7,10 +7,11 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Slf4j
 @Configuration
-public class DruidConfig {
+public class DruidAutoConfiguration {
     /**
      *  //设置ip白名单
      *  servletRegistrationBean.addInitParameter("allow","127.0.0.1");
@@ -25,6 +26,7 @@ public class DruidConfig {
      * @return
      */
     @Bean
+    @Primary
     public ServletRegistrationBean druidServlet() {
         ServletRegistrationBean reg = new ServletRegistrationBean();
         reg.setServlet(new StatViewServlet());
