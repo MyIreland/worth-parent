@@ -267,7 +267,6 @@
         <module>worth-schedule</module>
         <module>worth-swagger</module>
         <module>worth-generator</module>
-        <module>worth-log</module>
     </modules>
 
     <developers>
