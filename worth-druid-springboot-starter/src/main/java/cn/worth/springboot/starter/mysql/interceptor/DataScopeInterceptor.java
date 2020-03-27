@@ -1,4 +1,4 @@
-package cn.worth.mysql.interceptor;
+package cn.worth.springboot.starter.mysql.interceptor;
 
 //import com.baomidou.mybatisplus.core.parser.SqlParserHelper;
 //import com.baomidou.mybatisplus.core.toolkit.PluginUtils;

@@ -9,16 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>worth-mysql</artifactId>
-    <version>${worth-mysql.version}</version>
+    <artifactId>worth-druid-springboot-starter</artifactId>
+    <version>${worth-druid-springboot-starter.version}</version>
 
     <dependencies>
+        <!-- javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
         <!--Lombok-->
         <dependency>
-            <groupId>cn.worth</groupId>
-            <artifactId>worth-common</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
-
         <!--mysql-connector-java-->
         <dependency>
             <groupId>mysql</groupId>
@@ -37,6 +41,16 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

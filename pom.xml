@@ -50,14 +50,14 @@
         <druid.version>1.1.20</druid.version>
         <!--缓存-->
         <jedis.version>2.9.3</jedis.version>
-        <spring-boot-devtools.version>2.2.1.RELEASE</spring-boot-devtools.version>
+        <spring-boot-devtools.version>2.2.5.RELEASE</spring-boot-devtools.version>
 
         <!--基础模块-->
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
         <worth-core.version>1.0-SNAPSHOT</worth-core.version>
         <worth-log.version>1.0-SNAPSHOT</worth-log.version>
         <worth-generator.version>1.0-SNAPSHOT</worth-generator.version>
-        <worth-mysql.version>1.0-SNAPSHOT</worth-mysql.version>
+        <worth-druid-springboot-starter.version>1.0-SNAPSHOT</worth-druid-springboot-starter.version>
         <worth-redis-springboot-starter.version>1.0-SNAPSHOT</worth-redis-springboot-starter.version>
         <worth-schedule.version>1.0-SNAPSHOT</worth-schedule.version>
         <worth-swagger.version>1.0-SNAPSHOT</worth-swagger.version>
@@ -93,8 +93,8 @@
 
             <dependency>
                 <groupId>cn.worth</groupId>
-                <artifactId>worth-mysql</artifactId>
-                <version>${worth-mysql.version}</version>
+                <artifactId>worth-druid-springboot-starter</artifactId>
+                <version>${worth-druid-springboot-starter.version}</version>
             </dependency>
 
             <dependency>
@@ -232,12 +232,13 @@
             </dependency>
 
             <!--热部署相关-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${spring-boot-devtools.version}</version>
-                <scope>runtime</scope>
-            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-devtools</artifactId>-->
+<!--                <version>2.2.5.RELEASE</version>-->
+<!--            </dependency>-->
+
         </dependencies>
     </dependencyManagement>
 
@@ -261,7 +262,7 @@
     <modules>
         <module>worth-common</module>
         <module>worth-core</module>
-        <module>worth-mysql</module>
+        <module>worth-druid-springboot-starter</module>
         <module>worth-redis-springboot-starter</module>
         <module>worth-schedule</module>
         <module>worth-swagger</module>

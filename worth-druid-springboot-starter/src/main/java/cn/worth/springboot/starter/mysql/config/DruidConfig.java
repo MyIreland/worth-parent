@@ -1,4 +1,4 @@
-package cn.worth.mysql.config;
+package cn.worth.springboot.starter.mysql.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
@@ -33,7 +33,8 @@ public class DruidConfig {
         return reg;
     }
 
-    @Bean public FilterRegistrationBean filterRegistrationBean() {
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");

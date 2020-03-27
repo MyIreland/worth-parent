@@ -49,7 +49,7 @@ public class WorthRedisAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix="spring.redis", name = "enable", havingValue = "true")
+    @ConditionalOnProperty(prefix="worth.redis", name = "enable", matchIfMissing = true)
     public RedisClient redisClient() {
         String keyPrefix = worthRedisProperties.getKeyPrefix();
         return new RedisClient(keyPrefix, redisTemplate());
