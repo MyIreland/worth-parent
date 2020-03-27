@@ -230,7 +230,12 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
-
+            <!--swagger-->
+            <dependency>
+                <groupId>com.spring4all</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>${swagger-spring-boot-starter.version}</version>
+            </dependency>
             <!--热部署相关-->
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
 <!--            <dependency>-->
@@ -265,7 +270,6 @@
         <module>worth-druid-springboot-starter</module>
         <module>worth-redis-springboot-starter</module>
         <module>worth-schedule</module>
-        <module>worth-swagger</module>
         <module>worth-generator</module>
     </modules>
 
