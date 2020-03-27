@@ -1,10 +1,9 @@
-package cn.worth.redis.utils;
+package cn.worth.springboot.autoconfig.redis.utils;
 
-import cn.worth.redis.exception.RedisException;
+import cn.worth.springboot.autoconfig.redis.exception.RedisException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.*;
-import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import java.util.*;
 import java.util.concurrent.TimeUnit;

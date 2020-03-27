@@ -9,15 +9,23 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>worth-redis</artifactId>
-    <version>${worth-redis.version}</version>
+    <artifactId>worth-redis-springboot-starter</artifactId>
+    <version>${worth-redis-springboot-starter.version}</version>
 
     <dependencies>
+        <!--Lombok-->
         <dependency>
-            <groupId>cn.worth</groupId>
-            <artifactId>worth-common</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
         <!--缓存-->
+
         <!--Redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -28,6 +36,16 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

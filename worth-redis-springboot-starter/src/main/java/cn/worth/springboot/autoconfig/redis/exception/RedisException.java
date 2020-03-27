@@ -1,4 +1,4 @@
-package cn.worth.redis.exception;
+package cn.worth.springboot.autoconfig.redis.exception;
 
 public class RedisException extends RuntimeException{
 

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>worth-schedule</artifactId>
-    <version>${worth-schedule.version</version>
+    <version>${worth-schedule.version}</version>
 
     <dependencies>
         <!-- quartz -->

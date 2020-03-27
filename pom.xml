@@ -23,6 +23,7 @@
         <velocity.version>1.7</velocity.version>
         <lombok.version>1.18.10</lombok.version>
         <fastjson.version>1.2.60</fastjson.version>
+        <jackson-databind.version>2.10.2</jackson-databind.version>
         <commons-io.version>2.5</commons-io.version>
         <commons-httpclient.version>3.0.1</commons-httpclient.version>
         <commons.codec.version>1.10</commons.codec.version>
@@ -31,6 +32,7 @@
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
         <hutool-all.version>3.3.2</hutool-all.version>
         <nekohtml.version>1.9.22</nekohtml.version>
+        <transmittable-thread-local.version>2.2.0</transmittable-thread-local.version>
         <!--模板工具-->
         <velocity-engine-core.version>2.1</velocity-engine-core.version>
         <freemarker.version>2.3.29</freemarker.version>
@@ -56,40 +58,25 @@
         <worth-log.version>1.0-SNAPSHOT</worth-log.version>
         <worth-generator.version>1.0-SNAPSHOT</worth-generator.version>
         <worth-mysql.version>1.0-SNAPSHOT</worth-mysql.version>
-        <worth-redis.version>1.0-SNAPSHOT</worth-redis.version>
+        <worth-redis-springboot-starter.version>1.0-SNAPSHOT</worth-redis-springboot-starter.version>
         <worth-schedule.version>1.0-SNAPSHOT</worth-schedule.version>
         <worth-swagger.version>1.0-SNAPSHOT</worth-swagger.version>
     </properties>
-
-    <dependencies>
-        <!-- S=业务模块需要 -->
-        <!--web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--spring-boot-starter-test-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!--spring-boot-starter-aop-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
 
         <dependencies>
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-devtools</artifactId>
-                <version>${spring-boot-devtools.version}</version>
-                <scope>runtime</scope>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-schedule</artifactId>
+                <version>${worth-schedule.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-swagger</artifactId>
+                <version>${worth-swagger.version}</version>
             </dependency>
 
             <dependency>
@@ -112,20 +99,15 @@
 
             <dependency>
                 <groupId>cn.worth</groupId>
-                <artifactId>worth-redis</artifactId>
-                <version>${worth-redis.version}</version>
+                <artifactId>worth-redis-springboot-starter</artifactId>
+                <version>${worth-redis-springboot-starter.version}</version>
             </dependency>
 
+            <!-- TTL ThreadLocal -->
             <dependency>
-                <groupId>cn.worth</groupId>
-                <artifactId>worth-schedule</artifactId>
-                <version>${worth-schedule.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.worth</groupId>
-                <artifactId>worth-swagger</artifactId>
-                <version>${worth-swagger.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
             </dependency>
 
             <!-- spring-security-oauth2-autoconfigure -->
@@ -230,18 +212,31 @@
             </dependency>
             <!--E=所有工具-->
 
-
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <!-- jackson-databind -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
             <!--Lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <!--热部署相关-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring-boot-devtools.version}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -267,10 +262,19 @@
         <module>worth-common</module>
         <module>worth-core</module>
         <module>worth-mysql</module>
-        <module>worth-redis</module>
+        <module>worth-redis-springboot-starter</module>
         <module>worth-schedule</module>
         <module>worth-swagger</module>
         <module>worth-generator</module>
         <module>worth-log</module>
     </modules>
+
+    <developers>
+        <developer>
+            <id>MyIreland</id>
+            <name>MyIreland</name>
+            <email>13055515853@163.com</email>
+            <timezone>China</timezone>
+        </developer>
+    </developers>
 </project>

@@ -1,15 +1,14 @@
-package cn.worth.redis.domain;
+package cn.worth.springboot.autoconfig.redis.domain;
 
-import cn.worth.common.utils.StringUtils;
-import cn.worth.redis.exception.RedisException;
-import cn.worth.redis.utils.RedisClient;
+import cn.worth.springboot.autoconfig.redis.exception.RedisException;
+import cn.worth.springboot.autoconfig.redis.utils.RedisClient;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-
+import org.springframework.util.StringUtils;
 import java.util.Random;
 
 /**
@@ -111,8 +110,8 @@ public class RedisLock {
                 return locked;
             }
             // 有人已经设置了锁，得到Key里的时间
-            String currentTimeStr = redisUtils.get(lockKey).toString();
-            if(StringUtils.isNotBlank(currentTimeStr) && Long.parseLong(currentTimeStr) < System.currentTimeMillis()){
+            String currentTimeStr = redisUtils.get(lockKey);
+            if(!StringUtils.isEmpty(currentTimeStr) && Long.parseLong(currentTimeStr) < System.currentTimeMillis()){
                 // 判断是否为空，不为空的情况下，如果被其他线程设置了值，则第二个条件判断是过不去的
                 // 锁过期 获取上一个锁到期时间，并设置现在的锁到期时间，
                 // 只有一个线程才能获取上一个线上的设置时间，因为jedis.getSet是同步的

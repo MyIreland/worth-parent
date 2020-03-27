@@ -1,5 +1,7 @@
 package cn.worth.common.utils;
 
+import com.xiaoleilu.hutool.collection.CollectionUtil;
+
 import java.util.*;
 
 /**
@@ -8,7 +10,7 @@ import java.util.*;
  * @Description: 工具类
  * @Modified by:
  */
-public class CollectionUtils extends org.springframework.util.CollectionUtils {
+public class CollectionUtils extends CollectionUtil {
 
     public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
