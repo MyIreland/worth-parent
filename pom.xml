@@ -54,6 +54,7 @@
 
         <!--基础模块-->
         <worth-file.version>1.0-SNAPSHOT</worth-file.version>
+        <worth-activiti.version>1.0-SNAPSHOT</worth-activiti.version>
         <worth-approval.version>1.0-SNAPSHOT</worth-approval.version>
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
         <worth-core.version>1.0-SNAPSHOT</worth-core.version>
@@ -73,6 +74,12 @@
                 <groupId>cn.worth</groupId>
                 <artifactId>worth-file</artifactId>
                 <version>${worth-file.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.worth</groupId>
+                <artifactId>worth-activiti</artifactId>
+                <version>${worth-activiti.version}</version>
             </dependency>
 
             <dependency>
@@ -292,6 +299,7 @@
         <module>worth-generator</module>
         <module>worth-file</module>
         <module>worth-approval</module>
+        <module>worth-activiti</module>
     </modules>
 
     <developers>
