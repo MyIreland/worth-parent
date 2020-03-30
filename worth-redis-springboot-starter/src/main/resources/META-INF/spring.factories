@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.worth.springboot.autoconfig.redis.WorthRedisAutoConfiguration

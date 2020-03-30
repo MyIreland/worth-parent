@@ -1,0 +1,15 @@
+aliyun:
+  oss:
+    accessKeyId: 122
+    accessKeySecret: 334
+    bucketName: 445
+    callback: 67
+    endpoint: 789
+    endpointInternal: 7899
+    maxSize: 67889
+    policyIexpire: 5677
+    filePaths:
+      - type: default
+        prePath: default
+        belongName: default
+        belongType: default

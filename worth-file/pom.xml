@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>worth-parent</artifactId>
+        <groupId>cn.worth</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>worth-file</artifactId>
+
+    <properties>
+        <aliyun-sdk-oss.version>3.5.0</aliyun-sdk-oss.version>
+        <hutool.version>5.0.0</hutool.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.worth</groupId>
+            <artifactId>worth-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.worth</groupId>
+            <artifactId>worth-druid-springboot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${aliyun-sdk-oss.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

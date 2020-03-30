@@ -53,6 +53,7 @@
         <spring-boot-devtools.version>2.2.5.RELEASE</spring-boot-devtools.version>
 
         <!--基础模块-->
+        <worth-file.version>1.0-SNAPSHOT</worth-file.version>
         <worth-common.version>1.0-SNAPSHOT</worth-common.version>
         <worth-core.version>1.0-SNAPSHOT</worth-core.version>
         <worth-log.version>1.0-SNAPSHOT</worth-log.version>
@@ -69,14 +70,14 @@
 
             <dependency>
                 <groupId>cn.worth</groupId>
-                <artifactId>worth-schedule</artifactId>
-                <version>${worth-schedule.version}</version>
+                <artifactId>worth-file</artifactId>
+                <version>${worth-file.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.worth</groupId>
-                <artifactId>worth-swagger</artifactId>
-                <version>${worth-swagger.version}</version>
+                <artifactId>worth-schedule</artifactId>
+                <version>${worth-schedule.version}</version>
             </dependency>
 
             <dependency>
@@ -282,6 +283,7 @@
         <module>worth-redis-springboot-starter</module>
         <module>worth-schedule</module>
         <module>worth-generator</module>
+        <module>worth-file</module>
     </modules>
 
     <developers>
