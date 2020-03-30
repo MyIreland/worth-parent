@@ -13,6 +13,16 @@
     <version>${worth-schedule.version}</version>
 
     <dependencies>
+
+        <dependency>
+            <groupId>cn.worth</groupId>
+            <artifactId>worth-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.worth</groupId>
+            <artifactId>worth-druid-springboot-starter</artifactId>
+        </dependency>
         <!-- quartz -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
